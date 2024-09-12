@@ -1,0 +1,3 @@
+//Manejar la información del perfil del usuario
+//curriculum, habilidades, etc...
+//acciones: setprofile, updateProfile, loadProfile, profileError
