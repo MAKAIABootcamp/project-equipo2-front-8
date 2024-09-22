@@ -1,4 +1,3 @@
-
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
@@ -9,6 +8,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../../Firebase/firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
 
 export const createAccountThunk = createAsyncThunk(
   "auth/createAccount",
@@ -89,6 +89,19 @@ export const loginWithVerificationCodeThunk = createAsyncThunk(
   }
 );
 
+export const restoreActiveSessionThunk = createAsyncThunk(
+  "auth/restoreActiveSession",
+  async (userId) => {
+    const userRef = doc(database, collectionName, userId);
+    const userDoc = await getDoc(userRef);
+    if (userDoc.exists()) {
+      return userDoc.data();
+    } else {
+      throw new Error("Usuario no encontrado");
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -99,6 +112,12 @@ const authSlice = createSlice({
   },
   reducers: {
     clearError: (state) => {
+      state.error = null;
+    },
+    restoreSession: (state, action) => {
+      state.loading = false;
+      state.isAuthenticated = true;
+      state.user = action.payload;
       state.error = null;
     },
   },
@@ -165,11 +184,22 @@ const authSlice = createSlice({
       }).addCase(loginWithVerificationCodeThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
+      }).addCase(restoreActiveSessionThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      }).addCase(restoreActiveSessionThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload;
+        state.error = null;
+      }).addCase(restoreActiveSessionThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
   },
 });
 
 const authReducer = authSlice.reducer;
 export default authReducer;
 
-export const { clearError } = authSlice.actions;
+export const { clearError, restoreSession  } = authSlice.actions;
