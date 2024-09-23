@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import loginImage from "../../assets/skillmatePhoto1.jpg"
 import googleIcon from "../../assets/google.png"
 import phoneIcon from "../../assets/phone.png"
+import imageLogin from "../../assets/loginImage.svg"
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -118,9 +119,10 @@ const Login = () => {
           </Formik>
 
           <p className="mt-4 text-gray-500 flex justify-center">
-            Si aún no tiene una cuenta, por favor dar click{" "}
-            <Link to="/register" className="text-color-1 font-bold">
-              aquí!
+            ¿No tienes cuenta?  
+
+            <Link to="/register" className="text-color-1 font-bold ml-2">
+                Registrate!
             </Link>
           </p>
 
@@ -139,9 +141,9 @@ const Login = () => {
           </section>
         </div>
 
-        <div className="hidden md:block w-full mt-20 md:w-1/2 bg-gray-200 h-80">
+        <div className="hidden md:block w-full mt-16 md:w-1/2 bg-gray-200 h-80">
           <img
-            src={loginImage}
+            src={imageLogin}
             alt="Imagen de inicio de sesión"
             className="object-cover w-full h-full rounded-lg"
           />
