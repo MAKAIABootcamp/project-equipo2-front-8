@@ -161,8 +161,8 @@ const Register = () => {
             )}
           </Formik>
           <p className="mt-4 text-gray-500 flex justify-center">
-            Si ya tiene una cuenta, por favor dar click {" "}
-            <Link to="/login" className="text-color-1 font-bold"> aquí!</Link>
+            ¿Ya tienes una cuenta?
+            <Link to="/login" className="text-color-1 font-bold ml-2"> Inicie sesión!</Link>
           </p>
         </div>
         <div className="hidden md:flex w-full mt-24 md:w-1/2 bg-gray-200 h-80 items-center justify-center">

@@ -119,9 +119,10 @@ const Login = () => {
           </Formik>
 
           <p className="mt-4 text-gray-500 flex justify-center">
-            Si aún no tiene una cuenta, por favor dar click{" "}
-            <Link to="/register" className="text-color-1 font-bold">
-              aquí!
+            ¿No tienes cuenta?  
+
+            <Link to="/register" className="text-color-1 font-bold ml-2">
+                Registrate!
             </Link>
           </p>
 
