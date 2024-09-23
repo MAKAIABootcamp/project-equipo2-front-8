@@ -6,6 +6,7 @@ import uploadFiles from "../../services/uploadFiles";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, createAccountThunk } from "../../redux/auth/authSlice";
 import loginImage from "../../assets/skillmatePhoto1.jpg"
+import imageRegister from "../../assets/registerImage.svg"
 
 
 const validationSchema = Yup.object().shape({
@@ -166,7 +167,7 @@ const Register = () => {
         </div>
         <div className="hidden md:flex w-full mt-24 md:w-1/2 bg-gray-200 h-80 items-center justify-center">
             <img
-              src={loginImage}
+              src={imageRegister}
               alt="Login Image"
               className="object-cover w-full h-full"
             />
