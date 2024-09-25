@@ -121,16 +121,16 @@ const Home = () => {
         <h2 className="text-3xl font-montserrat font-bold mb-6">Beneficios</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div onClick={() => navigate('/practica')} className="card p-6 border rounded-lg cursor-pointer hover:shadow-lg transition duration-300">
-            <p className="text-xl font-montserrat font-medium">Simulación de entrevistas</p>
             <p className="mt-2 font-dosis text-gray-600">Práctica como en la vida real</p>
+            <p className="text-xl font-montserrat font-medium">Simulación de entrevistas</p>
           </div>
           <div onClick={() => navigate('/tips')} className="card p-6 border rounded-lg cursor-pointer hover:shadow-lg transition duration-300">
-            <p className="text-xl font-montserrat font-medium">Tips</p>
             <p className="mt-2 font-dosis text-gray-600">Habilidades para mejorar</p>
+            <p className="text-xl font-montserrat font-medium">Tips</p>
           </div>
           <div onClick={() => navigate('/plantillas')} className="card p-6 border rounded-lg cursor-pointer hover:shadow-lg transition duration-300">
-            <p className="text-xl font-montserrat font-medium">Hojas de vida</p>
             <p className="mt-2 font-dosis text-gray-600">Plantillas descargables</p>
+            <p className="text-xl font-montserrat font-medium">Hojas de vida</p>
           </div>
         </div>
       </section>
