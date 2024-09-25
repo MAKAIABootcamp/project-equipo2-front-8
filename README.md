@@ -36,3 +36,10 @@ Proporcionar una plataforma accesible y práctica que permita a los usuarios en 
 - **Redux**: Biblioteca de gestión de estado para una administración eficiente de datos.
 - **Vite**: Herramienta de desarrollo ultrarrápida para construir la aplicación.
 - **SweetAlert 2**: Biblioteca para crear alertas personalizadas y atractivas.
+
+Desarrolladores del proyecto 👩‍💻👩‍💻👩‍💻👩‍💻
+
+- [Sara Jaramillo](https://github.com/SaraJaramillo12)
+- [Daniela Araque Sánchez](https://github.com/daniarsa)
+- [Tatiana García](https://github.com/TianaG06)
+- [Angie Alarcon](https://github.com/AngieLi98)
