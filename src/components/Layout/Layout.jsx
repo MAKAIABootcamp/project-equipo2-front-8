@@ -1,20 +1,25 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet } from "react-router-dom";
-import { logoutThunk } from "../../redux/auth/authSlice";
+import { Outlet, useLocation } from "react-router-dom";
+import Navbar from '../Navbar/Navbar'; 
+import Footer from '../Footer/Footer';  
 
 const Layout = () => {
-  const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector(store=>store.auth);
+  const { isAuthenticated } = useSelector(store => store.auth);
+  const location = useLocation();
 
-  const handleLogout = () => dispatch(logoutThunk());
+
+  const noNavbarRoutes = ['/login', '/register', '/phoneLogin', '/verificationCode'];
+
+
+  const showNavbarAndFooter = isAuthenticated && !noNavbarRoutes.includes(location.pathname);
 
   return (
     <div>
-      {isAuthenticated && <button onClick={handleLogout}>Cerrar sesión</button>}
-      Layout
+      {showNavbarAndFooter && <Navbar />}
       <Outlet />
+      {showNavbarAndFooter && <Footer />}
     </div>
-  )
+  );
 }
 
-export default Layout
+export default Layout;
