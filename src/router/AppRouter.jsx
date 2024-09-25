@@ -42,11 +42,11 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route >
+          <Route element={<PrivateRoutes isAuthenticated={isAuthenticated} />} >
             <Route index element={<Home />} />
             <Route path="tips" element={<Tips />} />
           </Route>
-          <Route  >
+          <Route element={<PublicRoutes isAuthenticated={isAuthenticated} />} >
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
             <Route path="phoneLogin" element={<PhoneLogin />} />
@@ -56,6 +56,7 @@ const AppRouter = () => {
         </Route>
       </Routes>
     </BrowserRouter>
+
   )
 }
 
