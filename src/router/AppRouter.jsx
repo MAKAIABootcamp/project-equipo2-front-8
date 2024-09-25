@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { restoreSession } from "../redux/auth/authSlice";
 import PrivateRoutes from "./PrivateRoutes";
 import PublicRoutes from "./PublicRoutes";
+import Tips from "../pages/Tips/Tips";
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -41,10 +42,11 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route element={<PrivateRoutes isAuthenticated={isAuthenticated} />} >
+          <Route >
             <Route index element={<Home />} />
+            <Route path="tips" element={<Tips />} />
           </Route>
-          <Route element={<PublicRoutes isAuthenticated={isAuthenticated} />} >
+          <Route  >
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
             <Route path="phoneLogin" element={<PhoneLogin />} />
