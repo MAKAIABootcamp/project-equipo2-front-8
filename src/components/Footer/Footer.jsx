@@ -10,22 +10,18 @@ const Footer = () => {
     <div className="bg-color-1 py-12 text-center">
       <h2 className="font-montserrat text-white text-3xl font-bold mb-12">Información adicional</h2>
       
-      {/* Contenedor de los iconos y textos */}
-      <div className="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-20 lg:space-x-40">
+      <div className="flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-20 lg:space-x-64 max-w-screen-lg mx-auto"> 
         
-        {/* Sección Acerca de nosotros */}
         <div className="flex flex-col items-center">
           <span className="font-dosis font-semibold text-white mb-4">Acerca de nosotros</span>
           <img src={logoImage} alt="Acerca de nosotros" className="h-16 mb-4" />
         </div>
         
-        {/* Sección Contáctanos */}
         <div className="flex flex-col items-center">
           <span className="font-dosis font-semibold text-white mb-4">Contáctanos</span>
           <img src={logoCorreo} alt="Contáctanos" className="h-16 mb-4" />
         </div>
         
-        {/* Sección Nuestras redes */}
         <div className="flex flex-col items-center">
           <span className="font-dosis font-semibold text-white mb-4">Nuestras redes</span>
           <div className="flex space-x-4 mb-4">
