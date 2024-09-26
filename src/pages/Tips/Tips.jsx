@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTips } from "../../redux/tips/tipsSlice";
 import interview from "../../assets/Job-interview.svg";
 
 const Tips = () => {
-    const [activeCategory, setActiveCategory] = useState(null);
+  const dispatch = useDispatch();
+  const { tips, status, error } = useSelector((state) => state.tips);
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
     const categories = [
         "Habilidades blandas",
@@ -15,44 +21,107 @@ const Tips = () => {
         setActiveCategory(category);
     };
 
+    const handleSearchChange = (e) => {
+      setSearchTerm(e.target.value);
+    };
+
+    const handleSearchClick = () => {
+      setSearchQuery(searchTerm); // Ejecuta la búsqueda actualizando searchQuery
+    };
+
+    const filteredTips = tips.filter((tip) => {
+      const matchesCategory = activeCategory ? tip.categoria === activeCategory : true;
+      const matchesSearchTerm =
+        tip.titulo.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        tip.descripcion.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        tip.categoria.toLowerCase().includes(searchQuery.toLowerCase());
+  
+      return matchesCategory && matchesSearchTerm;
+    });
+
+    // const filteredTips = activeCategory 
+    //     ? tips.filter((tip) => tip.categoria === activeCategory)
+    //     :tips;
+    
+
+    useEffect(() => {
+      if (status === "idle") {
+        dispatch(fetchTips());
+      }
+    }, [status, dispatch]);
+  
+    if (status === "loading") {
+      return <div>Loading...</div>;
+    }
+  
+    if (status === "failed") {
+      return <div>Error: {error}</div>;
+    }
+
     return (
         <div className="min-h-screen bg-gray-100">
             <header className="bg-white shadow p-6 sm:p-10 text-center">
-                <h1 className="text-2xl sm:text-4xl font-bold text-gray-800 mb-4 font-montserrat">Tips para mejorar tus entrevistas</h1>
-                <div className="flex flex-col items-center">
-                    <input
-                        type="text"
-                        placeholder="Comunicación en equipo ..."
-                        className="border border-color-1 rounded-lg p-2 w-full sm:w-96 mb-4 font-montserrat"
-                    />
-                    <button className="bg-color-1 text-color-3 px-6 py-2 rounded-lg hover:bg-color-5 font-montserrat">
-                        Buscar
-                    </button>
-                </div>
+              <h1 className="text-2xl sm:text-4xl font-bold text-gray-800 mb-4 font-montserrat">
+                Tips para mejorar tus entrevistas
+              </h1>
+              <div className="flex flex-col items-center">
+                <input
+                  type="text"
+                  placeholder="Comunicación en equipo ..."
+                  className="border border-color-1 rounded-lg p-2 w-full sm:w-96 mb-4 font-montserrat"
+                  value={searchTerm}
+                  onChange={handleSearchChange} // Actualiza el estado del término de búsqueda
+                />
+                <button
+                  onClick={handleSearchClick} // Ejecuta la búsqueda al hacer clic
+                  className="bg-color-1 text-color-3 px-6 py-2 rounded-lg hover:bg-color-5 hover:text-color-2 font-montserrat"
+                >
+                  Buscar
+                </button>
+              </div>
             </header>
 
             <main>
-                <section aria-labelledby="categories-heading" className="mt-10 text-center">
-                    <h2 id="categories-heading" className="text-2xl sm:text-3xl font-bold text-color-3 mb-6 sm:mb-12 font-montserrat">
-                        Explora las diferentes categorías <br /> que tenemos para ti.
-                    </h2>
-                    <ul className="flex flex-wrap justify-center gap-4 sm:gap-8 lg:gap-16 mb-12 sm:mb-24">
-                        {categories.map((category) => (
-                            <li key={category}>
-                                <button
-                                    onClick={() => handleCategoryClick(category)}
-                                    className={`px-4 py-2 rounded-lg
-                                        ${activeCategory === category ? 'bg-color-1 text-color-3' : 'border border-color-1 text-color-3'}
-                                        hover:bg-color-5 font-dosis`}
-                                >
-                                    {category}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </section>
+              <section aria-labelledby="categories-heading" className="mt-10 text-center">
+                <h2 id="categories-heading" className="text-2xl sm:text-3xl font-bold text-color-3 mb-6 sm:mb-12 font-montserrat">
+                  Explora las diferentes categorías <br /> que tenemos para ti.
+                </h2>
+                <ul className="flex flex-wrap justify-center gap-4 sm:gap-8 lg:gap-16 mb-12 sm:mb-24">
+                  {categories.map((category) => (
+                    <li key={category}>
+                      <button
+                        onClick={() => handleCategoryClick(category)}
+                        className={`px-4 py-2 rounded-lg
+                          ${activeCategory === category ? 'bg-color-1 text-color-3' : 'border border-color-1 text-color-3'}
+                          hover:bg-color-5 hover:text-color-2 font-dosis`}
+                      >
+                        {category}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </section>
 
-                <section aria-labelledby="tips-heading" className="mt-12 px-4 sm:px-10">
+              <section aria-labelledby="tips-heading" className="mt-12 px-4 sm:px-10">
+                <h2 id="tips-heading" className="sr-only">Tips de entrevistas</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredTips.map((tip, index) => (
+                    <div key={index} className="bg-[#E0D9EC] shadow-lg rounded-lg p-6 text-left flex">
+                      <img
+                        src={tip.img || "https://via.placeholder.com/50"}
+                        alt={`Tip ${index + 1}`}
+                        className="w-16 h-16 mr-4"
+                      />
+                      <div>
+                        <h3 className="text-xl font-semibold text-color-3 mb-2 font-montserrat">{tip.titulo}</h3>
+                        <p className="text-color-3 font-dosis">{tip.descripcion}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+                {/* <section aria-labelledby="tips-heading" className="mt-12 px-4 sm:px-10">
                     <h2 id="tips-heading" className="sr-only">Tips de entrevistas</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[
@@ -90,7 +159,7 @@ const Tips = () => {
                             </div>
                         ))}
                     </div>
-                </section>
+                </section> */}
 
                 <section aria-labelledby="simulator-heading" className="mt-16 bg-white shadow p-6 sm:p-16">
                     <div className="flex flex-col sm:flex-row justify-between items-center">
