@@ -5,7 +5,7 @@ import { logoutThunk } from '../../redux/auth/authSlice';
 import logoImage from '../../assets/SKILLMATE-2.png';
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false); // Estado para controlar el menú móvil
+  const [menuOpen, setMenuOpen] = useState(false); 
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector(store => store.auth);
 
@@ -23,7 +23,6 @@ const Navbar = () => {
         <img src={logoImage} alt="Skillmate Logo" className="h-12 mr-2" /> 
       </Link>
 
-      {/* Botón de hamburguesa visible en pantallas móviles y tabletas */}
       <button
         className="block lg:hidden text-color-2 focus:outline-none transition-transform duration-300 z-20"
         onClick={toggleMenu}
@@ -39,7 +38,7 @@ const Navbar = () => {
         </svg>
       </button>
 
-      {/* Menú de navegación: visible en pantallas grandes y desplegable en móviles y tabletas */}
+
       <div
         className={`lg:flex lg:items-center lg:space-x-8 absolute lg:static top-16 left-0 w-full lg:w-auto bg-color-1 lg:bg-transparent transition-all duration-500 ease-in-out transform ${
           menuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
@@ -53,17 +52,17 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/practica" className="font-montserrat font-medium text-color-2 hover:text-color-5 transition-colors duration-300 ease-in-out">
+            <Link to="/practica" className="font-montserrat font-medium text-color-2 hover:text-color-5 transition-colors duration-300 ease-in-out focus:border-b-2 focus:border-white">
               Práctica de entrevista
             </Link>
           </li>
           <li>
-            <Link to="/tips" className="font-montserrat font-medium text-color-2 hover:text-color-5 transition-colors duration-300 ease-in-out">
+            <Link to="/tips" className="font-montserrat font-medium text-color-2 hover:text-color-5 transition-colors duration-300 ease-in-out focus:border-b-2 focus:border-white">
               Tips
             </Link>
           </li>
           <li>
-            <Link to="/plantillas" className="font-montserrat font-medium text-color-2 hover:text-color-5 transition-colors duration-300 ease-in-out">
+            <Link to="/plantillas" className="font-montserrat font-medium text-color-2 hover:text-color-5 transition-colors duration-300 ease-in-out focus:border-b-2 focus:border-white">
               Plantillas descargables
             </Link>
           </li>
