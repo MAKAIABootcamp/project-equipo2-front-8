@@ -11,7 +11,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import registerImage from '../../assets/registerImage.svg';
 import tipsImage from '../../assets/registerImage.svg';
 import plantillasImage from '../../assets/loginImage.svg';
-import practicaIcon from '../../assets/CV.svg';  
+import practicaIcon from '../../assets/Job-interview.svg';  
 import tipsIcon from '../../assets/Solution.svg';
 import plantillasIcon from '../../assets/CV.svg';
 import userIconWoman from '../../assets/UserWoman.png'; 
