@@ -13,6 +13,7 @@ import { restoreSession } from "../redux/auth/authSlice";
 import PrivateRoutes from "./PrivateRoutes";
 import PublicRoutes from "./PublicRoutes";
 import Tips from "../pages/Tips/Tips";
+import TipsDetails from "../pages/TipsDetails/TipsDetails";
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ const AppRouter = () => {
           <Route >
             <Route index element={<Home />} />
             <Route path="tips" element={<Tips />} />
+            <Route path="tipsDetails" element={<TipsDetails />} />
           </Route>
           <Route  >
             <Route path="register" element={<Register />} />
