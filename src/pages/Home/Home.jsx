@@ -7,10 +7,15 @@ import 'swiper/css/pagination';
 
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
-// Importa imágenes
+
 import registerImage from '../../assets/registerImage.svg';
-import tipsImage from '../../assets/loginImage.svg';
+import tipsImage from '../../assets/registerImage.svg';
 import plantillasImage from '../../assets/loginImage.svg';
+import practicaIcon from '../../assets/Job-interview.svg';  
+import tipsIcon from '../../assets/Solution.svg';
+import plantillasIcon from '../../assets/CV.svg';
+import userIconWoman from '../../assets/UserWoman.png'; 
+import userIconMan from '../../assets/UserMan.png';
 
 const Carrusel = () => {
   const navigate = useNavigate();
@@ -31,7 +36,7 @@ const Carrusel = () => {
         prevEl: '.swiper-button-prev',
       }}
       modules={[Autoplay, Pagination, Navigation]}
-      className="w-full h-[400px]" 
+      className="w-full h-[400px] md:h-[500px] lg:h-[600px]"
     >
       <SwiperSlide onClick={() => navigate('/practica')}>
         <img src={registerImage} alt="Práctica de entrevista" className="w-full h-full object-contain" />
@@ -49,98 +54,146 @@ const Carrusel = () => {
   );
 };
 
-
 const TestimoniosCarrusel = () => {
   return (
     <Swiper
-      spaceBetween={30}
-      slidesPerView={1}
-      autoplay={{ delay: 5000 }}
-      pagination={{
-        clickable: true,
-        renderBullet: (index, className) => {
-          return `<span class="${className} bg-color-5 h-2 w-2 rounded-full"></span>`;
-        },
-      }}
-      navigation={false}
-      modules={[Pagination, Autoplay]}
-      className="w-full"
-    >
+    spaceBetween={30}
+    slidesPerView={1} 
+    breakpoints={{
+      640: { slidesPerView: 1, spaceBetween: 20 }, 
+      768: { slidesPerView: 2, spaceBetween: 20 }, 
+      1024: { slidesPerView: 2, spaceBetween: 20 }, 
+    }}
+    autoplay={{ delay: 5000 }}
+    pagination={false}
+    navigation={false}
+    modules={[Pagination, Autoplay]}
+    className="w-full"
+  >
       <SwiperSlide>
-        <div className="testimonio p-4 bg-white border rounded-lg shadow-md h-48 flex flex-col justify-center items-center">
-          <p className="font-bold">Emily ⭐⭐⭐⭐⭐</p>
+        <div className="testimonio p-4 bg-white border rounded-lg shadow-md flex flex-col justify-center items-start space-y-2">
+          <div className="flex items-center space-x-4">
+            <img src={userIconWoman} alt="Ícono persona" className="w-8 h-8" />
+            <p className="font-bold">Emily ⭐⭐⭐⭐⭐</p>
+          </div>
           <p className="mt-2">SKILLMATE me ayudó a entrar en el trabajo de mis sueños</p>
         </div>
       </SwiperSlide>
       <SwiperSlide>
-        <div className="testimonio p-4 bg-white border rounded-lg shadow-md h-48 flex flex-col justify-center items-center">
-          <p className="font-bold">John ⭐⭐⭐⭐⭐</p>
+        <div className="testimonio p-4 bg-white border rounded-lg shadow-md flex flex-col justify-center items-start space-y-2">
+          <div className="flex items-center space-x-4">
+            <img src={userIconMan} alt="Ícono persona" className="w-8 h-8" />
+            <p className="font-bold">John ⭐⭐⭐⭐⭐</p>
+          </div>
           <p className="mt-2">Fui el mejor en mis entrevistas gracias a SKILLMATE</p>
         </div>
       </SwiperSlide>
       <SwiperSlide>
-        <div className="testimonio p-4 bg-white border rounded-lg shadow-md h-48 flex flex-col justify-center items-center">
-          <p className="font-bold">Ana ⭐⭐⭐⭐⭐</p>
+        <div className="testimonio p-4 bg-white border rounded-lg shadow-md flex flex-col justify-center items-start space-y-2">
+          <div className="flex items-center space-x-4">
+            <img src={userIconWoman} alt="Ícono persona" className="w-8 h-8" />
+            <p className="font-bold">Ana ⭐⭐⭐⭐⭐</p>
+          </div>
           <p className="mt-2">Las plantillas de SKILLMATE son perfectas para preparar mi CV</p>
         </div>
       </SwiperSlide>
       <SwiperSlide>
-        <div className="testimonio p-4 bg-white border rounded-lg shadow-md h-48 flex flex-col justify-center items-center">
-          <p className="font-bold">Carlos ⭐⭐⭐⭐⭐</p>
+        <div className="testimonio p-4 bg-white border rounded-lg shadow-md flex flex-col justify-center items-start space-y-2">
+          <div className="flex items-center space-x-4">
+            <img src={userIconMan} alt="Ícono persona" className="w-8 h-8" />
+            <p className="font-bold">Carlos ⭐⭐⭐⭐⭐</p>
+          </div>
           <p className="mt-2">Me siento más preparado para enfrentar entrevistas laborales</p>
         </div>
       </SwiperSlide>
+
+      <div  />
     </Swiper>
   );
 };
+
+
 
 const Home = () => {
   const navigate = useNavigate();
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="hero text-center py-12">
-        <h1 className="text-4xl font-bold font-montserrat">Prepárate para tus entrevistas laborales con SKILLMATE</h1>
-        <p className="text-xl mt-4 font-dosis">Mejora tus habilidades para destacar en el mundo laboral</p>
-        <button 
-          className="mt-6 px-6 py-2 bg-color-1 text-white font-dosis font-semibold rounded hover:bg-color-5 transition duration-300"
-          onClick={() => navigate('/practica')}
-        >
-          Explorar
-        </button>
-      </section>
 
-      {/* Carrusel Section */}
-      <section className="carrusel my-12">
+  <section className="hero text-center py-6 sm:py-12">
+  <h1 className="text-2xl sm:text-4xl font-bold font-montserrat">
+    Prepárate para tus entrevistas laborales con SKILLMATE
+  </h1>
+  <p className="text-base sm:text-xl mt-2 sm:mt-4 font-dosis">
+    Mejora tus habilidades para destacar en el mundo laboral
+  </p>
+  <button 
+    className="mt-4 sm:mt-6 px-4 sm:px-6 py-2 bg-color-1 text-white font-dosis font-semibold rounded hover:bg-color-5 transition duration-300"
+    onClick={() => navigate('/practica')}
+  >
+    Explorar
+  </button>
+</section>
+
+
+  <section className="carrusel my-8 sm:my-12">
         <Carrusel />
-      </section>
+  </section>
 
-      {/* Beneficios Section */}
-      <section className="beneficios text-center my-12">
-        <h2 className="text-3xl font-montserrat font-bold mb-6">Beneficios</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div onClick={() => navigate('/practica')} className="card p-6 border rounded-lg cursor-pointer hover:shadow-lg transition duration-300">
-            <p className="text-xl font-montserrat font-medium">Simulación de entrevistas</p>
-            <p className="mt-2 font-dosis text-gray-600">Práctica como en la vida real</p>
-          </div>
-          <div onClick={() => navigate('/tips')} className="card p-6 border rounded-lg cursor-pointer hover:shadow-lg transition duration-300">
-            <p className="text-xl font-montserrat font-medium">Tips</p>
-            <p className="mt-2 font-dosis text-gray-600">Habilidades para mejorar</p>
-          </div>
-          <div onClick={() => navigate('/plantillas')} className="card p-6 border rounded-lg cursor-pointer hover:shadow-lg transition duration-300">
-            <p className="text-xl font-montserrat font-medium">Hojas de vida</p>
-            <p className="mt-2 font-dosis text-gray-600">Plantillas descargables</p>
-          </div>
+
+  <section className="beneficios text-center my-24 max-w-screen-xl mx-auto"> 
+  <h2 className="text-3xl font-montserrat font-bold mb-20">Beneficios</h2>
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div onClick={() => navigate('/practica')} className="card bg-[#DED7EC] p-6 border rounded-lg cursor-pointer hover:shadow-lg transition duration-300 flex flex-col items-start">
+      <img src={plantillasImage} alt="Imagen plantillas" className="w-full h-auto object-contain mb-4" />
+      <div className="flex items-center space-x-4">
+        <img src={practicaIcon} alt="Ícono Práctica" className="w-12 h-12" />
+        <div className="text-left">
+          <p className="font-dosis text-gray-600">Práctica como en la vida real</p>
+          <p className="text-lg font-montserrat font-medium">Simulación de entrevistas</p>
         </div>
-      </section>
-
-      {/* Testimonios Section */}
-      <section className="testimonios my-12 flex items-center justify-between">
-        <h2 className="text-3xl font-bold font-montserrat mb-6 ml-80">Testimonios</h2>
-        <TestimoniosCarrusel />
-      </section>
+      </div>
     </div>
+
+    <div onClick={() => navigate('/tips')} className="card bg-[#DED7EC] p-6 border rounded-lg cursor-pointer hover:shadow-lg transition duration-300 flex flex-col items-start">
+      <img src={plantillasImage} alt="Imagen plantillas" className="w-full h-auto object-contain mb-4" />
+      <div className="flex items-center space-x-4">
+        <img src={tipsIcon} alt="Ícono Tips" className="w-12 h-12" />
+        <div className="text-left">
+          <p className="font-dosis text-gray-600">Habilidades para mejorar</p>
+          <p className="text-lg font-montserrat font-medium">Tips</p>
+        </div>
+      </div>
+    </div>
+
+    <div onClick={() => navigate('/plantillas')} className="card bg-[#DED7EC] p-6 border rounded-lg cursor-pointer hover:shadow-lg transition duration-300 flex flex-col items-start">
+      <img src={plantillasImage} alt="Imagen plantillas" className="w-full h-auto object-contain mb-4" />
+      <div className="flex items-center space-x-4">
+        <img src={plantillasIcon} alt="Ícono Plantillas" className="w-12 h-12" />
+        <div className="text-left">
+          <p className="font-dosis text-gray-600">Plantillas descargables</p>
+          <p className="text-lg font-montserrat font-medium">Hojas de vida</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section className="testimonios mt-12 sm:mt-72 lg:flex lg:items-start lg:justify-between lg:space-x-8 mb-20 sm:mb-40">
+  <h2 className="text-2xl sm:text-3xl font-bold font-montserrat mb-6 lg:mb-0 text-center sm:text-left lg:w-1/3 lg:ml-12 xl:ml-40">
+    Testimonios
+  </h2>
+  <div className="lg:w-2/4 lg:mr-10" style={{ position: 'relative', top: '-20px' }}>
+    <TestimoniosCarrusel />
+  </div>
+</section>
+
+
+
+</div>
   );
 };
 

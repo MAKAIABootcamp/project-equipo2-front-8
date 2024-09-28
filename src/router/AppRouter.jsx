@@ -14,6 +14,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import PublicRoutes from "./PublicRoutes";
 import Tips from "../pages/Tips/Tips";
 import TipsDetails from "../pages/TipsDetails/TipsDetails";
+import TemplatesCV from "../pages/TemplatesCV/TemplatesCV";
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -43,12 +44,13 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route >
+          <Route element={<PrivateRoutes isAuthenticated={isAuthenticated} />} >
             <Route index element={<Home />} />
             <Route path="tips" element={<Tips />} />
             <Route path="tipsDetails" element={<TipsDetails />} />
+            <Route path="plantillas" element={<TemplatesCV />} />
           </Route>
-          <Route  >
+          <Route element={<PublicRoutes isAuthenticated={isAuthenticated} />} >
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
             <Route path="phoneLogin" element={<PhoneLogin />} />
@@ -58,6 +60,7 @@ const AppRouter = () => {
         </Route>
       </Routes>
     </BrowserRouter>
+
   )
 }
 
