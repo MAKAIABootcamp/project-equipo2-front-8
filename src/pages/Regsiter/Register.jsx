@@ -137,19 +137,6 @@ const Register = () => {
                   <ErrorMessage name="repeatPassword" component="div" className="text-red-600 text-sm" />
                 </div>
 
-                <div>
-                  <label htmlFor="photo" className="block text-color-3">Escoja una foto de perfil</label>
-                  <input
-                    type="file"
-                    id="photo"
-                    className="w-full mt-1"
-                    onChange={(event) => {
-                      setFieldValue("photo", event.currentTarget.files[0]);
-                    }}
-                  />
-                  <ErrorMessage name="photo" component="div" className="text-red-600 text-sm" />
-                </div>
-
                 <button
                   disabled={isSubmitting}
                   type="submit"
