@@ -13,6 +13,7 @@ import { restoreSession } from "../redux/auth/authSlice";
 import PrivateRoutes from "./PrivateRoutes";
 import PublicRoutes from "./PublicRoutes";
 import Tips from "../pages/Tips/Tips";
+import TemplatesCV from "../pages/TemplatesCV/TemplatesCV";
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ const AppRouter = () => {
           <Route element={<PrivateRoutes isAuthenticated={isAuthenticated} />} >
             <Route index element={<Home />} />
             <Route path="tips" element={<Tips />} />
+            <Route path="plantillas" element={<TemplatesCV />} />
           </Route>
           <Route element={<PublicRoutes isAuthenticated={isAuthenticated} />} >
             <Route path="register" element={<Register />} />
