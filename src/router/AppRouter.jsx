@@ -47,7 +47,7 @@ const AppRouter = () => {
           <Route element={<PrivateRoutes isAuthenticated={isAuthenticated} />} >
             <Route index element={<Home />} />
             <Route path="tips" element={<Tips />} />
-            <Route path="tipsDetails" element={<TipsDetails />} />
+            <Route path="tipsDetails/:id" element={<TipsDetails />} />
             <Route path="plantillas" element={<TemplatesCV />} />
           </Route>
           <Route element={<PublicRoutes isAuthenticated={isAuthenticated} />} >

@@ -1,4 +1,4 @@
-import skillmatePhoto from "../../assets/skillmatePhoto1.jpg"
+import { SlArrowLeft } from "react-icons/sl";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -33,13 +33,14 @@ const TipsDetails = () => {
 
   return (
     <div>
-      <section className='flex flex-col items-center py-6'>
+        <SlArrowLeft className="h-8 text-color-1 ml-6 mt-3" />
+      <section className='flex flex-col items-center pb-8'>
         <h1 className='font-montserrat font-bold text-4xl py-3'>{tip.categoria}</h1>
-        <p className='font-dosis py-3'>Recuerda que estas habilidades son diversas, así que ten en cuenta lo siguiente</p>
+        <p className='font-dosis py-3'>Recuerda que estas habilidades son diversas, así que ten en cuenta lo siguiente:</p>
       </section>
       <section className='bg-gradient-to-r from-color-2 to-color-1'>
         <div className='p-20'>
-          <section className='bg-white flex flex-row rounded-t-2xl items-center justify-evenly'>
+          <section className='bg-white flex flex-row rounded-t-2xl items-center justify-around'>
             <div className='py-20 basis-1/3'>
               <h2 className='font-montserrat font-bold text-3xl pb-6'>{tip.titulo}</h2>
               <p className='font-dosis text-2xl'>{tip.descripcion}</p>
@@ -48,8 +49,16 @@ const TipsDetails = () => {
               <img src={tip.img} alt="" />
             </div>
           </section>
-          <section className='bg-white flex flex-wrap rounded-b-2xl justify-around gap-4 font-dosis pb-20 px-6'>
-            <div className='flex flex-col items-center'>
+          <section className='bg-white rounded-b-2xl  font-dosis pb-20'>
+            <div className="flex flex-wrap justify-around gap-16">
+              {tip.subtips.map((subtip) => (
+                <div key={subtip.id} className='flex flex-col items-center max-w-64'>
+                  <button className='bg-color-1 hover:bg-color-5 py-2 px-14 text-color-2 rounded-lg cursor-pointer'>{subtip.subtitulo}</button>
+                  <img className='mt-8 w-4/5' src={subtip.images} alt={subtip.subtitulo} />
+                </div>
+              ))}
+            </div>
+            {/* <div className='flex flex-col items-center'>
               <button className='bg-color-1 py-2 px-14'>Elige bien a tus referencias</button>
               <img className='w-52 h-40' src={skillmatePhoto} alt="" />
             </div>
@@ -68,7 +77,7 @@ const TipsDetails = () => {
             <div className='flex flex-col items-center'>
               <button className='bg-color-1 py-2 px-14'>Pide retroalimentación</button>
               <img className='w-52 h-40' src={skillmatePhoto} alt="" />
-            </div>
+            </div> */}
           </section>
         </div>
       </section>
