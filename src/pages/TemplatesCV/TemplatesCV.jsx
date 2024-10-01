@@ -26,18 +26,18 @@ import Plantilla12 from "../../assets/CV12.webp";
 
 const Templates = () => {
   const plantillas = [
-    { image: Plantilla1, downloadLink: "/Templates/CV1.docx" },
-    { image: Plantilla2, downloadLink: "/Templates/CV2.docx" },
-    { image: Plantilla3, downloadLink: "/Templates/CV3.docx" },
-    { image: Plantilla4, downloadLink: "/Templates/CV4.docx" },
-    { image: Plantilla5, downloadLink: "/Templates/CV5.docx" },
-    { image: Plantilla6, downloadLink: "/Templates/CV6.docx" },
-    { image: Plantilla7, downloadLink: "/Templates/CV7.docx" },
-    { image: Plantilla8, downloadLink: "/Templates/CV8.docx" },
-    { image: Plantilla9, downloadLink: "/Templates/CV9.docx" },
-    { image: Plantilla10, downloadLink: "/Templates/CV10.docx" },
-    { image: Plantilla11, downloadLink: "/Templates/CV11.docx" },
-    { image: Plantilla12, downloadLink: "/Templates/CV12.docx" },
+    { image: Plantilla1, downloadLink: "https://firebasestorage.googleapis.com/v0/b/skillmate-e5727.appspot.com/o/CV1.docx?alt=media&token=01844844-c960-4552-b895-949031c22266" },
+    { image: Plantilla2, downloadLink: "https://firebasestorage.googleapis.com/v0/b/skillmate-e5727.appspot.com/o/CV2.docx?alt=media&token=957ddef3-7a97-4efc-a486-a84aac74917b" },
+    { image: Plantilla3, downloadLink: "https://firebasestorage.googleapis.com/v0/b/skillmate-e5727.appspot.com/o/CV3.docx?alt=media&token=5b44318c-4b06-4498-994f-50499205cf4b" },
+    { image: Plantilla4, downloadLink: "https://firebasestorage.googleapis.com/v0/b/skillmate-e5727.appspot.com/o/CV4.docx?alt=media&token=06f350e9-18a9-444a-807f-2861fa41a3c9" },
+    { image: Plantilla5, downloadLink: "https://firebasestorage.googleapis.com/v0/b/skillmate-e5727.appspot.com/o/CV5.docx?alt=media&token=7da7ba40-f708-40ef-9f03-9cc193e57134" },
+    { image: Plantilla6, downloadLink: "https://firebasestorage.googleapis.com/v0/b/skillmate-e5727.appspot.com/o/CV6.docx?alt=media&token=f00a8ccb-323d-4e1c-8d08-798d9b04f0b6" },
+    { image: Plantilla7, downloadLink: "https://firebasestorage.googleapis.com/v0/b/skillmate-e5727.appspot.com/o/CV7.docx?alt=media&token=44488888-aa19-414d-822c-104ddb55f42d" },
+    { image: Plantilla8, downloadLink: "https://firebasestorage.googleapis.com/v0/b/skillmate-e5727.appspot.com/o/CV8.docx?alt=media&token=a0d93acf-5e4c-48e0-b481-b265585d3962" },
+    { image: Plantilla9, downloadLink: "https://firebasestorage.googleapis.com/v0/b/skillmate-e5727.appspot.com/o/CV9.docx?alt=media&token=05c15817-eb98-4c14-85ea-d57a3a1bf5c6" },
+    { image: Plantilla10, downloadLink: "https://firebasestorage.googleapis.com/v0/b/skillmate-e5727.appspot.com/o/CV10.docx?alt=media&token=879e3ab2-db5a-45fc-ace7-9430d3b410fa" },
+    { image: Plantilla11, downloadLink: "https://firebasestorage.googleapis.com/v0/b/skillmate-e5727.appspot.com/o/CV11.docx?alt=media&token=e9f0c2f9-6e1a-40ee-bace-906cea3ec1f6" },
+    { image: Plantilla12, downloadLink: "https://firebasestorage.googleapis.com/v0/b/skillmate-e5727.appspot.com/o/CV12.docx?alt=media&token=ba59ced6-1a3d-4f46-a753-9f310d475587" },
   ];
 
   return (

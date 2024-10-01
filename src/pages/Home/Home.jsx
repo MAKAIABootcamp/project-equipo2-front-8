@@ -41,14 +41,15 @@ const Carrusel = () => {
       modules={[Autoplay, Pagination, Navigation]}
       className="w-full h-[400px] md:h-[500px] lg:h-[600px]"
     >
-      <SwiperSlide onClick={() => navigate('/practica')}>
-        <img src={simuladorImage} alt="Práctica de entrevista" className="w-full h-full object-contain cursor-pointer" />
+      <SwiperSlide onClick={() => navigate('/practica')} className="flex items-center justify-center">
+        <img src={simuladorImage} alt="Práctica de entrevista" className="w-full h-full object-contain max-w-[80%] max-h-[80%] cursor-pointer" />
+        
       </SwiperSlide>
-      <SwiperSlide onClick={() => navigate('/tips')}>
-        <img src={tipsImage} alt="Tips" className="w-full h-full object-contain cursor-pointer" />
+      <SwiperSlide onClick={() => navigate('/tips')} className="flex items-center justify-center">
+        <img src={tipsImage} alt="Tips" className="w-full h-full object-contain max-w-[80%] max-h-[80%] cursor-pointer" />
       </SwiperSlide>
-      <SwiperSlide onClick={() => navigate('/plantillas')}>
-        <img src={plantillasImage} alt="Plantillas descargables" className="w-full h-full object-contain cursor-pointer" />
+      <SwiperSlide onClick={() => navigate('/plantillas')} className="flex items-center justify-center">
+        <img src={plantillasImage} alt="Plantillas descargables" className="w-full h-full object-contain max-w-[80%] max-h-[80%] cursor-pointer" />
       </SwiperSlide>
       
       <div className="swiper-button-next text-color-5" />
