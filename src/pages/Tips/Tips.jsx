@@ -64,6 +64,9 @@ const Tips = () => {
     console.log("ID del artículo:", id); // Aquí está el console.log
     navigate(`/tipsDetails/${id}`);
   };
+  const handleSimulationClick = () => {
+    navigate('/plantillas');
+  };
 
   useEffect(() => {
     if (status === "idle") {
@@ -176,8 +179,11 @@ const Tips = () => {
                 </p>
               </div>
             </div>
-            <button className="bg-color-1 border rounded-md p-2 font-montserrat font-medium w-full sm:w-auto">
-              <a href="#">Ir al simulador de entrevistas</a>
+            <button
+              className="bg-color-1 border rounded-md p-2 font-montserrat font-medium w-full sm:w-auto"
+              onClick={handleSimulationClick}
+            >
+              Ir al simulador de entrevistas
             </button>
           </div>
         </section>

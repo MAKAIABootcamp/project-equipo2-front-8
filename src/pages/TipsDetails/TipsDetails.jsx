@@ -47,7 +47,7 @@ const TipsDetails = () => {
   return (
     <div>
       <SlArrowLeft onClick={() => navigate('/tips')} className="h-8 text-color-1 ml-6 mt-3 cursor-pointer" />
-      <section className='flex flex-col items-center p-4 md:pb-8 text-color-3 md:flex-col md:items-center md:p-0'>
+      <section className='flex flex-col items-center p-4 pb-8 text-color-3 md:flex-col md:items-center md:p-0'>
         <h1 className='font-montserrat font-bold text-4xl py-3'>{tip.categoria}</h1>
         <p className='font-dosis py-3'>Recuerda que estas habilidades son diversas, así que ten en cuenta lo siguiente:</p>
       </section>
@@ -66,7 +66,7 @@ const TipsDetails = () => {
             <div className="flex flex-wrap justify-around gap-16">
               {tip.subtips.map((subtip) => (
                 <div key={subtip.subtitulo} className='flex flex-col items-center max-w-64 '>
-                  <button 
+                  <button
                     className='bg-color-1 hover:bg-color-5 py-2 px-14 text-color-3 hover:text-color-2 rounded-lg cursor-pointer'
                     onClick={() => handleOpenModal(subtip.subtitulo)} // Abrir el modal al hacer clic en el botón
                   >
@@ -78,7 +78,7 @@ const TipsDetails = () => {
                   {openModal === subtip.subtitulo && (
                     <div className="modal fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
                       <div className="bg-[#E0D9EC] p-8 rounded-lg max-w-lg relative">
-                        <FaWindowClose 
+                        <FaWindowClose
                           className="text-color-5 cursor-pointer absolute top-4 right-4"
                           onClick={handleCloseModal} // Cerrar el modal al hacer clic en el icono
                         />
