@@ -8,9 +8,12 @@ import 'swiper/css/pagination';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
 
-import registerImage from '../../assets/registerImage.svg';
-import tipsImage from '../../assets/registerImage.svg';
-import plantillasImage from '../../assets/loginImage.svg';
+import simuladorImage from '../../assets/SimuladorChat.svg';
+import tipsImage from '../../assets/Tips.svg';
+import plantillasImage from '../../assets/Plantillas.svg';  
+import simuladorCard from '../../assets/Práctica.svg';
+import tipsCard from '../../assets/TipsPage_1.svg';
+import plantillasCard from '../../assets/Descargarplantillas.svg';
 import practicaIcon from '../../assets/CV.svg';  
 import tipsIcon from '../../assets/Solution.svg';
 import plantillasIcon from '../../assets/CV.svg';
@@ -39,13 +42,13 @@ const Carrusel = () => {
       className="w-full h-[400px] md:h-[500px] lg:h-[600px]"
     >
       <SwiperSlide onClick={() => navigate('/practica')}>
-        <img src={registerImage} alt="Práctica de entrevista" className="w-full h-full object-contain" />
+        <img src={simuladorImage} alt="Práctica de entrevista" className="w-full h-full object-contain cursor-pointer" />
       </SwiperSlide>
       <SwiperSlide onClick={() => navigate('/tips')}>
-        <img src={tipsImage} alt="Tips" className="w-full h-full object-contain" />
+        <img src={tipsImage} alt="Tips" className="w-full h-full object-contain cursor-pointer" />
       </SwiperSlide>
       <SwiperSlide onClick={() => navigate('/plantillas')}>
-        <img src={plantillasImage} alt="Plantillas descargables" className="w-full h-full object-contain" />
+        <img src={plantillasImage} alt="Plantillas descargables" className="w-full h-full object-contain cursor-pointer" />
       </SwiperSlide>
       
       <div className="swiper-button-next text-color-5" />
@@ -76,7 +79,7 @@ const TestimoniosCarrusel = () => {
             <img src={userIconWoman} alt="Ícono persona" className="w-8 h-8" />
             <p className="font-bold">Emily ⭐⭐⭐⭐⭐</p>
           </div>
-          <p className="mt-2">SKILLMATE me ayudó a entrar en el trabajo de mis sueños</p>
+          <p className="mt-2">El simulador de entrevistas me permitió corregir mis errores antes de la cita ❤️</p>
         </div>
       </SwiperSlide>
       <SwiperSlide>
@@ -85,7 +88,7 @@ const TestimoniosCarrusel = () => {
             <img src={userIconMan} alt="Ícono persona" className="w-8 h-8" />
             <p className="font-bold">John ⭐⭐⭐⭐⭐</p>
           </div>
-          <p className="mt-2">Fui el mejor en mis entrevistas gracias a SKILLMATE</p>
+          <p className="mt-2">Los tips de SKILLMATE me ayudaron a mejorar mis respuestas 😍</p>
         </div>
       </SwiperSlide>
       <SwiperSlide>
@@ -94,7 +97,7 @@ const TestimoniosCarrusel = () => {
             <img src={userIconWoman} alt="Ícono persona" className="w-8 h-8" />
             <p className="font-bold">Ana ⭐⭐⭐⭐⭐</p>
           </div>
-          <p className="mt-2">Las plantillas de SKILLMATE son perfectas para preparar mi CV</p>
+          <p className="mt-2">Las plantillas de SKILLMATE son perfectas para preparar mi CV 👍</p>
         </div>
       </SwiperSlide>
       <SwiperSlide>
@@ -103,7 +106,7 @@ const TestimoniosCarrusel = () => {
             <img src={userIconMan} alt="Ícono persona" className="w-8 h-8" />
             <p className="font-bold">Carlos ⭐⭐⭐⭐⭐</p>
           </div>
-          <p className="mt-2">Me siento más preparado para enfrentar entrevistas laborales</p>
+          <p className="mt-2">Me siento más preparado para enfrentar entrevistas laborales 😁</p>
         </div>
       </SwiperSlide>
 
@@ -144,9 +147,10 @@ const Home = () => {
   <section className="beneficios text-center my-24 max-w-screen-xl mx-auto"> 
   <h2 className="text-3xl font-montserrat font-bold mb-20">Beneficios</h2>
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-    <div onClick={() => navigate('/practica')} className="card bg-[#DED7EC] p-6 border rounded-lg cursor-pointer hover:shadow-lg transition duration-300 flex flex-col items-start">
-      <img src={plantillasImage} alt="Imagen plantillas" className="w-full h-auto object-contain mb-4" />
-      <div className="flex items-center space-x-4">
+    
+    <div onClick={() => navigate('/practica')} className="card bg-[#DED7EC] p-6 border rounded-lg cursor-pointer hover:shadow-lg transition duration-300 flex flex-col items-start justify-between h-full">
+      <img src={simuladorCard} alt="Imagen plantillas" className="w-full h-auto object-contain mb-4" />
+      <div className="flex items-center space-x-4 mt-auto">
         <img src={practicaIcon} alt="Ícono Práctica" className="w-12 h-12" />
         <div className="text-left">
           <p className="font-dosis text-gray-600">Práctica como en la vida real</p>
@@ -155,9 +159,9 @@ const Home = () => {
       </div>
     </div>
 
-    <div onClick={() => navigate('/tips')} className="card bg-[#DED7EC] p-6 border rounded-lg cursor-pointer hover:shadow-lg transition duration-300 flex flex-col items-start">
-      <img src={plantillasImage} alt="Imagen plantillas" className="w-full h-auto object-contain mb-4" />
-      <div className="flex items-center space-x-4">
+    <div onClick={() => navigate('/tips')} className="card bg-[#DED7EC] p-6 border rounded-lg cursor-pointer hover:shadow-lg transition duration-300 flex flex-col items-start justify-between h-full">
+      <img src={tipsCard} alt="Imagen plantillas" className="w-full h-auto object-contain mb-4" />
+      <div className="flex items-center space-x-4 mt-auto">
         <img src={tipsIcon} alt="Ícono Tips" className="w-12 h-12" />
         <div className="text-left">
           <p className="font-dosis text-gray-600">Habilidades para mejorar</p>
@@ -166,9 +170,9 @@ const Home = () => {
       </div>
     </div>
 
-    <div onClick={() => navigate('/plantillas')} className="card bg-[#DED7EC] p-6 border rounded-lg cursor-pointer hover:shadow-lg transition duration-300 flex flex-col items-start">
-      <img src={plantillasImage} alt="Imagen plantillas" className="w-full h-auto object-contain mb-4" />
-      <div className="flex items-center space-x-4">
+    <div onClick={() => navigate('/plantillas')} className="card bg-[#DED7EC] p-6 border rounded-lg cursor-pointer hover:shadow-lg transition duration-300 flex flex-col items-start justify-between h-full">
+      <img src={plantillasCard} alt="Imagen plantillas" className="w-full h-auto object-contain mb-4" />
+      <div className="flex items-center space-x-4 mt-auto">
         <img src={plantillasIcon} alt="Ícono Plantillas" className="w-12 h-12" />
         <div className="text-left">
           <p className="font-dosis text-gray-600">Plantillas descargables</p>
@@ -176,8 +180,10 @@ const Home = () => {
         </div>
       </div>
     </div>
+    
   </div>
 </section>
+
 
 
 
