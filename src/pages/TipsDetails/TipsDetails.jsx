@@ -1,11 +1,12 @@
 import { SlArrowLeft } from "react-icons/sl";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchTips } from "../../redux/tips/tipsSlice";
 
 const TipsDetails = () => {
   const { id } = useParams(); // Obtener el id desde la URL
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { tips, status, error } = useSelector((state) => state.tips);
 
@@ -17,6 +18,10 @@ const TipsDetails = () => {
 
   // Encontrar el tip correspondiente por id
   const tip = tips.find((tip) => tip.id === id);
+
+  const handleGoBack = () => {
+    navigate(-1); 
+  };
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -33,7 +38,7 @@ const TipsDetails = () => {
 
   return (
     <div>
-        <SlArrowLeft className="h-8 text-color-1 ml-6 mt-3" />
+        <SlArrowLeft className="h-8 text-color-1 ml-6 mt-3 pointer" onClick={handleGoBack} />
       <section className='flex flex-col items-center pb-8'>
         <h1 className='font-montserrat font-bold text-4xl py-3'>{tip.categoria}</h1>
         <p className='font-dosis py-3'>Recuerda que estas habilidades son diversas, así que ten en cuenta lo siguiente:</p>
@@ -51,8 +56,8 @@ const TipsDetails = () => {
           </section>
           <section className='bg-white rounded-b-2xl  font-dosis pb-20'>
             <div className="flex flex-wrap justify-around gap-16">
-              {tip.subtips.map((subtip) => (
-                <div key={subtip.id} className='flex flex-col items-center max-w-64'>
+              {tip.subtips.map((subtip, index) => (
+                <div key={index} className='flex flex-col items-center max-w-64'>
                   <button className='bg-color-1 hover:bg-color-5 py-2 px-14 text-color-2 rounded-lg cursor-pointer'>{subtip.subtitulo}</button>
                   <img className='mt-8 w-4/5' src={subtip.images} alt={subtip.subtitulo} />
                 </div>
