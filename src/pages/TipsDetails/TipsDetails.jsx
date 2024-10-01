@@ -46,8 +46,8 @@ const TipsDetails = () => {
 
   return (
     <div>
-      <SlArrowLeft onClick={() => navigate('/tips')} className="h-8 text-color-1 ml-6 mt-3 cursor-pointer" />
-      <section className='flex flex-col items-center p-4 pb-8 text-color-3 md:flex-col md:items-center md:p-0'>
+      <SlArrowLeft onClick={() => navigate('/tips')} className="h-8 text-color-1 md:ml-3 md:mt-4 mt-3 ml-2 cursor-pointer md:text-5xl text-2xl" />
+      <section className='flex flex-col items-center px-4 md:pb-8 text-color-3 md:flex-col md:items-center md:p-0'>
         <h1 className='font-montserrat font-bold text-4xl py-3'>{tip.categoria}</h1>
         <p className='font-dosis py-3'>Recuerda que estas habilidades son diversas, así que ten en cuenta lo siguiente:</p>
       </section>
