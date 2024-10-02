@@ -65,7 +65,7 @@ const Tips = () => {
     navigate(`/tipsDetails/${id}`);
   };
   const handleSimulationClick = () => {
-    navigate('/plantillas');
+    navigate('/practica');
   };
 
   useEffect(() => {

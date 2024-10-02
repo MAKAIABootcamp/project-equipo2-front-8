@@ -14,10 +14,6 @@ export default {
         'color-4': '#006D77',
         'color-5': '#662E9B',
       },
-      fontFamily: {
-        montserrat: ['Montserrat', 'sans-serif'],
-        dosis: ['Dosis', 'sans-serif'],
-      },
     },
   },
   plugins: [],
