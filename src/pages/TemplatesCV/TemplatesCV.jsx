@@ -27,7 +27,7 @@ const Templates = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-5">
       <div className="bg-white py-12 px-4 lg:px-8">
-        <h2 className="text-center text-3xl font-bold text-gray-800 mb-8">
+        <h2 className="text-center text-3xl font-bold text-gray-800 mb-8 font-montserrat">
           Explora las plantillas que tenemos disponibles para ti
         </h2>
 
@@ -45,10 +45,10 @@ const Templates = () => {
                 className="relative w-[150px] h-[150px] z-10 transform transition-transform duration-300 hover:scale-110 hover:translate-y-1"
               />
             </div>
-            <h3 className="mt-6 text-xl font-semibold text-gray-900 z-20">
+            <h3 className="mt-6 text-xl font-semibold font-montserrat text-gray-900 z-20">
               Paso 1
             </h3>
-            <p className="text-gray-600 text-center z-20">
+            <p className="text-gray-600 text-center z-20 font-dosis">
               Revisa las diferentes opciones que se acomoden a tus gustos.
             </p>
           </div>
@@ -89,8 +89,8 @@ const Templates = () => {
                 className="relative w-40 h-40 z-10 mb-3 transform transition-transform duration-300 hover:scale-110 hover:translate-y-1"
               />
             </div>
-            <h3 className="text-xl font-semibold text-gray-900">Paso 2</h3>
-            <p className="text-gray-600 text-center">
+            <h3 className="text-xl font-semibold font-montserrat text-gray-900">Paso 2</h3>
+            <p className="text-gray-600 text-center font-dosis">
               Una vez seleccionada la plantilla, descárgala en formato Word.
             </p>
           </div>
@@ -132,8 +132,8 @@ const Templates = () => {
                 className="relative w-40 h-40 z-10 mb-3 transform transition-transform duration-300 hover:scale-110 hover:translate-y-1"
               />
             </div>
-            <h3 className="text-xl font-semibold text-gray-900">Paso 3</h3>
-            <p className="text-gray-600 text-center">
+            <h3 className="text-xl font-semibold font-montserrat text-gray-900">Paso 3</h3>
+            <p className="text-gray-600 text-center font-dosis">
               Edita la hoja de vida que acabas de descargar con tu información.
             </p>
           </div>
@@ -192,7 +192,7 @@ const Templates = () => {
                 />
                 <a
                   href={template.downloadURL}
-                  className="bg-purple-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-purple-700 transition-transform transform hover:scale-105"
+                  className="bg-color-1 text-white py-2 px-4 rounded-lg shadow-md hover:bg-purple-700 transition-transform transform hover:scale-105"
                 >
                   Descargar
                 </a>
