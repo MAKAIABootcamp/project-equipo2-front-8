@@ -125,7 +125,10 @@ const Home = () => {
         return `<span class="${className} bg-color-5"></span>`;
       },
     }}
-    navigation={false} 
+    navigation={{
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    }}
     modules={[Autoplay, Pagination, Navigation]} 
     className="w-full h-[400px] md:h-[500px] lg:h-[600px] flex justify-center items-center"
   >
