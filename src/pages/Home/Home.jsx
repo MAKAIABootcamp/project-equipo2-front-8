@@ -34,36 +34,36 @@ const TestimoniosCarrusel = () => {
         <div className="testimonio p-4 bg-white border rounded-lg shadow-md flex flex-col justify-center items-start space-y-2">
           <div className="flex items-center space-x-4">
             <img src={userIconWoman} alt="Ícono persona" className="w-8 h-8" />
-            <p className="font-bold">Emily ⭐⭐⭐⭐⭐</p>
+            <p className="font-bold font-montserrat">Emily ⭐⭐⭐⭐⭐</p>
           </div>
-          <p className="mt-2">El simulador de entrevistas me permitió corregir mis errores antes de la cita ❤️</p>
+          <p className="mt-2 font-dosis text-xl">El simulador de entrevistas me permitió corregir mis errores antes de la cita ❤️</p>
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className="testimonio p-4 bg-white border rounded-lg shadow-md flex flex-col justify-center items-start space-y-2">
           <div className="flex items-center space-x-4">
             <img src={userIconMan} alt="Ícono persona" className="w-8 h-8" />
-            <p className="font-bold">John ⭐⭐⭐⭐⭐</p>
+            <p className="font-bold font-montserrat">John ⭐⭐⭐⭐⭐</p>
           </div>
-          <p className="mt-2">Los tips de SKILLMATE me ayudaron a mejorar mis respuestas 😍</p>
+          <p className="mt-2 font-dosis text-xl">Los tips de SKILLMATE me ayudaron a mejorar mis respuestas 😍</p>
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className="testimonio p-4 bg-white border rounded-lg shadow-md flex flex-col justify-center items-start space-y-2">
           <div className="flex items-center space-x-4">
             <img src={userIconWoman} alt="Ícono persona" className="w-8 h-8" />
-            <p className="font-bold">Ana ⭐⭐⭐⭐⭐</p>
+            <p className="font-bold font-montserrat">Ana ⭐⭐⭐⭐⭐</p>
           </div>
-          <p className="mt-2">Las plantillas de SKILLMATE son perfectas para preparar mi CV 👍</p>
+          <p className="mt-2 font-dosis text-xl">Las plantillas de SKILLMATE son perfectas para preparar mi CV 👍</p>
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className="testimonio p-4 bg-white border rounded-lg shadow-md flex flex-col justify-center items-start space-y-2">
           <div className="flex items-center space-x-4">
             <img src={userIconMan} alt="Ícono persona" className="w-8 h-8" />
-            <p className="font-bold">Carlos ⭐⭐⭐⭐⭐</p>
+            <p className="font-bold font-montserrat">Carlos ⭐⭐⭐⭐⭐</p>
           </div>
-          <p className="mt-2">Me siento más preparado para enfrentar entrevistas laborales 😁</p>
+          <p className="mt-2 font-dosis text-xl">Me siento más preparado para enfrentar entrevistas laborales 😁</p>
         </div>
       </SwiperSlide>
     </Swiper>
