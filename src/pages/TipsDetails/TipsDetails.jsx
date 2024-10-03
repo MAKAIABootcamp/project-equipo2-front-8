@@ -82,6 +82,7 @@ const TipsDetails = () => {
                           className="text-color-5 cursor-pointer absolute top-4 right-4"
                           onClick={handleCloseModal} // Cerrar el modal al hacer clic en el icono
                         />
+                        <h3 className="text-lg font-bold pb-2">{subtip.subtitulo}</h3>
                         <p>{subtip.parrafo}</p>
                       </div>
                     </div>
