@@ -3,6 +3,7 @@ import authReducer from "./auth/authSlice";
 import  tipsReducer from "./tips/tipsSlice"
 import carruselReducer from "./Home/carruselSlice"
 import beneficiosReducer from "./Home/beneficiosSlice"
+import templatesReducer from "./templates/templatesSlice";
 
 const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
         tips: tipsReducer,
         carrusel: carruselReducer,
         beneficios: beneficiosReducer,
+        templates: templatesReducer,
     }
 })
 
