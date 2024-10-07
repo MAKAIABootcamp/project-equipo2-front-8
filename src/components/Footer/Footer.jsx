@@ -28,9 +28,15 @@ const Footer = () => {
         <div className="flex flex-col items-center">
           <span className="font-dosis font-semibold text-white mb-4">Nuestras redes</span>
           <div className="flex space-x-4 mb-4">
-            <img src={logoFacebook} alt="Facebook" className="h-12" />
-            <img src={logoWhatsapp} alt="Whatsapp" className="h-12" />
-            <img src={logoInstagram} alt="Instagram" className="h-12" />
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+              <img src={logoFacebook} alt="Facebook" className="h-12" />
+            </a>
+            <a href="https://www.whatsapp.com" target="_blank" rel="noopener noreferrer">
+              <img src={logoWhatsapp} alt="Whatsapp" className="h-12" />
+            </a>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+              <img src={logoInstagram} alt="Instagram" className="h-12" />
+            </a>
           </div>
         </div>
       </div>
