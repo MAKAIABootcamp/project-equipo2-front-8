@@ -57,11 +57,11 @@ const Tips = () => {
   };
 
   const handleSearchClick = () => {
-    setSearchQuery(searchTerm); // Ejecuta la búsqueda actualizando searchQuery
+    setSearchQuery(searchTerm); 
   };
 
   const handleTipClick = (id) => {
-    console.log("ID del artículo:", id); // Aquí está el console.log
+    console.log("ID del artículo:", id); 
     navigate(`/tipsDetails/${id}`);
   };
   const handleSimulationClick = () => {
