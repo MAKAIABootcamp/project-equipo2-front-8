@@ -16,7 +16,7 @@ import Tips from "../pages/Tips/Tips";
 import TipsDetails from "../pages/TipsDetails/TipsDetails";
 import TemplatesCV from "../pages/TemplatesCV/TemplatesCV";
 import InterviewSimulator from "../pages/InterviewSimulator/InterviewSimulator";
-import AboutUs from "../pages/AboutUs/AboutUs"
+import WelcomeSimulator from "../pages/WelcomeSimulator/WelcomeSimulator";
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -49,10 +49,10 @@ const AppRouter = () => {
           <Route element={<PrivateRoutes isAuthenticated={isAuthenticated} />} >
             <Route index element={<Home />} />
             <Route path="tips" element={<Tips />} />
-            <Route path="practica" element={<InterviewSimulator />} />
+            <Route path="practica" element={<WelcomeSimulator />} />
+            <Route path="interview" element={<InterviewSimulator />} />
             <Route path="tipsDetails/:id" element={<TipsDetails />} />
             <Route path="plantillas" element={<TemplatesCV />} />
-            <Route path="about" element={<AboutUs />} />
           </Route>
           <Route element={<PublicRoutes isAuthenticated={isAuthenticated} />} >
             <Route path="register" element={<Register />} />
