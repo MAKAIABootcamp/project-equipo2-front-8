@@ -4,6 +4,7 @@ import  tipsReducer from "./tips/tipsSlice"
 import carruselReducer from "./Home/carruselSlice"
 import beneficiosReducer from "./Home/beneficiosSlice"
 import templatesReducer from "./templates/templatesSlice";
+import interviewReducer from "./InterviewSimulator/InterviewSimulatorSlice";
 
 const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
         carrusel: carruselReducer,
         beneficios: beneficiosReducer,
         templates: templatesReducer,
+        interview: interviewReducer,
     }
 })
 

@@ -1,16 +1,21 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
-import Entrevistador from "../../assets/9768312.webp";
+import { Player } from "@lottiefiles/react-lottie-player";
+import { useDispatch, useSelector } from "react-redux";
 import imgModal from "../../assets/felicidades.svg";
-
-const preguntas = [
-  "¿Puedes contarnos un poco sobre ti?",
-  "¿Por qué quieres trabajar en esta empresa?",
-  "¿Cuál es tu mayor fortaleza?",
-  "¿Dónde te ves en 5 años?",
-];
+import {
+  setQuestions,
+  nextQuestion,
+  addChatMessage,
+  setTimeLeft,
+  setTimerActive,
+  setShowModal,
+  setHasStarted,
+} from "../../redux/InterviewSimulator/InterviewSimulatorSlice";
+import { collection, getDocs } from "firebase/firestore";
+import { database } from "../../Firebase/firebaseConfig";
 
 const feedbackRecomendaciones = [
   "Ser más específico en tus respuestas.",
@@ -20,26 +25,57 @@ const feedbackRecomendaciones = [
 ];
 
 const InterviewSimulator = () => {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [chatHistory, setChatHistory] = useState([
-    { type: "bot", message: preguntas[0] },
-  ]);
-  const [timeLeft, setTimeLeft] = useState(60);
-  const [timerActive, setTimerActive] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
+  const {
+    selectedCategory,
+    questions,
+    currentQuestionIndex,
+    chatHistory,
+    timeLeft,
+    timerActive,
+    showModal,
+    hasStarted,
+  } = useSelector((state) => state.interview);
+
   const timerId = useRef(null);
 
+  // Fetch questions from Firebase and filter by selected category
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(database, "preguntas"));
+
+        const questionsData = querySnapshot.docs.map((doc) => doc.data());
+        if (!selectedCategory) {
+          console.log("No hay categoría seleccionada");
+          return;
+        }
+
+        // Filtrar las preguntas por la categoría seleccionada
+        const filteredQuestions = questionsData.filter(
+          (question) => question.categoria === selectedCategory
+        );
+
+        dispatch(setQuestions(filteredQuestions));
+      } catch (error) {
+        console.error("Error al obtener preguntas:", error);
+      }
+    };
+
+    fetchQuestions();
+  }, [dispatch, selectedCategory]);
+
+  // Temporizador
   useEffect(() => {
     if (timeLeft > 0 && timerActive) {
       timerId.current = setInterval(() => {
-        setTimeLeft((prevTime) => prevTime - 1);
+        dispatch(setTimeLeft(timeLeft - 1));
       }, 1000);
     } else {
       clearInterval(timerId.current);
     }
-
     return () => clearInterval(timerId.current);
-  }, [timeLeft, timerActive]);
+  }, [timeLeft, timerActive, dispatch]);
 
   const formik = useFormik({
     initialValues: {
@@ -73,34 +109,31 @@ const InterviewSimulator = () => {
         return;
       }
 
-      setChatHistory([
-        ...chatHistory,
-        { type: "user", message: values.message },
-      ]);
+      dispatch(addChatMessage({ type: "user", message: values.message }));
 
       const nextQuestionIndex = currentQuestionIndex + 1;
 
-      if (nextQuestionIndex < preguntas.length) {
+      if (nextQuestionIndex < questions.length) {
         setTimeout(() => {
-          setChatHistory((prevHistory) => [
-            ...prevHistory,
-            { type: "bot", message: preguntas[nextQuestionIndex] },
-          ]);
-          setCurrentQuestionIndex(nextQuestionIndex);
-          setTimeLeft(60);
+          dispatch(
+            addChatMessage({
+              type: "bot",
+              message: questions[nextQuestionIndex].pregunta,
+            })
+          );
+          dispatch(nextQuestion());
+          dispatch(setTimeLeft(60));
         }, 1000);
       } else {
         setTimeout(() => {
-          setChatHistory((prevHistory) => [
-            ...prevHistory,
-            {
+          dispatch(
+            addChatMessage({
               type: "bot",
               message: "¡Gracias por participar en la entrevista!",
-            },
-          ]);
-          setShowModal(true);
-          setTimerActive(false);
-          setCurrentQuestionIndex(nextQuestionIndex);
+            })
+          );
+          dispatch(setShowModal(true));
+          dispatch(setTimerActive(false));
         }, 1000);
       }
 
@@ -108,56 +141,97 @@ const InterviewSimulator = () => {
     },
   });
 
+  const startInterview = () => {
+    dispatch(setHasStarted(true));
+    dispatch(setTimerActive(true));
+    if (questions.length > 0) {
+      dispatch(addChatMessage({ type: "bot", message: questions[0].pregunta }));
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-purple-100 p-4">
-      <h1 className="text-2xl font-bold text-center mb-6">
-        Bienvenido al simulador de entrevistas
-      </h1>
-      <button
-        className="mb-4 bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition"
-        onClick={() => setTimerActive(true)}
-      >
-        Iniciar Entrevista
-      </button>
-      <div className="bg-white rounded-lg shadow-lg p-6 max-w-4xl w-full">
+      <div className="bg-white rounded-lg shadow-lg p-16 max-w-4xl w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="flex flex-col items-center">
             <div className="w-40 h-40 bg-purple-300 rounded-full flex items-center justify-center">
-              <img
-                src={Entrevistador}
-                alt="Entrevista"
-                className="rounded-full"
+              <Player
+                autoplay
+                loop
+                src="https://lottie.host/afd8fdfd-8370-44aa-bd62-7be2f8909e42/tUDF2f2WZz.json"
+                style={{ height: "300px", width: "300px" }}
               />
             </div>
-            <p className="mt-4 text-xl bg-purple-500 text-white px-4 py-2 rounded-lg animate-pulse">
-              {`Tiempo restante: ${Math.floor(timeLeft / 60)}:${
-                timeLeft % 60 < 10 ? "0" : ""
-              }${timeLeft % 60}`}
-            </p>
-          </div>
-          <div className="bg-purple-200 p-4 rounded-lg">
-            <div className="h-64 overflow-y-auto p-4 space-y-4 bg-white rounded-lg shadow-inner">
-              {chatHistory.map((chat, index) => (
-                <div
-                  key={index}
-                  className={`flex ${
-                    chat.type === "bot" ? "justify-start" : "justify-end"
-                  }`}
-                >
-                  <div
-                    className={`${
-                      chat.type === "bot"
-                        ? "bg-purple-300 text-black"
-                        : "bg-purple-500 text-white"
-                    } p-2 rounded-lg my-2 max-w-xs`}
-                  >
-                    {chat.message}
-                  </div>
+
+            {hasStarted && (
+              <button
+                className="px-6 py-2 rounded-lg mt-16 mb-4 border border-color-1 text-color-3 hover:bg-[#ece1ff] hover:text-color-3 transition font-dosis"
+                disabled={true}
+              >
+                Entrevista Iniciada
+              </button>
+            )}
+
+            {hasStarted && (
+              <div className="relative w-1/2 bg-purple-200 rounded-full h-8 mt-6">
+                {/* Barra */}
+                <div className="absolute bg-color-1 h-8 w-full rounded-full animate-pulse"></div>
+                <div className="absolute inset-0 flex justify-center items-center">
+                  <p className="text-black text-sm font-dosis leading-none">
+                    {`Tiempo restante: ${Math.floor(timeLeft / 60)}:${
+                      timeLeft % 60 < 10 ? "0" : ""
+                    }${timeLeft % 60}`}
+                  </p>
                 </div>
-              ))}
+              </div>
+            )}
+          </div>
+
+          <div className="bg-purple-200 p-4 rounded-lg">
+            {/* Historial del chat */}
+            <div className="h-64 overflow-y-auto p-4 space-y-4 bg-white rounded-lg shadow-inner">
+              {!hasStarted ? (
+                <>
+                  <div className="flex justify-start">
+                    <div className="bg-purple-300 text-black p-2 rounded-lg my-2 max-w-xs relative before:content-[''] before:absolute before:top-2 before:left-[-10px] before:w-0 before:h-0 before:border-r-8 before:border-r-purple-300 before:border-t-8 before:border-t-transparent before:border-b-8 before:border-b-transparent">
+                      ¿Estás listo? presiona "Iniciar Entrevista" para comenzar.
+                    </div>
+                  </div>
+                  {/* Mostrar el botón debajo del mensaje cuando la entrevista no ha comenzado */}
+                  <div className="flex justify-center">
+                    <button
+                      onClick={startInterview}
+                      className="px-6 py-2 rounded-lg mt-4 mb-4 border border-color-1 text-color-3 hover:bg-[#ece1ff] hover:text-color-3 transition font-dosis"
+                      disabled={hasStarted}
+                    >
+                      Iniciar Entrevista
+                    </button>
+                  </div>
+                </>
+              ) : (
+                chatHistory.map((chat, index) => (
+                  <div
+                    key={index}
+                    className={`flex ${
+                      chat.type === "bot" ? "justify-start" : "justify-end"
+                    } animate__animated animate__fadeInUp`}
+                  >
+                    <div
+                      className={`relative p-2 rounded-lg my-2 max-w-xs shadow-md ${
+                        chat.type === "bot"
+                          ? "bg-purple-300 text-black before:content-[''] before:absolute before:top-2 before:left-[-10px] before:w-0 before:h-0 before:border-r-8 before:border-r-purple-300 before:border-t-8 before:border-t-transparent before:border-b-8 before:border-b-transparent"
+                          : "bg-purple-500 text-white before:content-[''] before:absolute before:top-2 before:right-[-10px] before:w-0 before:h-0 before:border-l-8 before:border-l-purple-500 before:border-t-8 before:border-t-transparent before:border-b-8 before:border-b-transparent"
+                      }`}
+                    >
+                      {chat.message}
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
 
-            {currentQuestionIndex < preguntas.length && (
+            {/* Formulario para respuestas */}
+            {hasStarted && currentQuestionIndex < questions.length && (
               <form onSubmit={formik.handleSubmit} className="mt-4">
                 <div className="flex items-center">
                   <input
@@ -186,43 +260,47 @@ const InterviewSimulator = () => {
             )}
           </div>
         </div>
-        <div className="flex items-center justify-center mt-6">
-          <div className="flex items-center bg-gradient-to-r from-purple-200 to-purple-300 text-black font-semibold px-4 py-2 rounded-full mr-2">
-            Tu Progreso en la Entrevista
+
+        {hasStarted && (
+          <div className="flex items-center justify-center mt-6">
+            <div className="flex items-center bg-gradient-to-r from-purple-200 to-purple-300 text-black font-semibold px-4 py-2 rounded-full mr-2">
+              Tu Progreso en la Entrevista
+            </div>
+            <div className="relative w-24 h-24 flex items-center justify-center bg-white rounded-full shadow-md border-4 border-purple-200">
+              <svg
+                viewBox="0 0 36 36"
+                className="w-full h-full transform -rotate-60"
+              >
+                <path
+                  className="text-purple-200 stroke-current"
+                  strokeWidth="4"
+                  fill="none"
+                  d="M18 2.0845
+              a 15.9155 15.9155 0 0 1 0 31.831
+              a 15.9155 15.9155 0 0 1 0 -31.831"
+                />
+                <path
+                  className="text-purple-600 stroke-current"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  strokeDasharray={`${
+                    (currentQuestionIndex / questions.length) * 100
+                  }, 100`}
+                  fill="none"
+                  d="M18 2.0845 
+              a 15.9155 15.9155 0 0 1 0 31.831
+              a 15.9155 15.9155 0 0 1 0 -31.831"
+                />
+              </svg>
+              <span className="absolute text-lg text-purple-700 font-bold">
+                {Math.floor((currentQuestionIndex / questions.length) * 100)}%
+              </span>
+            </div>
           </div>
-          <div className="relative w-24 h-24 flex items-center justify-center bg-white rounded-full shadow-md border-4 border-purple-200">
-            <svg
-              viewBox="0 0 36 36"
-              className="w-full h-full transform -rotate-60"
-            >
-              <path
-                className="text-purple-200 stroke-current"
-                strokeWidth="4"
-                fill="none"
-                d="M18 2.0845
-            a 15.9155 15.9155 0 0 1 0 31.831
-            a 15.9155 15.9155 0 0 1 0 -31.831"
-              />
-              <path
-                className="text-purple-600 stroke-current"
-                strokeWidth="4"
-                strokeLinecap="round"
-                strokeDasharray={`${
-                  (currentQuestionIndex / preguntas.length) * 100
-                }, 100`}
-                fill="none"
-                d="M18 2.0845 
-            a 15.9155 15.9155 0 0 1 0 31.831
-            a 15.9155 15.9155 0 0 1 0 -31.831"
-              />
-            </svg>
-            <span className="absolute inset-0 flex items-center justify-center text-xl font-bold text-purple-700">
-              {Math.round((currentQuestionIndex / preguntas.length) * 100)}%
-            </span>
-          </div>
-        </div>
+        )}
       </div>
 
+      {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-8 rounded-lg max-w-lg w-full relative">

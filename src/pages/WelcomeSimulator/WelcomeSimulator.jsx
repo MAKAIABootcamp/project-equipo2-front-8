@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSelectedCategory } from "../../redux/InterviewSimulator/InterviewSimulatorSlice";
 import backgroundImage from "../../assets/pexels-thirdman-5256825.jpg";
 import ilustration from "../../assets/Práctica.svg";
 import psicolaboral from "../../assets/psicolaboral.png";
@@ -8,6 +10,11 @@ import laboral from "../../assets/laboral.png";
 import chulo from "../../assets/Chulo.png";
 
 const WelcomeSimulator = () => {
+  const dispatch = useDispatch();
+
+  const handleCategoryClick = (categoria) => {
+    dispatch(setSelectedCategory(categoria));
+  };
   return (
     <div className="min-h-screen flex flex-col items-center bg-[#EBE2FF]">
       <div
@@ -98,6 +105,7 @@ const WelcomeSimulator = () => {
           </ul>
           <Link
             to="/interview"
+            onClick={() => handleCategoryClick("Psico laboral")}
             className="mt-8 font-dosis font-semibold text-lg inline-block bg-color-2 text-color-3 py-2 px-4 rounded-md hover:bg-[#EBE2FF] hover:text-black transition duration-300"
           >
             Comenzar entrevista
@@ -163,6 +171,7 @@ const WelcomeSimulator = () => {
           </ul>
           <Link
             to="/interview"
+            onClick={() => handleCategoryClick("Conocimiento técnico")}
             className="mt-8 font-dosis font-semibold  text-lg inline-block bg-color-2 text-color-3 py-2 px-4 rounded-md hover:bg-[#EBE2FF] hover:text-black transition duration-300"
           >
             Comenzar entrevista
@@ -229,6 +238,7 @@ const WelcomeSimulator = () => {
           </ul>
           <Link
             to="/interview"
+            onClick={() => handleCategoryClick("Experiencia laboral")}
             className="mt-8 font-dosis font-semibold  text-base md:text-lg inline-block bg-color-2 text-color-3 py-2 px-4 rounded-md hover:bg-[#EBE2FF] hover:text-black transition duration-300"
           >
             Comenzar entrevista
