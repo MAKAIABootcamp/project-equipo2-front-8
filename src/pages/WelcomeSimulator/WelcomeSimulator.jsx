@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { Player } from "@lottiefiles/react-lottie-player";
 import { setSelectedCategory } from "../../redux/InterviewSimulator/InterviewSimulatorSlice";
 import backgroundImage from "../../assets/pexels-thirdman-5256825.jpg";
-import ilustration from "../../assets/Práctica.svg";
 import psicolaboral from "../../assets/psicolaboral.png";
 import tecnica from "../../assets/tecnica.png";
 import laboral from "../../assets/laboral.png";
@@ -50,10 +50,12 @@ const WelcomeSimulator = () => {
               Psico Laboral
             </h3>
           </div>
-          <img
-            src={ilustration}
-            alt="Prueba"
-            className="mx-auto w-60 h-60 mb-8"
+          <Player
+            autoplay
+            loop
+            src="https://lottie.host/54565224-78c2-42d4-ac25-3fe430533c8b/skPUqaudBr.json"
+            style={{ width: "300px", height: "300px" }}
+            className="mb-4 mt-4"
           />
           <p className="mb-8 font-dosis font-medium text-lg">
             Evaluaremos tus habilidades interpersonales y tu adaptación a
@@ -116,10 +118,12 @@ const WelcomeSimulator = () => {
             <img src={tecnica} alt="Técnica" className="h-8 mr-2" />
             <h3 className="text-xl font-semibold font-montserrat">Técnica</h3>
           </div>
-          <img
-            src={ilustration}
-            alt="Prueba"
-            className="mx-auto w-60 h-60 mb-8"
+          <Player
+            autoplay
+            loop
+            src="https://lottie.host/bfc3a375-4c09-4aab-a205-75cbdcde9880/yVuIPqlojq.json"
+            style={{ width: "300px", height: "300px" }}
+            className="mb-4 mt-4"
           />
           <p className="mb-8 font-dosis font-medium text-lg">
             Analizaremos tus conocimientos específicos en el área.
@@ -184,10 +188,12 @@ const WelcomeSimulator = () => {
               Experiencia Laboral
             </h3>
           </div>
-          <img
-            src={ilustration}
-            alt="Prueba"
-            className="mx-auto w-60 h-60 mb-8"
+          <Player
+            autoplay
+            loop
+            src="https://lottie.host/0622fd56-6a3d-4547-ac63-c7bb1b27fe38/Vbozsp90n3.json"
+            style={{ width: "300px", height: "300px" }}
+            className="mb-4 mt-4"
           />
           <p className="mb-8 font-dosis font-medium text-lg">
             Revisaremos tus proyectos personales y experiencia práctica.
