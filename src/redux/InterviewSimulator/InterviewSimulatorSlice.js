@@ -1,4 +1,27 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { collection, getDocs } from 'firebase/firestore';
+import { database } from '../../Firebase/firebaseConfig';
+
+export const fetchQuestions = createAsyncThunk(
+  'interview/fetchQuestions',
+  async (selectedCategory) => {
+    const querySnapshot = await getDocs(collection(database, "preguntas"));
+    const questionsData = querySnapshot.docs.map(doc => doc.data());
+    
+    // Filtro de preguntas por categoría seleccionada
+    const filteredQuestions = questionsData.filter(
+      question => question.categoria === selectedCategory
+    );
+
+    // Mezclar las preguntas filtradas de manera aleatoria
+    const shuffledQuestions = filteredQuestions.sort(() => 0.5 - Math.random());
+
+    // Seleccionar las primeras 10 preguntas de la lista mezclada
+    const selectedQuestions = shuffledQuestions.slice(0, 10);
+
+    return selectedQuestions;
+  }
+);
 
 const initialState = {
   selectedCategory: null,
@@ -9,17 +32,16 @@ const initialState = {
   timerActive: false,
   showModal: false,
   hasStarted: false,
+  status: 'idle',
+  error: null,
 };
 
-const interviewSlice = createSlice({
+const interviewSimulatorSlice = createSlice({
   name: 'interview',
   initialState,
   reducers: {
     setSelectedCategory: (state, action) => {
       state.selectedCategory = action.payload;
-    },
-    setQuestions: (state, action) => {
-      state.questions = action.payload;
     },
     nextQuestion: (state) => {
       state.currentQuestionIndex += 1;
@@ -40,6 +62,17 @@ const interviewSlice = createSlice({
       state.hasStarted = action.payload;
     },
     resetInterview: (state) => {
+      state.selectedCategory = null;
+      state.questions = [];
+      state.currentQuestionIndex = 0;
+      state.chatHistory = [];
+      state.timeLeft = 60;
+      state.timerActive = false;
+      state.showModal = false;
+      state.hasStarted = false;
+    },
+    resetInterviewState: (state) => {
+      state.questions = [];
       state.currentQuestionIndex = 0;
       state.chatHistory = [];
       state.timeLeft = 60;
@@ -48,11 +81,24 @@ const interviewSlice = createSlice({
       state.showModal = false;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchQuestions.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchQuestions.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.questions = action.payload;
+      })
+      .addCase(fetchQuestions.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
+  },
 });
 
 export const {
   setSelectedCategory,
-  setQuestions,
   nextQuestion,
   addChatMessage,
   setTimeLeft,
@@ -60,6 +106,7 @@ export const {
   setShowModal,
   setHasStarted,
   resetInterview,
-} = interviewSlice.actions;
+  resetInterviewState,
+} = interviewSimulatorSlice.actions;
 
-export default interviewSlice.reducer;
+export default interviewSimulatorSlice.reducer;

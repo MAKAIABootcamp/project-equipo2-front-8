@@ -1,21 +1,25 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Swal from "sweetalert2";
 import { Player } from "@lottiefiles/react-lottie-player";
+import { SlArrowLeft } from "react-icons/sl";
 import { useDispatch, useSelector } from "react-redux";
 import imgModal from "../../assets/felicidades.svg";
 import {
-  setQuestions,
+  fetchQuestions,
   nextQuestion,
   addChatMessage,
   setTimeLeft,
   setTimerActive,
   setShowModal,
   setHasStarted,
+  resetInterview,
+  resetInterviewState,
 } from "../../redux/InterviewSimulator/InterviewSimulatorSlice";
-import { collection, getDocs } from "firebase/firestore";
-import { database } from "../../Firebase/firebaseConfig";
+import { useNavigate } from "react-router-dom";
+import InterviewProgress from "../../components/InterviewProgress/InterviewProgress";
+import Timer from "../../components/Timer/Timer";
+import ChatHistory from "./../../components/ChatHistory/ChatHistory";
 
 const feedbackRecomendaciones = [
   "Ser más específico en tus respuestas.",
@@ -26,6 +30,7 @@ const feedbackRecomendaciones = [
 
 const InterviewSimulator = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     selectedCategory,
     questions,
@@ -39,31 +44,19 @@ const InterviewSimulator = () => {
 
   const timerId = useRef(null);
 
-  // Fetch questions from Firebase and filter by selected category
+  const handleBackToCategories = () => {
+    dispatch(resetInterview());
+    navigate("/practica");
+  };
+
+ 
   useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(database, "preguntas"));
-
-        const questionsData = querySnapshot.docs.map((doc) => doc.data());
-        if (!selectedCategory) {
-          console.log("No hay categoría seleccionada");
-          return;
-        }
-
-        // Filtrar las preguntas por la categoría seleccionada
-        const filteredQuestions = questionsData.filter(
-          (question) => question.categoria === selectedCategory
-        );
-
-        dispatch(setQuestions(filteredQuestions));
-      } catch (error) {
-        console.error("Error al obtener preguntas:", error);
-      }
-    };
-
-    fetchQuestions();
+    if (selectedCategory) {
+      dispatch(fetchQuestions(selectedCategory));
+    }
   }, [dispatch, selectedCategory]);
+
+  const [showRetryModal, setShowRetryModal] = useState(false);
 
   // Temporizador
   useEffect(() => {
@@ -71,8 +64,9 @@ const InterviewSimulator = () => {
       timerId.current = setInterval(() => {
         dispatch(setTimeLeft(timeLeft - 1));
       }, 1000);
-    } else {
+    } else if (timeLeft === 0) {
       clearInterval(timerId.current);
+      setShowRetryModal(true);
     }
     return () => clearInterval(timerId.current);
   }, [timeLeft, timerActive, dispatch]);
@@ -99,59 +93,70 @@ const InterviewSimulator = () => {
     validateOnBlur: timerActive,
     validateOnChange: timerActive,
     onSubmit: (values, { resetForm }) => {
-      if (!timerActive) {
-        Swal.fire({
-          icon: "warning",
-          title: "¡Atención!",
-          text: "Debes iniciar la entrevista antes de responder.",
-          confirmButtonColor: "#6366F1",
-        });
-        return;
-      }
-
       dispatch(addChatMessage({ type: "user", message: values.message }));
 
       const nextQuestionIndex = currentQuestionIndex + 1;
 
       if (nextQuestionIndex < questions.length) {
-        setTimeout(() => {
-          dispatch(
-            addChatMessage({
-              type: "bot",
-              message: questions[nextQuestionIndex].pregunta,
-            })
-          );
-          dispatch(nextQuestion());
-          dispatch(setTimeLeft(60));
-        }, 1000);
+        dispatch(nextQuestion());
+
+        dispatch(setTimeLeft(60));
+
+        dispatch(
+          addChatMessage({
+            type: "bot",
+            message: questions[nextQuestionIndex].pregunta,
+          })
+        );
       } else {
-        setTimeout(() => {
-          dispatch(
-            addChatMessage({
-              type: "bot",
-              message: "¡Gracias por participar en la entrevista!",
-            })
-          );
-          dispatch(setShowModal(true));
-          dispatch(setTimerActive(false));
-        }, 1000);
+        dispatch(setShowModal(true)); // Mostrar el modal de finalización
+        dispatch(setTimerActive(false)); // Detener el temporizador
       }
 
       resetForm();
     },
   });
 
-  const startInterview = () => {
+  const startInterview = async () => {
+    let loadedQuestions = questions;
+
+    if (loadedQuestions.length === 0) {
+      const response = await dispatch(fetchQuestions(selectedCategory));
+
+      if (response && response.payload && response.payload.length > 0) {
+        loadedQuestions = response.payload;
+      } else {
+        alert("No hay preguntas disponibles para esta entrevista.");
+        return;
+      }
+    }
+
     dispatch(setHasStarted(true));
     dispatch(setTimerActive(true));
-    if (questions.length > 0) {
-      dispatch(addChatMessage({ type: "bot", message: questions[0].pregunta }));
-    }
+
+    dispatch(
+      addChatMessage({ type: "bot", message: loadedQuestions[0].pregunta })
+    );
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-purple-100 p-4">
+      <div className="absolute top-20 left-0">
+        <SlArrowLeft
+          onClick={() => {
+            dispatch(resetInterview());
+            navigate("/practica");
+          }}
+          className="h-8 text-color-1 md:ml-3 md:mt-4 mt-3 ml-2 cursor-pointer md:text-5xl text-2xl"
+        />
+      </div>
       <div className="bg-white rounded-lg shadow-lg p-16 max-w-4xl w-full">
+        {/* H1 dentro del contenedor */}
+        {selectedCategory && (
+          <h1 className="text-2xl font-bold text-center mb-12">
+            Entrevista {selectedCategory}
+          </h1>
+        )}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="flex flex-col items-center">
             <div className="w-40 h-40 bg-purple-300 rounded-full flex items-center justify-center">
@@ -166,69 +171,22 @@ const InterviewSimulator = () => {
             {hasStarted && (
               <button
                 className="px-6 py-2 rounded-lg mt-16 mb-4 border border-color-1 text-color-3 hover:bg-[#ece1ff] hover:text-color-3 transition font-dosis"
-                disabled={true}
+                onClick={handleBackToCategories}
               >
-                Entrevista Iniciada
+                Cambiar entrevista
               </button>
             )}
 
-            {hasStarted && (
-              <div className="relative w-1/2 bg-purple-200 rounded-full h-8 mt-6">
-                {/* Barra */}
-                <div className="absolute bg-color-1 h-8 w-full rounded-full animate-pulse"></div>
-                <div className="absolute inset-0 flex justify-center items-center">
-                  <p className="text-black text-sm font-dosis leading-none">
-                    {`Tiempo restante: ${Math.floor(timeLeft / 60)}:${
-                      timeLeft % 60 < 10 ? "0" : ""
-                    }${timeLeft % 60}`}
-                  </p>
-                </div>
-              </div>
-            )}
+            {hasStarted && <Timer timeLeft={timeLeft} />}
           </div>
 
           <div className="bg-purple-200 p-4 rounded-lg">
             {/* Historial del chat */}
-            <div className="h-64 overflow-y-auto p-4 space-y-4 bg-white rounded-lg shadow-inner">
-              {!hasStarted ? (
-                <>
-                  <div className="flex justify-start">
-                    <div className="bg-purple-300 text-black p-2 rounded-lg my-2 max-w-xs relative before:content-[''] before:absolute before:top-2 before:left-[-10px] before:w-0 before:h-0 before:border-r-8 before:border-r-purple-300 before:border-t-8 before:border-t-transparent before:border-b-8 before:border-b-transparent">
-                      ¿Estás listo? presiona "Iniciar Entrevista" para comenzar.
-                    </div>
-                  </div>
-                  {/* Mostrar el botón debajo del mensaje cuando la entrevista no ha comenzado */}
-                  <div className="flex justify-center">
-                    <button
-                      onClick={startInterview}
-                      className="px-6 py-2 rounded-lg mt-4 mb-4 border border-color-1 text-color-3 hover:bg-[#ece1ff] hover:text-color-3 transition font-dosis"
-                      disabled={hasStarted}
-                    >
-                      Iniciar Entrevista
-                    </button>
-                  </div>
-                </>
-              ) : (
-                chatHistory.map((chat, index) => (
-                  <div
-                    key={index}
-                    className={`flex ${
-                      chat.type === "bot" ? "justify-start" : "justify-end"
-                    } animate__animated animate__fadeInUp`}
-                  >
-                    <div
-                      className={`relative p-2 rounded-lg my-2 max-w-xs shadow-md ${
-                        chat.type === "bot"
-                          ? "bg-purple-300 text-black before:content-[''] before:absolute before:top-2 before:left-[-10px] before:w-0 before:h-0 before:border-r-8 before:border-r-purple-300 before:border-t-8 before:border-t-transparent before:border-b-8 before:border-b-transparent"
-                          : "bg-purple-500 text-white before:content-[''] before:absolute before:top-2 before:right-[-10px] before:w-0 before:h-0 before:border-l-8 before:border-l-purple-500 before:border-t-8 before:border-t-transparent before:border-b-8 before:border-b-transparent"
-                      }`}
-                    >
-                      {chat.message}
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
+            <ChatHistory
+              chatHistory={chatHistory}
+              hasStarted={hasStarted}
+              startInterview={startInterview}
+            />
 
             {/* Formulario para respuestas */}
             {hasStarted && currentQuestionIndex < questions.length && (
@@ -262,40 +220,11 @@ const InterviewSimulator = () => {
         </div>
 
         {hasStarted && (
-          <div className="flex items-center justify-center mt-6">
-            <div className="flex items-center bg-gradient-to-r from-purple-200 to-purple-300 text-black font-semibold px-4 py-2 rounded-full mr-2">
-              Tu Progreso en la Entrevista
-            </div>
-            <div className="relative w-24 h-24 flex items-center justify-center bg-white rounded-full shadow-md border-4 border-purple-200">
-              <svg
-                viewBox="0 0 36 36"
-                className="w-full h-full transform -rotate-60"
-              >
-                <path
-                  className="text-purple-200 stroke-current"
-                  strokeWidth="4"
-                  fill="none"
-                  d="M18 2.0845
-              a 15.9155 15.9155 0 0 1 0 31.831
-              a 15.9155 15.9155 0 0 1 0 -31.831"
-                />
-                <path
-                  className="text-purple-600 stroke-current"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                  strokeDasharray={`${
-                    (currentQuestionIndex / questions.length) * 100
-                  }, 100`}
-                  fill="none"
-                  d="M18 2.0845 
-              a 15.9155 15.9155 0 0 1 0 31.831
-              a 15.9155 15.9155 0 0 1 0 -31.831"
-                />
-              </svg>
-              <span className="absolute text-lg text-purple-700 font-bold">
-                {Math.floor((currentQuestionIndex / questions.length) * 100)}%
-              </span>
-            </div>
+          <div>
+            <InterviewProgress
+              currentQuestionIndex={currentQuestionIndex}
+              questionsLength={questions.length}
+            />
           </div>
         )}
       </div>
@@ -309,7 +238,7 @@ const InterviewSimulator = () => {
               className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
               onClick={() => {
                 setShowModal(false);
-                window.location.reload();
+                navigate("/practica");
               }}
             >
               ✖
@@ -343,12 +272,55 @@ const InterviewSimulator = () => {
               <button
                 className="bg-purple-500 text-white px-6 py-2 rounded hover:bg-purple-600 transition"
                 onClick={() => {
+                  dispatch(resetInterviewState());
+                  dispatch(fetchQuestions(selectedCategory));
                   setShowModal(false);
-                  window.location.reload();
                 }}
               >
                 Reintentar
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showRetryModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-8 rounded-lg max-w-lg w-full relative">
+            <h2 className="text-2xl font-bold mb-4 text-center">
+              El tiempo para responder ha terminado.
+            </h2>
+            <div className="text-center mb-4">
+              <p>
+                ¿Deseas reintentar la pregunta o continuar con la siguiente?
+              </p>
+              <div className="flex justify-center space-x-4 mt-4">
+                <button
+                  className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition"
+                  onClick={() => {
+                    setShowRetryModal(false);
+                    dispatch(setTimeLeft(60));
+                  }}
+                >
+                  Reintentar
+                </button>
+                <button
+                  className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
+                  onClick={() => {
+                    setShowRetryModal(false);
+                    dispatch(nextQuestion());
+                    dispatch(setTimeLeft(60));
+                    dispatch(
+                      addChatMessage({
+                        type: "bot",
+                        message: questions[currentQuestionIndex + 1].pregunta, 
+                      })
+                    );
+                  }}
+                >
+                  Continuar
+                </button>
+              </div>
             </div>
           </div>
         </div>
