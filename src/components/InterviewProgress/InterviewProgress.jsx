@@ -1,10 +1,11 @@
 import { useMemo } from "react";
 import PropTypes from 'prop-types';
 
-const InterviewProgress = ({ currentQuestionIndex, questionsLength }) => {
-    const progress = useMemo(() => {
-      return Math.floor((currentQuestionIndex / questionsLength) * 100);
-    }, [currentQuestionIndex, questionsLength]);
+const InterviewProgress = ({ answeredQuestions, questionsLength }) => {
+  const progress = useMemo(() => {
+    if (questionsLength === 0) return 0;
+    return Math.floor((answeredQuestions / questionsLength) * 100);
+  }, [answeredQuestions, questionsLength]);
   
     return (
       <div className="flex items-center justify-center mt-6">
@@ -37,7 +38,7 @@ const InterviewProgress = ({ currentQuestionIndex, questionsLength }) => {
   };
 
 InterviewProgress.propTypes = {
-    currentQuestionIndex: PropTypes.number.isRequired,
+  answeredQuestions: PropTypes.number.isRequired,
     questionsLength: PropTypes.number.isRequired,
   };
 

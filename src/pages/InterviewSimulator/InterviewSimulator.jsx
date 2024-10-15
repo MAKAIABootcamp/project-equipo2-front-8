@@ -71,6 +71,8 @@ const InterviewSimulator = () => {
     return () => clearInterval(timerId.current);
   }, [timeLeft, timerActive, dispatch]);
 
+  const [answeredQuestions, setAnsweredQuestions] = useState(0);
+
   const formik = useFormik({
     initialValues: {
       message: "",
@@ -98,8 +100,8 @@ const InterviewSimulator = () => {
       const nextQuestionIndex = currentQuestionIndex + 1;
 
       if (nextQuestionIndex < questions.length) {
+        setAnsweredQuestions(prevCount => prevCount + 1);
         dispatch(nextQuestion());
-
         dispatch(setTimeLeft(60));
 
         dispatch(
@@ -109,8 +111,9 @@ const InterviewSimulator = () => {
           })
         );
       } else {
-        dispatch(setShowModal(true)); // Mostrar el modal de finalización
-        dispatch(setTimerActive(false)); // Detener el temporizador
+        setAnsweredQuestions(prevCount => prevCount + 1);
+        dispatch(setShowModal(true)); 
+        dispatch(setTimerActive(false)); 
       }
 
       resetForm();
@@ -222,7 +225,7 @@ const InterviewSimulator = () => {
         {hasStarted && (
           <div>
             <InterviewProgress
-              currentQuestionIndex={currentQuestionIndex}
+              answeredQuestions={answeredQuestions}
               questionsLength={questions.length}
             />
           </div>
@@ -239,6 +242,7 @@ const InterviewSimulator = () => {
               onClick={() => {
                 dispatch(resetInterviewState());
                 dispatch(fetchQuestions(selectedCategory));
+                setAnsweredQuestions(0);
                 setShowModal(false);
                 navigate("/practica");
               }}
@@ -276,6 +280,7 @@ const InterviewSimulator = () => {
                 onClick={() => {
                   dispatch(resetInterviewState());
                   dispatch(fetchQuestions(selectedCategory));
+                  setAnsweredQuestions(0);
                   setShowModal(false);
                 }}
               >
@@ -310,6 +315,7 @@ const InterviewSimulator = () => {
                   className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
                   onClick={() => {
                     setShowRetryModal(false);
+                    setAnsweredQuestions((prevCount) => prevCount + 1);
                     dispatch(nextQuestion());
                     dispatch(setTimeLeft(60));
                     dispatch(
