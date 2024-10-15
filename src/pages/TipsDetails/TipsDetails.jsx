@@ -51,7 +51,7 @@ const TipsDetails = () => {
         <h1 className='font-montserrat font-bold text-4xl py-3'>{tip.categoria}</h1>
         <p className='font-dosis py-3'>Recuerda que estas habilidades son diversas, así que ten en cuenta lo siguiente:</p>
       </section>
-      <section className='bg-gradient-to-r from-color-2 to-color-1'>
+      <section className='bg-gradient-to-r from-color-2 to-[#B699FF]'>
         <div className='md:p-20 p-10'>
           <section className='bg-white flex flex-col rounded-t-2xl items-center justify-around md:flex-row md:justify-around md:items-center'>
             <div className='md:py-20 py-5 md:px-0 px-6 basis-1/3 text-color-3'>
