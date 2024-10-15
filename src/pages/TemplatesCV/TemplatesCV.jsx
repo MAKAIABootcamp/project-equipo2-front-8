@@ -192,7 +192,7 @@ const Templates = () => {
                 />
                 <a
                   href={template.downloadURL}
-                  className="bg-color-1 text-white py-2 px-4 rounded-lg shadow-md hover:bg-purple-700 transition-transform transform hover:scale-105"
+                  className="px-6 py-2 rounded-lg mt-4 mb-4 border border-color-1 text-color-3 hover:bg-[#ece1ff] hover:text-color-3 transition font-dosis"
                 >
                   Descargar
                 </a>
