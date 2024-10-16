@@ -1,16 +1,24 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { collection, getDocs } from 'firebase/firestore';
-import { database } from '../../Firebase/firebaseConfig';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  getDoc,
+  setDoc,
+} from "firebase/firestore";
+import { database } from "../../Firebase/firebaseConfig";
+import { analyzeInterviewResponse } from "../../services/openIAService";
 
 export const fetchQuestions = createAsyncThunk(
-  'interview/fetchQuestions',
+  "interview/fetchQuestions",
   async (selectedCategory) => {
     const querySnapshot = await getDocs(collection(database, "preguntas"));
-    const questionsData = querySnapshot.docs.map(doc => doc.data());
-    
+    const questionsData = querySnapshot.docs.map((doc) => doc.data());
+
     // Filtro de preguntas por categoría seleccionada
     const filteredQuestions = questionsData.filter(
-      question => question.categoria === selectedCategory
+      (question) => question.categoria === selectedCategory
     );
 
     // Mezclar las preguntas filtradas de manera aleatoria
@@ -23,21 +31,152 @@ export const fetchQuestions = createAsyncThunk(
   }
 );
 
+// // Acción asíncrona para analizar la respuesta
+// export const analyzeAnswer = createAsyncThunk(
+//   "interview/analyzeAnswer",
+//   async ({ question, response, idIntento }) => {
+//     let feedbacks = [];
+//     const feedback = await analyzeInterviewResponse(question, response);
+//     const feedbackRef = doc(database, "feedbacks", idIntento);
+
+//     const feedbackDoc = await getDoc(feedbackRef);
+
+//     if (feedbackDoc.exists()) {
+//       feedbacks = [...feedbackDoc.data(), feedback];
+//     } else {
+//       feedbacks.push(feedback);
+//     }
+
+//     await setDoc(feedbackRef, feedbacks);
+
+//     return {
+//       id: idIntento,
+//       feedback: feedbacks,
+//     };
+//   }
+// );
+
+const analyzeAnswer = async ({ question, response, idIntento }) => {
+  let feedbacks = null;
+  const feedback = await analyzeInterviewResponse(question, response);
+  const feedbackRef = doc(database, "feedbacks", idIntento);
+
+  const feedbackDoc = await getDoc(feedbackRef);
+
+  if (feedbackDoc.exists()) {
+    // feedbacks = [...feedbackDoc.data(), feedback];
+    feedbacks = {
+      feedback: [...feedbackDoc.data().feedback, feedback],
+    };
+  } else {
+    feedbacks = {
+      feedback: [feedback],
+    };
+  }
+
+  await setDoc(feedbackRef, feedbacks);
+
+  return {
+    id: idIntento,
+    feedback: feedbacks,
+  };
+};
+
+export const createChatHistory = createAsyncThunk(
+  "interview/createChatHistory",
+  async ({ question, response, category }, { rejectWithValue }) => {
+    const chatHistory = {
+      sesion: [
+        {
+          question,
+          response,
+          category,
+        },
+      ],
+    };
+    console.log(chatHistory);
+    try {
+      const simulationRef = await addDoc(
+        collection(database, "intentos"),
+        chatHistory
+      );
+      const result = await analyzeAnswer({
+        question,
+        response,
+        idIntento: simulationRef.id,
+      });
+
+      return {
+        message: {
+          id: simulationRef.id,
+          chatHistory: chatHistory.sesion,
+        },
+        feedback: {
+          id: simulationRef.id,
+          feedback: result,
+        },
+      };
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateChatHistory = createAsyncThunk(
+  "interview/updateChatHistory",
+  async ({ question, response, category, idIntento }, { rejectWithValue }) => {
+    console.log({ question, response, category, idIntento });
+    let intentos = [];
+    try {
+      const intentosRef = doc(database, "intentos", idIntento);
+      const intentoDoc = await getDoc(intentosRef);
+
+      if (intentoDoc.exists()) {
+        const sesion = { ...intentoDoc.data() };
+        intentos = [...sesion.sesion, { question, response, category }];
+        await setDoc(intentosRef, { sesion: intentos });
+
+        const result = await analyzeAnswer({
+          question,
+          response,
+          idIntento,
+        });
+
+        return {
+          message: {
+            id: idIntento,
+            chatHistory: intentos,
+          },
+          feedback: { id: idIntento, feedback: result },
+        };
+      } else {
+        throw new Error("Intento no encontrado en la base de datos");
+      }
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const initialState = {
   selectedCategory: null,
   questions: [],
   currentQuestionIndex: 0,
   chatHistory: [],
+  messages: null,
+  feedbacks: null,
   timeLeft: 60,
   timerActive: false,
   showModal: false,
   hasStarted: false,
-  status: 'idle',
+  status: "idle",
   error: null,
 };
 
 const interviewSimulatorSlice = createSlice({
-  name: 'interview',
+  name: "interview",
   initialState,
   reducers: {
     setSelectedCategory: (state, action) => {
@@ -84,16 +223,51 @@ const interviewSimulatorSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchQuestions.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(fetchQuestions.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = "succeeded";
         state.questions = action.payload;
       })
       .addCase(fetchQuestions.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(createChatHistory.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.messages = action.payload.message;
+        state.feedbacks = action.payload.feedback;
+      })
+      .addCase(createChatHistory.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(createChatHistory.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateChatHistory.fulfilled, (state, action) => {
+        state.status = "succeeded";
+         state.messages = action.payload.message;
+         state.feedbacks = action.payload.feedback;
+      })
+      .addCase(updateChatHistory.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(updateChatHistory.pending, (state) => {
+        state.status = "loading";
       });
+    // .addCase(analyzeAnswer.fulfilled, (state, action) => {
+    //   state.status = "succeeded";
+    //   state.feedbacks = action.payload;
+    // })
+    // .addCase(analyzeAnswer.rejected, (state, action) => {
+    //   state.status = "failed";
+    //   state.error = action.error.message;
+    // })
+    // .addCase(analyzeAnswer.pending, (state) => {
+    //   state.status = "loading";
+    // });
   },
 });
 

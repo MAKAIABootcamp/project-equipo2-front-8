@@ -8,13 +8,15 @@ import imgModal from "../../assets/felicidades.svg";
 import {
   fetchQuestions,
   nextQuestion,
-  addChatMessage,
   setTimeLeft,
   setTimerActive,
+  addChatMessage,
   setShowModal,
   setHasStarted,
   resetInterview,
   resetInterviewState,
+  createChatHistory,
+  updateChatHistory,
 } from "../../redux/InterviewSimulator/InterviewSimulatorSlice";
 import { useNavigate } from "react-router-dom";
 import InterviewProgress from "../../components/InterviewProgress/InterviewProgress";
@@ -40,6 +42,7 @@ const InterviewSimulator = () => {
     timerActive,
     showModal,
     hasStarted,
+    messages
   } = useSelector((state) => state.interview);
 
   const timerId = useRef(null);
@@ -49,7 +52,6 @@ const InterviewSimulator = () => {
     navigate("/practica");
   };
 
- 
   useEffect(() => {
     if (selectedCategory) {
       dispatch(fetchQuestions(selectedCategory));
@@ -99,8 +101,28 @@ const InterviewSimulator = () => {
 
       const nextQuestionIndex = currentQuestionIndex + 1;
 
+      if (Number(nextQuestionIndex) === 1) {
+        dispatch(
+          createChatHistory({
+            question: questions[currentQuestionIndex].pregunta,
+            category: questions[currentQuestionIndex].categoria,
+            response: values.message,
+          })
+        );
+      }
+      if (Number(nextQuestionIndex) > 1) {
+        dispatch(
+          updateChatHistory({
+            idIntento: messages?.id||"",
+            question: questions[currentQuestionIndex].pregunta,
+            category: questions[currentQuestionIndex].categoria,
+            response: values.message,
+          })
+        );
+      }
+
       if (nextQuestionIndex < questions.length) {
-        setAnsweredQuestions(prevCount => prevCount + 1);
+        setAnsweredQuestions((prevCount) => prevCount + 1);
         dispatch(nextQuestion());
         dispatch(setTimeLeft(60));
 
@@ -111,9 +133,9 @@ const InterviewSimulator = () => {
           })
         );
       } else {
-        setAnsweredQuestions(prevCount => prevCount + 1);
-        dispatch(setShowModal(true)); 
-        dispatch(setTimerActive(false)); 
+        setAnsweredQuestions((prevCount) => prevCount + 1);
+        dispatch(setShowModal(true));
+        dispatch(setTimerActive(false));
       }
 
       resetForm();
@@ -124,7 +146,7 @@ const InterviewSimulator = () => {
     let loadedQuestions = questions;
 
     if (loadedQuestions.length === 0) {
-      const response = await dispatch(fetchQuestions(selectedCategory));
+      const response = dispatch(fetchQuestions(selectedCategory));
 
       if (response && response.payload && response.payload.length > 0) {
         loadedQuestions = response.payload;
@@ -321,7 +343,7 @@ const InterviewSimulator = () => {
                     dispatch(
                       addChatMessage({
                         type: "bot",
-                        message: questions[currentQuestionIndex + 1].pregunta, 
+                        message: questions[currentQuestionIndex + 1].pregunta,
                       })
                     );
                   }}
