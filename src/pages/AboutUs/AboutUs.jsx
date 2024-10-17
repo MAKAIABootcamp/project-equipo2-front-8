@@ -42,9 +42,9 @@ const AboutUs = () => {
   ];
 
   return (
-    <div className="bg-color-2">
+    <div className="bg-[#F1F1F1] pb-6">
       {/* Header */}
-      <header className="text-center py-6 bg-color-2">
+      <header className="text-center py-6">
         <h1 className="text-4xl font-bold text-color-5">Acerca de nosotros</h1>
         <p className="text-lg text-color-1 mt-2">
           Conoce al equipo de SkillMate
@@ -54,7 +54,7 @@ const AboutUs = () => {
       {/* Main Content */}
       <main>
         {/* Proyecto */}
-        <article className="max-w-4xl mx-auto p-6 my-6 bg-color-2 rounded-lg shadow-md">
+        <article className="max-w-4xl mx-auto p-6 my-6 bg-white rounded-lg shadow-md">
           <h2 className="text-2xl font-bold text-color-5">Nuestro Proyecto</h2>
           <p className="text-color-3 mt-4">
             SkillMate ayuda a jóvenes y adultos en Colombia a mejorar sus
@@ -63,7 +63,7 @@ const AboutUs = () => {
         </article>
 
         {/* Equipo */}
-        <section className="max-w-4xl mx-auto p-6 my-6 bg-color-2 rounded-lg shadow-md">
+        <section className="max-w-4xl mx-auto p-6 my-6 bg-white rounded-lg shadow-md">
           <h2 className="text-2xl font-bold text-color-5 text-center">
             Nuestro equipo
           </h2>
@@ -95,7 +95,7 @@ const AboutUs = () => {
                 className="flex justify-center items-center"
               >
                 <div
-                  className="bg-color-2 shadow-lg rounded-lg p-4 w-60 h-60 flex flex-col items-center transition-transform duration-300 hover:scale-105"
+                  className="bg-white shadow-lg rounded-lg p-4 w-60 h-60 flex flex-col items-center transition-transform duration-300 hover:scale-105"
                   onMouseEnter={handleMouseEnter} // Detiene el autoplay al pasar el mouse
                   onMouseLeave={handleMouseLeave} // Reinicia el autoplay al quitar el mouse
                 >
@@ -119,7 +119,7 @@ const AboutUs = () => {
         </section>
 
         {/* Valores */}
-        <article className="max-w-4xl mx-auto p-6 my-6 bg-color-2 rounded-lg shadow-md">
+        <article className="max-w-4xl mx-auto p-6 mt-6 bg-white rounded-lg shadow-md">
           <h2 className="text-2xl font-bold text-color-5">Nuestros valores</h2>
           <p className="text-color-3 mt-4">
             Nos guiamos por la colaboración, la creatividad y la inclusión.
