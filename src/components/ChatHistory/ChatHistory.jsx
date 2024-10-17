@@ -19,7 +19,7 @@ const ChatHistory = ({ chatHistory, hasStarted, startInterview }) => {
         <>
           <div className="flex justify-start">
             <div className="bg-purple-300 text-black p-2 rounded-lg my-2 max-w-xs relative before:content-[''] before:absolute before:top-2 before:left-[-10px] before:w-0 before:h-0 before:border-r-8 before:border-r-purple-300 before:border-t-8 before:border-t-transparent before:border-b-8 before:border-b-transparent">
-              ¿Estás listo? Presiona "Iniciar Entrevista" para comenzar.
+              {'¿Estás listo? Presiona "Iniciar Entrevista" para comenzar.'}
             </div>
           </div>
           <div className="flex justify-center">
