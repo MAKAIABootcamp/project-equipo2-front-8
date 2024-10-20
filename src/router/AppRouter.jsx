@@ -18,6 +18,7 @@ import TemplatesCV from "../pages/TemplatesCV/TemplatesCV";
 import InterviewSimulator from "../pages/InterviewSimulator/InterviewSimulator";
 import WelcomeSimulator from "../pages/WelcomeSimulator/WelcomeSimulator";
 import AboutUs  from "../pages/AboutUs/AboutUs";
+import Retroalimentacion from "../pages/Retroalimentacion/Retroalimentacion";
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ const AppRouter = () => {
             <Route path="tipsDetails/:id" element={<TipsDetails />} />
             <Route path="plantillas" element={<TemplatesCV />} />
             <Route path="about" element={<AboutUs />} />
+            <Route path="retroalimentacion" element={<Retroalimentacion />} />
           </Route>
           <Route element={<PublicRoutes isAuthenticated={isAuthenticated} />} >
             <Route path="register" element={<Register />} />
