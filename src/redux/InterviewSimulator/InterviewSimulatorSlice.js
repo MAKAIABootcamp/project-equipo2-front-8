@@ -106,6 +106,8 @@ export const createChatHistory = createAsyncThunk(
         idIntento: simulationRef.id,
       });
 
+      console.log(result);
+
       return {
         message: {
           id: simulationRef.id,
@@ -113,7 +115,10 @@ export const createChatHistory = createAsyncThunk(
         },
         feedback: {
           id: simulationRef.id,
-          feedback: result,
+          feedback: {
+            id: result.id,
+            feedback: result.feedback,
+          },
         },
       };
     } catch (error) {
@@ -148,7 +153,13 @@ export const updateChatHistory = createAsyncThunk(
             id: idIntento,
             chatHistory: intentos,
           },
-          feedback: { id: idIntento, feedback: result },
+          feedback: {
+            id: idIntento,
+            feedback: {
+              id: result.id,
+              feedback: result.feedback,
+            },
+          },
         };
       } else {
         throw new Error("Intento no encontrado en la base de datos");
@@ -236,7 +247,10 @@ const interviewSimulatorSlice = createSlice({
       .addCase(createChatHistory.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.messages = action.payload.message;
-        state.feedbacks = action.payload.feedback;
+        state.feedbacks = {
+          id: action.payload.feedback.id,
+          feedback: action.payload.feedback.feedback.feedback.feedback,
+        };
       })
       .addCase(createChatHistory.rejected, (state, action) => {
         state.status = "failed";
@@ -247,8 +261,12 @@ const interviewSimulatorSlice = createSlice({
       })
       .addCase(updateChatHistory.fulfilled, (state, action) => {
         state.status = "succeeded";
-         state.messages = action.payload.message;
-         state.feedbacks = action.payload.feedback;
+        state.messages = action.payload.message;
+        // state.feedbacks = action.payload.feedback;
+        state.feedbacks = {
+          id: action.payload.feedback.id,
+          feedback: action.payload.feedback.feedback.feedback.feedback,
+        };
       })
       .addCase(updateChatHistory.rejected, (state, action) => {
         state.status = "failed";
