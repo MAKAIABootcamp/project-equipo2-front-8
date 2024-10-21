@@ -16,7 +16,7 @@ const WelcomeSimulator = () => {
     dispatch(setSelectedCategory(categoria));
   };
   return (
-    <div className="min-h-screen flex flex-col items-center bg-[#EBE2FF]">
+    <div className="min-h-screen flex flex-col items-center bg-[#EBE2FF] ">
       <div
         className="relative w-full h-[500px] sm:h-[700px] bg-cover bg-no-repeat bg-center flex flex-col justify-center items-center sm:items-start"
         style={{
@@ -42,7 +42,7 @@ const WelcomeSimulator = () => {
       <h2 className="text-center text-2xl font-bold font-montserrat text-black my-28">
         Selecciona una categoría para iniciar con tu entrevista
       </h2>
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-4 md:px-8">
         <div className="bg-white shadow-lg rounded-lg p-6 text-center">
           <div className="flex items-center justify-center mb-4">
             <img src={psicolaboral} alt="Psico Laboral" className="h-8 mr-2" />
@@ -108,7 +108,7 @@ const WelcomeSimulator = () => {
           <Link
             to="/interview"
             onClick={() => handleCategoryClick("Psico laboral")}
-            className="mt-8 font-dosis font-semibold text-lg inline-block bg-color-2 text-color-3 py-2 px-4 rounded-md hover:bg-[#EBE2FF] hover:text-black transition duration-300"
+            className="mt-8 font-dosis font-semibold text-lg inline-block border border-color-1 text-color-3 py-2 px-4 rounded-md hover:bg-[#EBE2FF] hover:text-black transition duration-300"
           >
             Comenzar entrevista
           </Link>
@@ -176,7 +176,7 @@ const WelcomeSimulator = () => {
           <Link
             to="/interview"
             onClick={() => handleCategoryClick("Conocimiento técnico")}
-            className="mt-8 font-dosis font-semibold  text-lg inline-block bg-color-2 text-color-3 py-2 px-4 rounded-md hover:bg-[#EBE2FF] hover:text-black transition duration-300"
+            className="mt-8 font-dosis font-semibold  text-lg inline-block border border-color-1 text-color-3 py-2 px-4 rounded-md hover:bg-[#EBE2FF] hover:text-black transition duration-300"
           >
             Comenzar entrevista
           </Link>
@@ -191,7 +191,7 @@ const WelcomeSimulator = () => {
           <Player
             autoplay
             loop
-            src="https://lottie.host/0622fd56-6a3d-4547-ac63-c7bb1b27fe38/Vbozsp90n3.json"
+            src="https://lottie.host/e946e0ee-ff39-44b3-a6f2-1674e270e550/h5lZJmoJqc.json"
             style={{ width: "300px", height: "300px" }}
             className="mb-4 mt-4"
           />
@@ -245,7 +245,7 @@ const WelcomeSimulator = () => {
           <Link
             to="/interview"
             onClick={() => handleCategoryClick("Experiencia laboral")}
-            className="mt-8 font-dosis font-semibold  text-base md:text-lg inline-block bg-color-2 text-color-3 py-2 px-4 rounded-md hover:bg-[#EBE2FF] hover:text-black transition duration-300"
+            className="mt-8 font-dosis font-semibold  text-base md:text-lg inline-block border border-color-1 text-color-3 py-2 px-4 rounded-md hover:bg-[#EBE2FF] hover:text-black transition duration-300"
           >
             Comenzar entrevista
           </Link>

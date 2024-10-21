@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutThunk } from '../../redux/auth/authSlice';
 import logoImage from '../../assets/SKILLMATE-2.png';
+import { MdOutlineLogout } from "react-icons/md";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false); 
@@ -17,6 +18,10 @@ const Navbar = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const handleMenuOptionClick = () => {
+    setMenuOpen(false); 
+  };
+
   return (
     <nav className="bg-color-1 p-4 flex justify-between items-center relative">
       <Link to="/" className="flex items-center">
@@ -27,6 +32,7 @@ const Navbar = () => {
         className="block lg:hidden text-color-2 focus:outline-none transition-transform duration-300 z-20"
         onClick={toggleMenu}
       >
+
         <svg
           className={`w-8 h-8 transition-transform duration-300 ease-in-out ${menuOpen ? 'rotate-45' : 'rotate-0'}`}
           fill="none"
@@ -47,34 +53,37 @@ const Navbar = () => {
       >
         <ul className="flex flex-col lg:flex-row lg:space-x-8 space-y-6 lg:space-y-0 items-center lg:items-center">
           <li>
-            <Link to="/inicio" className="font-montserrat font-medium text-color-2 hover:text-color-5 transition-colors duration-300 ease-in-out focus:border-b-2 focus:border-white">
+            <Link to="/inicio" className="font-montserrat font-medium text-color-2 hover:text-color-5 transition-colors duration-300 ease-in-out focus:border-b-2 focus:border-white" onClick={handleMenuOptionClick}>
               Inicio
             </Link>
           </li>
           <li>
-            <Link to="/practica" className="font-montserrat font-medium text-color-2 hover:text-color-5 transition-colors duration-300 ease-in-out focus:border-b-2 focus:border-white">
+            <Link to="/practica" className="font-montserrat font-medium text-color-2 hover:text-color-5 transition-colors duration-300 ease-in-out focus:border-b-2 focus:border-white" onClick={handleMenuOptionClick}>
               Práctica de entrevista
             </Link>
           </li>
           <li>
-            <Link to="/tips" className="font-montserrat font-medium text-color-2 hover:text-color-5 transition-colors duration-300 ease-in-out focus:border-b-2 focus:border-white">
+            <Link to="/tips" className="font-montserrat font-medium text-color-2 hover:text-color-5 transition-colors duration-300 ease-in-out focus:border-b-2 focus:border-white" onClick={handleMenuOptionClick}>
               Tips
             </Link>
           </li>
           <li>
-            <Link to="/plantillas" className="font-montserrat font-medium text-color-2 hover:text-color-5 transition-colors duration-300 ease-in-out focus:border-b-2 focus:border-white">
+            <Link to="/plantillas" className="font-montserrat font-medium text-color-2 hover:text-color-5 transition-colors duration-300 ease-in-out focus:border-b-2 focus:border-white" onClick={handleMenuOptionClick}>
               Plantillas descargables
             </Link>
           </li>
           {isAuthenticated && (
             <li className="mt-4 lg:mt-0">
-              <button
-                onClick={handleLogout}
-                className="font-dosis bg-color-2 text-color-3 font-bold py-2 px-4 rounded-md hover:bg-color-5 hover:text-color-2 transition duration-300 ease-in-out"
-              >
-                Cerrar sesión
-              </button>
-            </li>
+            <button
+              onClick={handleLogout}
+              className='mr-8'
+              aria-label="Logout"
+            >
+              <MdOutlineLogout className="text-color-2 hover:text-color-5" size={24} /> {/* Especificamos un tamaño */}
+              <span className="sr-only">Logout</span> {/* Texto solo para lectores de pantalla */}
+            </button>
+          </li>
+          
           )}
         </ul>
       </div>

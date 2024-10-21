@@ -42,11 +42,11 @@ const AboutUs = () => {
   ];
 
   return (
-    <div className="bg-[#F1F1F1] pb-6">
+    <div className="bg-[#F1F1F1] pb-6 px-4 md:px-8">
       {/* Header */}
       <header className="text-center py-6">
-        <h1 className="text-4xl font-bold text-color-5">Acerca de nosotros</h1>
-        <p className="text-lg text-color-1 mt-2">
+        <h1 className="text-4xl font-bold text-color-3 font-montserrat">Acerca de nosotros</h1>
+        <p className="text-lg text-color-3 mt-2 font-dosis">
           Conoce al equipo de SkillMate
         </p>
       </header>
@@ -55,8 +55,8 @@ const AboutUs = () => {
       <main>
         {/* Proyecto */}
         <article className="max-w-4xl mx-auto p-6 my-6 bg-white rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-color-5">Nuestro Proyecto</h2>
-          <p className="text-color-3 mt-4">
+          <h2 className="text-2xl font-bold text-color-5 font-montserrat">Nuestro Proyecto</h2>
+          <p className="text-color-3 mt-4 font-dosis">
             SkillMate ayuda a jóvenes y adultos en Colombia a mejorar sus
             habilidades laborales y prepararse para entrevistas.
           </p>
@@ -64,10 +64,10 @@ const AboutUs = () => {
 
         {/* Equipo */}
         <section className="max-w-4xl mx-auto p-6 my-6 bg-white rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-color-5 text-center">
+          <h2 className="text-2xl font-bold text-color-5 text-center font-montserrat">
             Nuestro equipo
           </h2>
-          <p className="text-color-3 mt-4 text-center">
+          <p className="text-color-3 mt-4 text-center font-dosis">
             Somos un grupo apasionado por el diseño y la tecnología.
           </p>
 
@@ -113,15 +113,15 @@ const AboutUs = () => {
                 </div>
               </SwiperSlide>
             ))}
-            <div className="swiper-button-next text-color-5 hover:text-color-4" />
-            <div className="swiper-button-prev text-color-5 hover:text-color-4" />
+            <div className="swiper-button-next text-color-5 hover:text-color-1" />
+            <div className="swiper-button-prev text-color-5 hover:text-color-1" />
           </Swiper>
         </section>
 
         {/* Valores */}
         <article className="max-w-4xl mx-auto p-6 mt-6 bg-white rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-color-5">Nuestros valores</h2>
-          <p className="text-color-3 mt-4">
+          <h2 className="text-2xl font-bold text-color-5 font-montserrat">Nuestros valores</h2>
+          <p className="text-color-3 mt-4 font-dosis">
             Nos guiamos por la colaboración, la creatividad y la inclusión.
           </p>
         </article>
