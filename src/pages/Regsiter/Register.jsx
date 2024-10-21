@@ -61,7 +61,7 @@ const Register = () => {
     <main className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-50">
       <div className="max-w-4xl w-full bg-white shadow-md rounded-lg p-8 md:flex md:space-x-12">
         <div className="w-full md:w-1/2">
-          <h1 className="text-3xl font-bold mb-4 text-color-1">Crear una cuenta</h1>
+          <h1 className="text-3xl font-bold mb-4 text-color-1 font-montserrat">Crear una cuenta</h1>
           <Formik
             initialValues={{
               name: "",
@@ -96,43 +96,43 @@ const Register = () => {
                     id="name"
                     placeholder="Lucas Gonzales"
                     type="text"
-                    className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                    className="w-full mt-1 p-2 border border-gray-300 rounded-md font-dosis"
                   />
                   <ErrorMessage name="name" component="div" className="text-red-600 text-sm" />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-color-3">Correo electrónico</label>
+                  <label htmlFor="email" className="block text-color-3 font-montserrat">Correo electrónico</label>
                   <Field
                     name="email"
                     id="email"
                     type="email"
                     placeholder="ejemplo@email.com"
-                    className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                    className="w-full mt-1 p-2 border border-gray-300 rounded-md font-dosis"
                   />
                   <ErrorMessage name="email" component="div" className="text-red-600 text-sm" />
                 </div>
 
                 <div>
-                  <label htmlFor="password" className="block text-color-3">Contraseña</label>
+                  <label htmlFor="password" className="block text-color-3 font-montserrat">Contraseña</label>
                   <Field
                     name="password"
                     id="password"
                     type="password"
                     placeholder="xxxxxx"
-                    className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                    className="w-full mt-1 p-2 border border-gray-300 rounded-md font-dosis"
                   />
                   <ErrorMessage name="password" component="div" className="text-red-600 text-sm" />
                 </div>
 
                 <div>
-                  <label htmlFor="repeatPassword" className="block text-color-3">Confirmar contraseña</label>
+                  <label htmlFor="repeatPassword" className="block text-color-3 font-montserrat">Confirmar contraseña</label>
                   <Field
                     name="repeatPassword"
                     id="repeatPassword"
                     type="password"
                     placeholder="xxxxxx"
-                    className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                    className="w-full mt-1 p-2 border border-gray-300 rounded-md font-dosis"
                   />
                   <ErrorMessage name="repeatPassword" component="div" className="text-red-600 text-sm" />
                 </div>
@@ -140,16 +140,16 @@ const Register = () => {
                 <button
                   disabled={isSubmitting}
                   type="submit"
-                  className="w-full bg-color-1 text-white py-2 rounded-md mt-4"
+                  className="w-full bg-color-1 text-white py-2 rounded-md mt-4 font-montserrat"
                 >
                   Crear cuenta
                 </button>
               </Form>
             )}
           </Formik>
-          <p className="mt-4 text-gray-500 flex justify-center">
+          <p className="mt-4 text-gray-500 flex justify-center font-dosis">
             ¿Ya tienes una cuenta?
-            <Link to="/login" className="text-color-1 font-bold ml-2"> Inicie sesión!</Link>
+            <Link to="/login" className="text-color-1 font-bold ml-2 font-dosis"> Inicie sesión!</Link>
           </p>
         </div>
         <div className="hidden md:flex w-full mt-24 md:w-1/2 bg-gray-200 h-80 items-center justify-center">
