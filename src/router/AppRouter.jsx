@@ -56,7 +56,7 @@ const AppRouter = () => {
             <Route path="tipsDetails/:id" element={<TipsDetails />} />
             <Route path="plantillas" element={<TemplatesCV />} />
             <Route path="about" element={<AboutUs />} />
-            <Route path="retroalimentacion" element={<Retroalimentacion />} />
+            <Route path="retroalimentacion/:intentoId" element={<Retroalimentacion />} />
           </Route>
           <Route element={<PublicRoutes isAuthenticated={isAuthenticated} />} >
             <Route path="register" element={<Register />} />

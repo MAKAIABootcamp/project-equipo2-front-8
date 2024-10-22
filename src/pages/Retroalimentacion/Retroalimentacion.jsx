@@ -1,20 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { useParams } from "react-router-dom"; 
 import psicolaboral from "../../assets/psicolaboral.jpg";
+import { fetchIdIntento } from "../../redux/InterviewSimulator/InterviewSimulatorSlice"; 
 
 const Retroalimentacion = () => {
+    const { intentoId } = useParams();
     const [question, setQuestion] = useState("");
     const [suggestions, setSuggestions] = useState("");
     const [claridad, setClaridad] = useState("");
     const [formalidad, setFormalidad] = useState("");
     const [relevancia, setRelevancia] = useState("");
+    const dispatch = useDispatch();
 
     // Obtener datos del Redux state
     const feedbacks = useSelector((state) => state.interview.feedbacks);
     const chatHistory = useSelector((state) => state.interview.messages?.chatHistory);
 
+    // Manejar el intentoId y cargar la data necesaria
+    useEffect(() => {
+        if (intentoId) {
+            dispatch(fetchIdIntento(intentoId));
+        }
+    }, [intentoId, dispatch]);
+
+    // Manejar la actualización de chatHistory y feedbacks
     useEffect(() => {
         if (chatHistory && chatHistory.length > 0) {
             // Obtener la última pregunta de la colección de intentos
@@ -22,7 +34,8 @@ const Retroalimentacion = () => {
         }
 
         if (feedbacks && feedbacks.feedback) {
-            const latestFeedback = feedbacks.feedback.feedback[feedbacks.feedback.feedback.length - 1];
+            // Obtener el último feedback
+            const latestFeedback = feedbacks.feedback[feedbacks.feedback.length - 1];
             setSuggestions(latestFeedback.sugerencias);
             setClaridad(latestFeedback.claridad);
             setFormalidad(latestFeedback.formalidad);

@@ -58,6 +58,11 @@ const InterviewSimulator = () => {
     }
   }, [dispatch, selectedCategory]);
 
+  const handleFeedback = (id) => {
+    console.log("intentoId", idIntento); 
+    navigate(`/Retroalimentacion/${idIntento}`);
+  };
+
   const [showRetryModal, setShowRetryModal] = useState(false);
 
   // Temporizador
@@ -307,6 +312,9 @@ const InterviewSimulator = () => {
                 }}
               >
                 Reintentar
+              </button>
+              <button onClick={() => handleFeedback(feedback.idIntento) }>
+                Ver el feedback de la entrevista
               </button>
             </div>
           </div>

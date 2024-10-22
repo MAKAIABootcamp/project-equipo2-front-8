@@ -156,7 +156,7 @@ const Tips = () => {
                   <h3 className="text-xl font-semibold text-color-3 mb-2 font-montserrat">
                     {tip.titulo}
                   </h3>
-                  <p className="text-color-3 font-dosis">{tip.descripcion}</p>
+                  <p className="text-color  -3 font-dosis">{tip.descripcion}</p>
                 </div>
               </div>
             ))}

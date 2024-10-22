@@ -128,6 +128,20 @@ export const createChatHistory = createAsyncThunk(
   }
 );
 
+export const fetchIdIntento = createAsyncThunk(
+  "interview/fetchIdIntento",
+  async (idIntento) => {
+    const intentosRef = doc(database, "feedbacks", idIntento);
+    const intentoDoc = await getDoc(intentosRef);
+
+    if (intentoDoc.exists()) {
+      return intentoDoc.data();
+    } else {
+      throw new Error("Intento no encontrado");
+    }
+  }
+);
+
 export const updateChatHistory = createAsyncThunk(
   "interview/updateChatHistory",
   async ({ question, response, category, idIntento }, { rejectWithValue }) => {
@@ -170,6 +184,8 @@ export const updateChatHistory = createAsyncThunk(
     }
   }
 );
+
+
 
 const initialState = {
   selectedCategory: null,
@@ -274,18 +290,29 @@ const interviewSimulatorSlice = createSlice({
       })
       .addCase(updateChatHistory.pending, (state) => {
         state.status = "loading";
+      })
+      // .addCase(analyzeAnswer.fulfilled, (state, action) => {
+      //   state.status = "succeeded";
+      //   state.feedbacks = action.payload;
+      // })
+      // .addCase(analyzeAnswer.rejected, (state, action) => {
+      //   state.status = "failed";
+      //   state.error = action.error.message;
+      // })
+      // .addCase(analyzeAnswer.pending, (state) => {
+      //   state.status = "loading";
+      // });
+      .addCase(fetchIdIntento.pending, (state) => {
+        state.status = "loading"; // Marca el estado como cargando
+      })
+      .addCase(fetchIdIntento.fulfilled, (state, action) => {
+        state.status = "succeeded"; // Marca el estado como exitoso
+        state.intento = action.payload; // Almacena los datos del intento
+      })
+      .addCase(fetchIdIntento.rejected, (state, action) => {
+        state.status = "failed"; // Marca el estado como fallido
+        state.error = action.error.message; // Almacena el mensaje de error
       });
-    // .addCase(analyzeAnswer.fulfilled, (state, action) => {
-    //   state.status = "succeeded";
-    //   state.feedbacks = action.payload;
-    // })
-    // .addCase(analyzeAnswer.rejected, (state, action) => {
-    //   state.status = "failed";
-    //   state.error = action.error.message;
-    // })
-    // .addCase(analyzeAnswer.pending, (state) => {
-    //   state.status = "loading";
-    // });
   },
 });
 
