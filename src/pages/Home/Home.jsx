@@ -31,7 +31,7 @@ const TestimoniosCarrusel = () => {
       className="w-full"
     >
       <SwiperSlide>
-        <div className="testimonio p-4 bg-white border rounded-lg shadow-md flex flex-col justify-center items-start space-y-2">
+        <div className="testimonio p-4 bg-white border rounded-lg shadow-md flex flex-col justify-center items-start space-y-2 ">
           <div className="flex items-center space-x-4">
             <img src={userIconWoman} alt="Ícono persona" className="w-8 h-8" />
             <p className="font-bold font-montserrat">Emily ⭐⭐⭐⭐⭐</p>
@@ -54,7 +54,7 @@ const TestimoniosCarrusel = () => {
             <img src={userIconWoman} alt="Ícono persona" className="w-8 h-8" />
             <p className="font-bold font-montserrat">Ana ⭐⭐⭐⭐⭐</p>
           </div>
-          <p className="mt-2 font-dosis text-xl">Las plantillas de SKILLMATE son perfectas para preparar mi CV 👍</p>
+          <p className="mt-2 font-dosis text-xl min-h-[86px]">Las plantillas de SKILLMATE son perfectas para preparar mi CV 👍</p>
         </div>
       </SwiperSlide>
       <SwiperSlide>
@@ -106,7 +106,7 @@ const Home = () => {
           Mejora tus habilidades para destacar en el mundo laboral
         </p>
         <button
-          className="mt-4 sm:mt-6 px-4 sm:px-6 py-2 bg-color-1 text-white font-dosis font-semibold rounded hover:bg-color-5 transition duration-300"
+          className="mt-4 sm:mt-6 px-4 sm:px-6 py-2 border border-color-1 text-color-3 font-dosis rounded hover:bg-[#ece1ff] transition duration-300"
           onClick={() => navigate('/practica')}
         >
           Explorar
@@ -145,7 +145,7 @@ const Home = () => {
         <img
           src={item.URL}
           alt={`Carrusel ${index + 1}`}
-          className="max-w-[80%] max-h-[80%] object-contain"
+          className="w-full h-auto max-w-[80%] max-h-[80%] object-contain"
         />
       </SwiperSlide>
     ))}
@@ -158,7 +158,7 @@ const Home = () => {
 
 
 
-<section className="beneficios text-center my-24 max-w-screen-xl mx-auto">
+<section className="beneficios text-center my-24 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
   <h2 className="text-3xl font-montserrat font-bold mb-20">Beneficios</h2>
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
     {beneficios.map((beneficio, index) => (
@@ -201,8 +201,8 @@ const Home = () => {
 </section>
 
 
-<section className="testimonios mt-12 sm:mt-72 lg:flex lg:items-start lg:justify-between lg:space-x-8 mb-20 sm:mb-40">
-        <h2 className="text-2xl sm:text-3xl font-bold font-montserrat mb-6 lg:mb-0 text-center sm:text-left lg:w-1/3 lg:ml-12 xl:ml-40">
+<section className="testimonios mt-12 sm:mt-72 lg:flex lg:items-start lg:justify-between lg:space-x-8 mb-20 sm:mb-40 sm:px-6 lg:px-8">
+        <h2 className="text-2xl sm:text-3xl font-bold font-montserrat mb-6 lg:mb-0 text-center sm:text-left lg:w-1/3 lg:ml-12 xl:ml-32">
           Testimonios
         </h2>
         <div className="lg:w-2/4 lg:mr-10" style={{ position: 'relative', top: '-20px' }}>

@@ -98,7 +98,7 @@ const Tips = () => {
           />
           <button
             onClick={handleSearchClick} // Ejecuta la búsqueda al hacer clic
-            className="bg-color-1 text-color-3 px-6 py-2 rounded-lg hover:bg-color-5 hover:text-color-2 font-montserrat"
+            className="border border-color-1 text-color-3 px-6 py-2 rounded-lg hover:bg-[#EBE2FF] hover:text-color-3 font-montserrat"
           >
             Buscar
           </button>
@@ -116,7 +116,7 @@ const Tips = () => {
           >
             Explora las diferentes categorías <br /> que tenemos para ti.
           </h2>
-          <ul className="flex flex-wrap justify-center gap-4 sm:gap-8 lg:gap-16 mb-12 sm:mb-24">
+          <ul className="flex flex-wrap justify-center gap-4 sm:gap-8 lg:gap-16 mb-12 sm:mb-24 ">
             {categories.map((category) => (
               <li key={category}>
                 <button
@@ -137,7 +137,7 @@ const Tips = () => {
         </section>
 
         <section aria-labelledby="tips-heading" className="mt-12 px-4 sm:px-10">
-          <h2 id="tips-heading" className="sr-only">
+          <h2 id="tips-heading" className="sr-only font-montserrat">
             Tips de entrevistas
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -180,7 +180,7 @@ const Tips = () => {
               </div>
             </div>
             <button
-              className="bg-color-1 border rounded-md p-2 font-montserrat font-medium w-full sm:w-auto"
+              className="border border-color-1 hover:bg-[#EBE2FF] rounded-md p-2 font-montserrat font-medium w-full sm:w-auto mt-2 sm:mt-0 ml-4 text-sm"
               onClick={handleSimulationClick}
             >
               Ir al simulador de entrevistas
