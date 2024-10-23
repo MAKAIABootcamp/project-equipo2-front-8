@@ -7,7 +7,6 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Función para analizar la respuesta y evaluar por criterios específicos
 export const analyzeInterviewResponse = async (question, userResponse) => {
-  console.log(apiKey)
   const prompt = `
   Actúa como un reclutador profesional. A continuación te daré una pregunta de entrevista y una respuesta proporcionada por un candidato. Evalúa el rendimiento del candidato con base en los siguientes criterios:
 

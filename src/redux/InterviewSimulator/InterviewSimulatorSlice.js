@@ -128,14 +128,17 @@ export const createChatHistory = createAsyncThunk(
   }
 );
 
-export const fetchIdIntento = createAsyncThunk(
-  "interview/fetchIdIntento",
+export const fetchFeedback = createAsyncThunk(
+  "interview/fetchFeedback",
   async (idIntento) => {
-    const intentosRef = doc(database, "feedbacks", idIntento);
-    const intentoDoc = await getDoc(intentosRef);
+    const feedbackRef = doc(database, "feedbacks", idIntento);
+    const feedbackDoc = await getDoc(feedbackRef);
 
-    if (intentoDoc.exists()) {
-      return intentoDoc.data();
+    if (feedbackDoc.exists()) {
+      return {
+        id: idIntento,
+        ...feedbackDoc.data()
+      };
     } else {
       throw new Error("Intento no encontrado");
     }
@@ -184,6 +187,23 @@ export const updateChatHistory = createAsyncThunk(
     }
   }
 );
+
+export const fetchChat = createAsyncThunk(
+  "interview/fetchChat",
+  async (idIntento) => {
+    const intentoRef = doc(database, "intentos", idIntento);
+    const intentoDoc = await getDoc(intentoRef);
+
+    if (intentoDoc.exists()) {
+      return {
+        id: idIntento,
+        chatHistory: intentoDoc.data()?.sesion
+      };
+    } else {
+      throw new Error("Intento no encontrado");
+    }
+  }
+)
 
 
 
@@ -302,16 +322,22 @@ const interviewSimulatorSlice = createSlice({
       // .addCase(analyzeAnswer.pending, (state) => {
       //   state.status = "loading";
       // });
-      .addCase(fetchIdIntento.pending, (state) => {
+      .addCase(fetchFeedback.pending, (state) => {
         state.status = "loading"; // Marca el estado como cargando
       })
-      .addCase(fetchIdIntento.fulfilled, (state, action) => {
+      .addCase(fetchFeedback.fulfilled, (state, action) => {
         state.status = "succeeded"; // Marca el estado como exitoso
-        state.intento = action.payload; // Almacena los datos del intento
+        state.feedbacks = action.payload; // Almacena los datos del intento
       })
-      .addCase(fetchIdIntento.rejected, (state, action) => {
+      .addCase(fetchFeedback.rejected, (state, action) => {
         state.status = "failed"; // Marca el estado como fallido
         state.error = action.error.message; // Almacena el mensaje de error
+      }).addCase(fetchChat.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.messages = action.payload;
+      }).addCase(fetchChat.rejected, (state, action) => {
+        state.status = "failed"; // Marca el estado como fallido
+        state.error = action.error.message;
       });
   },
 });

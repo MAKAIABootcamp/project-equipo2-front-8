@@ -59,8 +59,8 @@ const InterviewSimulator = () => {
   }, [dispatch, selectedCategory]);
 
   const handleFeedback = (id) => {
-    console.log("intentoId", idIntento); 
-    navigate(`/Retroalimentacion/${idIntento}`);
+    console.log("intentoId", id); 
+    navigate(`/retroalimentacion/${id}`);
   };
 
   const [showRetryModal, setShowRetryModal] = useState(false);
@@ -313,7 +313,7 @@ const InterviewSimulator = () => {
               >
                 Reintentar
               </button>
-              <button onClick={() => handleFeedback(feedback.idIntento) }>
+              <button onClick={() => handleFeedback(messages.id) }>
                 Ver el feedback de la entrevista
               </button>
             </div>
