@@ -28,7 +28,7 @@ const ModalTemplates = ({image, onClose }) => {
   
   ModalTemplates.propTypes = {
     image: PropTypes.string.isRequired,
-    onClose: PropTypes.string.isRequired,
+    onClose: PropTypes.func.isRequired,
   };
 
   export default ModalTemplates;
