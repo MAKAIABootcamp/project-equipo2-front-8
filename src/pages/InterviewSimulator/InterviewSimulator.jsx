@@ -321,10 +321,8 @@ const InterviewSimulator = () => {
               >
                 Reintentar
               </button>
-              <button
-              className="mt-4 sm:mt-6 px-4 sm:px-6 py-2 border border-color-1 text-color-3 font-dosis rounded hover:bg-[#ece1ff] transition duration-300"
-              onClick={() => handleFeedback(messages.id) }>
-                Ver Resultados
+              <button onClick={() => handleFeedback(messages.id)}>
+                Ver el feedback de la entrevista
               </button>
             </div>
           </div>
