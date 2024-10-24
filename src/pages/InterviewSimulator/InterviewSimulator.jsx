@@ -180,27 +180,29 @@ const InterviewSimulator = () => {
           className="h-8 text-color-1 md:ml-3 md:mt-4 mt-3 ml-2 cursor-pointer md:text-5xl text-2xl"
         />
       </div>
-      <div className="bg-white rounded-lg shadow-lg p-16 max-w-4xl w-full">
+      <div className="bg-white rounded-lg shadow-lg p-8 sm:p-12 lg:p-16 max-w-4xl w-full mx-auto">
         {/* H1 dentro del contenedor */}
         {selectedCategory && (
-          <h1 className="text-2xl font-bold text-center mb-12">
+          <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-12">
             Entrevista {selectedCategory}
           </h1>
         )}
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Columna izquierda */}
           <div className="flex flex-col items-center">
-            <div className="w-40 h-40 bg-purple-300 rounded-full flex items-center justify-center">
+            <div className="w-32 h-32 sm:w-40 sm:h-40 bg-purple-300 rounded-full flex items-center justify-center">
               <Player
                 autoplay
                 loop
                 src="https://lottie.host/afd8fdfd-8370-44aa-bd62-7be2f8909e42/tUDF2f2WZz.json"
-                style={{ height: "300px", width: "300px" }}
+                style={{ height: "200px", width: "200px" }}
               />
             </div>
 
             {hasStarted && (
               <button
-                className="px-6 py-2 rounded-lg mt-16 mb-4 border border-color-1 text-color-3 hover:bg-[#ece1ff] hover:text-color-3 transition font-dosis"
+                className="px-4 sm:px-6 py-2 rounded-lg mt-8 sm:mt-16 mb-4 border border-color-1 text-color-3 hover:bg-[#ece1ff] hover:text-color-3 transition font-dosis"
                 onClick={handleBackToCategories}
               >
                 Cambiar entrevista
@@ -210,6 +212,7 @@ const InterviewSimulator = () => {
             {hasStarted && <Timer timeLeft={timeLeft} />}
           </div>
 
+          {/* Columna derecha */}
           <div className="bg-purple-200 p-4 rounded-lg">
             {/* Historial del chat */}
             <ChatHistory
@@ -221,7 +224,7 @@ const InterviewSimulator = () => {
             {/* Formulario para respuestas */}
             {hasStarted && currentQuestionIndex < questions.length && (
               <form onSubmit={formik.handleSubmit} className="mt-4">
-                <div className="flex items-center">
+                <div className="flex flex-col sm:flex-row items-center">
                   <input
                     id="message"
                     name="message"
@@ -230,11 +233,11 @@ const InterviewSimulator = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.message}
-                    className="w-full p-2 rounded-l-lg border-2 border-purple-300"
+                    className="w-full sm:flex-1 p-2 rounded-l-lg border-2 border-purple-300"
                   />
                   <button
                     type="submit"
-                    className="bg-purple-500 text-white p-2 rounded-r-lg hover:bg-purple-600 transition"
+                    className="bg-purple-500 text-white w-full sm:w-auto p-2 sm:px-4 rounded-r-lg hover:bg-purple-600 transition mt-2 sm:mt-0"
                   >
                     ➤
                   </button>
@@ -250,7 +253,7 @@ const InterviewSimulator = () => {
         </div>
 
         {hasStarted && (
-          <div>
+          <div className="mt-8">
             <InterviewProgress
               answeredQuestions={answeredQuestions}
               questionsLength={questions.length}
@@ -303,7 +306,7 @@ const InterviewSimulator = () => {
             </div>
             <div className="text-center">
               <button
-                className="bg-purple-500 text-white px-6 py-2 rounded hover:bg-purple-600 transition"
+                className="mt-4 sm:mt-6 px-4 sm:px-6 py-2 border border-color-1 text-color-3 font-dosis rounded hover:bg-[#ece1ff] transition duration-300"
                 onClick={() => {
                   dispatch(resetInterviewState());
                   dispatch(fetchQuestions(selectedCategory));
@@ -313,8 +316,10 @@ const InterviewSimulator = () => {
               >
                 Reintentar
               </button>
-              <button onClick={() => handleFeedback(messages.id) }>
-                Ver el feedback de la entrevista
+              <button
+              className="mt-4 sm:mt-6 px-4 sm:px-6 py-2 border border-color-1 text-color-3 font-dosis rounded hover:bg-[#ece1ff] transition duration-300"
+              onClick={() => handleFeedback(messages.id) }>
+                Ver Resultados
               </button>
             </div>
           </div>

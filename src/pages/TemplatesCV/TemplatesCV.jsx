@@ -141,7 +141,7 @@ const Templates = () => {
               <img
                 src={Step3Image}
                 alt="Paso 3"
-                className="w-full h-auto max-h-64 object-contain mb-4 rounded-md"
+                className="relative w-40 h-40 z-10 mb-3 transform transition-transform duration-300 hover:scale-110 hover:translate-y-1"
               />
             </div>
             <h3 className="text-xl font-semibold font-montserrat text-gray-900">
