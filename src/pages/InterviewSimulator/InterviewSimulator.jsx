@@ -23,17 +23,13 @@ import InterviewProgress from "../../components/InterviewProgress/InterviewProgr
 import Timer from "../../components/Timer/Timer";
 import ChatHistory from "./../../components/ChatHistory/ChatHistory";
 
-const feedbackRecomendaciones = [
-  "Ser más específico en tus respuestas.",
-  "Evitar respuestas demasiado cortas o largas.",
-  "Mantener un lenguaje corporal positivo.",
-  "Hacer más preguntas sobre la empresa al final de la entrevista.",
-];
 
 const InterviewSimulator = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const timerId = useRef(null);
+
+  const [isTyping, setIsTyping] = useState(false);
   const {
     selectedCategory,
     questions,
@@ -130,17 +126,19 @@ const InterviewSimulator = () => {
       if (nextQuestionIndex < questions.length) {
         setAnsweredQuestions((prevCount) => prevCount + 1);
         dispatch(nextQuestion());
-        dispatch(setTimeLeft(60));
+        dispatch(setTimeLeft(120));
+
+        setIsTyping(true);
 
         setTimeout(() => {
+          setIsTyping(false);
           dispatch(
             addChatMessage({
               type: "bot",
               message: questions[nextQuestionIndex].pregunta,
             })
           );
-        }, 3000)
-
+        }, 3000);
 
       } else {
         setAnsweredQuestions((prevCount) => prevCount + 1);
@@ -224,6 +222,7 @@ const InterviewSimulator = () => {
               chatHistory={chatHistory}
               hasStarted={hasStarted}
               startInterview={startInterview}
+              isTyping={isTyping}
             />
 
             {/* Formulario para respuestas */}
@@ -301,13 +300,6 @@ const InterviewSimulator = () => {
                   </span>
                 ))}
               </div>
-              <div className="mt-2">
-                {feedbackRecomendaciones.map((recomendacion, index) => (
-                  <p key={index} className="mt-1">
-                    • {recomendacion}
-                  </p>
-                ))}
-              </div>
             </div>
             <div className="text-center">
               <button
@@ -344,7 +336,7 @@ const InterviewSimulator = () => {
                   className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition"
                   onClick={() => {
                     setShowRetryModal(false);
-                    dispatch(setTimeLeft(60));
+                    dispatch(setTimeLeft(120));
                   }}
                 >
                   Reintentar
@@ -355,7 +347,7 @@ const InterviewSimulator = () => {
                     setShowRetryModal(false);
                     setAnsweredQuestions((prevCount) => prevCount + 1);
                     dispatch(nextQuestion());
-                    dispatch(setTimeLeft(60));
+                    dispatch(setTimeLeft(120));
                     dispatch(
                       addChatMessage({
                         type: "bot",
