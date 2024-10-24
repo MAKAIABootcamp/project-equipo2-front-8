@@ -11,7 +11,7 @@ const TipsDetails = () => {
   const dispatch = useDispatch();
   const { tips, status, error } = useSelector((state) => state.tips);
 
-  const [openModal, setOpenModal] = useState(null); // Estado para manejar los modales
+  const [openModal, setOpenModal] = useState(null); 
 
   useEffect(() => {
     if (status === "idle") {
@@ -44,10 +44,10 @@ const TipsDetails = () => {
   };
 
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden ">
       <SlArrowLeft
         onClick={() => navigate("/tips")}
-        className="h-8 text-color-1 md:ml-3 md:mt-4 mt-3 ml-2 cursor-pointer md:text-5xl text-2xl mb-10"
+        className="h-8 text-color-1 md:ml-3 md:mt-4 mt-3 ml-2 cursor-pointer md:text-5xl text-2xl mb-0"
       />
       <section className="flex flex-col items-center px-4 md:pb-8 text-color-3 md:flex-col md:items-center md:p-0">
         <h1 className="font-montserrat font-bold text-4xl py-3">

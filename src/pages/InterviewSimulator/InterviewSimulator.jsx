@@ -33,6 +33,7 @@ const feedbackRecomendaciones = [
 const InterviewSimulator = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const timerId = useRef(null);
   const {
     selectedCategory,
     questions,
@@ -45,25 +46,14 @@ const InterviewSimulator = () => {
     messages
   } = useSelector((state) => state.interview);
 
-  const timerId = useRef(null);
-
-  const handleBackToCategories = () => {
-    dispatch(resetInterview());
-    navigate("/practica");
-  };
+  const [showRetryModal, setShowRetryModal] = useState(false);
+  const [answeredQuestions, setAnsweredQuestions] = useState(0);
 
   useEffect(() => {
     if (selectedCategory) {
       dispatch(fetchQuestions(selectedCategory));
     }
   }, [dispatch, selectedCategory]);
-
-  const handleFeedback = (id) => {
-    console.log("intentoId", id); 
-    navigate(`/retroalimentacion/${id}`);
-  };
-
-  const [showRetryModal, setShowRetryModal] = useState(false);
 
   // Temporizador
   useEffect(() => {
@@ -78,7 +68,18 @@ const InterviewSimulator = () => {
     return () => clearInterval(timerId.current);
   }, [timeLeft, timerActive, dispatch]);
 
-  const [answeredQuestions, setAnsweredQuestions] = useState(0);
+  const handleBackToCategories = () => {
+    dispatch(resetInterview());
+    navigate("/practica");
+  };
+
+
+  const handleFeedback = (id) => {
+    console.log("intentoId", id);
+    navigate(`/retroalimentacion/${id}`);
+  };
+
+
 
   const formik = useFormik({
     initialValues: {
@@ -86,18 +87,18 @@ const InterviewSimulator = () => {
     },
     validationSchema: timerActive
       ? Yup.object({
-          message: Yup.string().required("Este campo es obligatorio"),
-          // .matches(
-          //   /^[a-zA-Z\s]+$/,
-          //   "Por favor ingresa solo letras y espacios"
-          // )
-          // .min(10, "La respuesta debe tener al menos 10 caracteres")
-          // .test(
-          //   "words-count",
-          //   "La respuesta debe tener al menos 3 palabras",
-          //   (value) => value && value.trim().split(/\s+/).length >= 3
-          // ),
-        })
+        message: Yup.string().required("Este campo es obligatorio"),
+        // .matches(
+        //   /^[a-zA-Z\s]+$/,
+        //   "Por favor ingresa solo letras y espacios"
+        // )
+        // .min(10, "La respuesta debe tener al menos 10 caracteres")
+        // .test(
+        //   "words-count",
+        //   "La respuesta debe tener al menos 3 palabras",
+        //   (value) => value && value.trim().split(/\s+/).length >= 3
+        // ),
+      })
       : null,
     validateOnBlur: timerActive,
     validateOnChange: timerActive,
@@ -118,7 +119,7 @@ const InterviewSimulator = () => {
       if (Number(nextQuestionIndex) > 1) {
         dispatch(
           updateChatHistory({
-            idIntento: messages?.id||"",
+            idIntento: messages?.id || "",
             question: questions[currentQuestionIndex].pregunta,
             category: questions[currentQuestionIndex].categoria,
             response: values.message,
@@ -131,12 +132,16 @@ const InterviewSimulator = () => {
         dispatch(nextQuestion());
         dispatch(setTimeLeft(60));
 
-        dispatch(
-          addChatMessage({
-            type: "bot",
-            message: questions[nextQuestionIndex].pregunta,
-          })
-        );
+        setTimeout(() => {
+          dispatch(
+            addChatMessage({
+              type: "bot",
+              message: questions[nextQuestionIndex].pregunta,
+            })
+          );
+        }, 3000)
+
+
       } else {
         setAnsweredQuestions((prevCount) => prevCount + 1);
         dispatch(setShowModal(true));
@@ -313,7 +318,7 @@ const InterviewSimulator = () => {
               >
                 Reintentar
               </button>
-              <button onClick={() => handleFeedback(messages.id) }>
+              <button onClick={() => handleFeedback(messages.id)}>
                 Ver el feedback de la entrevista
               </button>
             </div>

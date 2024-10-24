@@ -19,10 +19,14 @@ const Retroalimentacion = () => {
 
     // Manejar el intentoId y cargar la data necesaria
     useEffect(() => {
-        if (intentoId && !feedbacks?.feedback) { 
+        // if (intentoId && !feedbacks?.feedback) {
+        //     dispatch(fetchFeedback(intentoId));
+        // }
+        // if (intentoId && !chatHistory) {
+        //     dispatch(fetchChat(intentoId));
+        // }
+        if (intentoId) {
             dispatch(fetchFeedback(intentoId));
-        }
-        if (intentoId && !chatHistory) {
             dispatch(fetchChat(intentoId));
         }
     }, [intentoId, dispatch]);
