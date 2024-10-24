@@ -4,7 +4,6 @@ import * as Yup from "yup";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { SlArrowLeft } from "react-icons/sl";
 import { useDispatch, useSelector } from "react-redux";
-import imgModal from "../../assets/felicidades.svg";
 import {
   fetchQuestions,
   nextQuestion,
@@ -286,11 +285,13 @@ const InterviewSimulator = () => {
             <h2 className="text-2xl font-bold mb-4 text-center">
               ¡Felicitaciones! Haz terminado tu entrevista.
             </h2>
-            <img
-              src={imgModal}
-              alt="Celebración"
-              className="w-full max-h-16 object-contain mb-4"
-            />
+            <Player
+            autoplay
+            loop
+            src="https://lottie.host/712034bd-e590-41cf-b6c6-0d7623614106/ykFpBHKz4O.json"
+            style={{ width: "100px", height: "100px" }}
+            className="mb-4 mt-4"
+          />
             <div className="text-center mb-4">
               <p className="text-xl font-semibold">Calificación</p>
               <div className="flex justify-center">
@@ -313,8 +314,10 @@ const InterviewSimulator = () => {
               >
                 Reintentar
               </button>
-              <button onClick={() => handleFeedback(messages.id)}>
-                Ver el feedback de la entrevista
+              <button 
+              className="mt-4 sm:mt-6 px-4 sm:px-6 py-2 border border-color-1 text-color-3 font-dosis rounded hover:bg-[#ece1ff] transition duration-300"
+              onClick={() => handleFeedback(messages.id)}>
+                Ver resultados
               </button>
             </div>
           </div>
