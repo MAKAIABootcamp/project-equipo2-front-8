@@ -57,15 +57,15 @@ const Tips = () => {
   };
 
   const handleSearchClick = () => {
-    setSearchQuery(searchTerm); 
+    setSearchQuery(searchTerm);
   };
 
   const handleTipClick = (id) => {
-    console.log("ID del artículo:", id); 
+    console.log("ID del artículo:", id);
     navigate(`/tipsDetails/${id}`);
   };
   const handleSimulationClick = () => {
-    navigate('/practica');
+    navigate("/practica");
   };
 
   useEffect(() => {
@@ -140,27 +140,38 @@ const Tips = () => {
           <h2 id="tips-heading" className="sr-only font-montserrat">
             Tips de entrevistas
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tipsToDisplay.map((tip, index) => (
-              <div
-                key={index}
-                onClick={() => handleTipClick(tip.id)} 
-                className="cursor-pointer bg-[#E0D9EC] shadow-lg rounded-lg p-6 text-left flex"
-              >
-                <img
-                  src={tip.img || "https://via.placeholder.com/50"}
-                  alt={`Tip ${index + 1}`}
-                  className="w-16 h-16 mr-4"
-                />
-                <div>
-                  <h3 className="text-xl font-semibold text-color-3 mb-2 font-montserrat">
-                    {tip.titulo}
-                  </h3>
-                  <p className="text-color  -3 font-dosis">{tip.descripcion}</p>
+
+          {tipsToDisplay.length === 0 ? (
+            <div className="text-center text-color-3 font-montserrat">
+              <p>No se ha encontrado un tip referente a tu búsqueda.</p>
+              <p>
+                Asegúrate de que tu búsqueda coincida con una categoría o
+                intenta con otra palabra clave.
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {tipsToDisplay.map((tip, index) => (
+                <div
+                  key={index}
+                  onClick={() => handleTipClick(tip.id)}
+                  className="cursor-pointer bg-[#E0D9EC] shadow-lg rounded-lg p-6 text-left flex"
+                >
+                  <img
+                    src={tip.img || "https://via.placeholder.com/50"}
+                    alt={`Tip ${index + 1}`}
+                    className="w-16 h-16 mr-4"
+                  />
+                  <div>
+                    <h3 className="text-xl font-semibold text-color-3 mb-2 font-montserrat">
+                      {tip.titulo}
+                    </h3>
+                    <p className="text-color-3 font-dosis">{tip.descripcion}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
 
         <section
