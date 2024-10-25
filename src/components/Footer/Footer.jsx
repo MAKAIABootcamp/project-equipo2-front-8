@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 const Footer = () => { 
   return (
     <div className="bg-color-1 py-12 text-center" id="top">
-      <h2 className="font-montserrat text-white text-3xl font-bold mb-12">Información adicional</h2>
       
       <div className="flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-20 lg:space-x-64 max-w-screen-lg mx-auto"> 
         

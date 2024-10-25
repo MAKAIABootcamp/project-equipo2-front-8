@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { SlArrowLeft } from "react-icons/sl";
 import { useDispatch, useSelector } from "react-redux";
-import imgModal from "../../assets/felicidades.svg";
 import {
   fetchQuestions,
   nextQuestion,
@@ -24,16 +23,13 @@ import InterviewProgress from "../../components/InterviewProgress/InterviewProgr
 import Timer from "../../components/Timer/Timer";
 import ChatHistory from "./../../components/ChatHistory/ChatHistory";
 
-const feedbackRecomendaciones = [
-  "Ser más específico en tus respuestas.",
-  "Evitar respuestas demasiado cortas o largas.",
-  "Mantener un lenguaje corporal positivo.",
-  "Hacer más preguntas sobre la empresa al final de la entrevista.",
-];
 
 const InterviewSimulator = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const timerId = useRef(null);
+
+  const [isTyping, setIsTyping] = useState(false);
   const {
     selectedCategory,
     questions,
@@ -46,12 +42,8 @@ const InterviewSimulator = () => {
     messages,
   } = useSelector((state) => state.interview);
 
-  const timerId = useRef(null);
-
-  const handleBackToCategories = () => {
-    dispatch(resetInterview());
-    navigate("/practica");
-  };
+  const [showRetryModal, setShowRetryModal] = useState(false);
+  const [answeredQuestions, setAnsweredQuestions] = useState(0);
 
   useEffect(() => {
     if (selectedCategory) {
@@ -63,8 +55,6 @@ const InterviewSimulator = () => {
     console.log("intentoId", id);
     navigate(`/retroalimentacion/${id}`);
   };
-
-  const [showRetryModal, setShowRetryModal] = useState(false);
 
   // Temporizador
   useEffect(() => {
@@ -79,7 +69,6 @@ const InterviewSimulator = () => {
     return () => clearInterval(timerId.current);
   }, [timeLeft, timerActive, dispatch]);
 
-  const [answeredQuestions, setAnsweredQuestions] = useState(0);
 
   const formik = useFormik({
     initialValues: {
@@ -120,14 +109,20 @@ const InterviewSimulator = () => {
       if (nextQuestionIndex < questions.length) {
         setAnsweredQuestions((prevCount) => prevCount + 1);
         dispatch(nextQuestion());
-        dispatch(setTimeLeft(60));
+        dispatch(setTimeLeft(120));
 
-        dispatch(
-          addChatMessage({
-            type: "bot",
-            message: questions[nextQuestionIndex].pregunta,
-          })
-        );
+        setIsTyping(true);
+
+        setTimeout(() => {
+          setIsTyping(false);
+          dispatch(
+            addChatMessage({
+              type: "bot",
+              message: questions[nextQuestionIndex].pregunta,
+            })
+          );
+        }, 3000);
+
       } else {
         setAnsweredQuestions((prevCount) => prevCount + 1);
         dispatch(setShowModal(true));
@@ -284,6 +279,7 @@ const InterviewSimulator = () => {
               chatHistory={chatHistory}
               hasStarted={hasStarted}
               startInterview={startInterview}
+              isTyping={isTyping}
             />
 
             {/* Formulario para respuestas */}
@@ -347,26 +343,21 @@ const InterviewSimulator = () => {
             <h2 className="text-2xl font-bold mb-4 text-center">
               ¡Felicitaciones! Haz terminado tu entrevista.
             </h2>
-            <img
-              src={imgModal}
-              alt="Celebración"
-              className="w-full max-h-16 object-contain mb-4"
-            />
+            <Player
+            autoplay
+            loop
+            src="https://lottie.host/712034bd-e590-41cf-b6c6-0d7623614106/ykFpBHKz4O.json"
+            style={{ width: "100px", height: "100px" }}
+            className="mb-4 mt-4"
+          />
             <div className="text-center mb-4">
               <p className="text-xl font-semibold">Calificación</p>
-
+              <div className="flex justify-center">
               <section className="flex justify-center mb-10">
                 <h2 className="text-2xl flex items-center">
                   {renderStars(totalFeedbackScore)}{" "}
                 </h2>
               </section>
-
-              <div className="mt-2">
-                {feedbackRecomendaciones.map((recomendacion, index) => (
-                  <p key={index} className="mt-1">
-                    • {recomendacion}
-                  </p>
-                ))}
               </div>
             </div>
             <div className="text-center">
@@ -381,8 +372,10 @@ const InterviewSimulator = () => {
               >
                 Reintentar
               </button>
-              <button onClick={() => handleFeedback(messages.id)}>
-                Ver el feedback de la entrevista
+              <button 
+              className="mt-4 sm:mt-6 px-4 sm:px-6 py-2 border border-color-1 text-color-3 font-dosis rounded hover:bg-[#ece1ff] transition duration-300"
+              onClick={() => handleFeedback(messages.id)}>
+                Ver resultados
               </button>
             </div>
           </div>
@@ -404,7 +397,7 @@ const InterviewSimulator = () => {
                   className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition"
                   onClick={() => {
                     setShowRetryModal(false);
-                    dispatch(setTimeLeft(60));
+                    dispatch(setTimeLeft(120));
                   }}
                 >
                   Reintentar
@@ -415,7 +408,7 @@ const InterviewSimulator = () => {
                     setShowRetryModal(false);
                     setAnsweredQuestions((prevCount) => prevCount + 1);
                     dispatch(nextQuestion());
-                    dispatch(setTimeLeft(60));
+                    dispatch(setTimeLeft(120));
                     dispatch(
                       addChatMessage({
                         type: "bot",

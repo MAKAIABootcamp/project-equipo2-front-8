@@ -214,7 +214,7 @@ const initialState = {
   chatHistory: [],
   messages: null,
   feedbacks: null,
-  timeLeft: 60,
+  timeLeft: 120,
   timerActive: false,
   showModal: false,
   hasStarted: false,
@@ -252,7 +252,7 @@ const interviewSimulatorSlice = createSlice({
       state.questions = [];
       state.currentQuestionIndex = 0;
       state.chatHistory = [];
-      state.timeLeft = 60;
+      state.timeLeft = 120;
       state.timerActive = false;
       state.showModal = false;
       state.hasStarted = false;
@@ -261,7 +261,7 @@ const interviewSimulatorSlice = createSlice({
       state.questions = [];
       state.currentQuestionIndex = 0;
       state.chatHistory = [];
-      state.timeLeft = 60;
+      state.timeLeft = 120;
       state.timerActive = false;
       state.hasStarted = false;
       state.showModal = false;
