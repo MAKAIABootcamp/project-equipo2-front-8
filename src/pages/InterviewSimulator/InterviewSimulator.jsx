@@ -88,16 +88,6 @@ const InterviewSimulator = () => {
     validationSchema: timerActive
       ? Yup.object({
           message: Yup.string().required("Este campo es obligatorio"),
-          // .matches(
-          //   /^[a-zA-Z\s]+$/,
-          //   "Por favor ingresa solo letras y espacios"
-          // )
-          // .min(10, "La respuesta debe tener al menos 10 caracteres")
-          // .test(
-          //   "words-count",
-          //   "La respuesta debe tener al menos 3 palabras",
-          //   (value) => value && value.trim().split(/\s+/).length >= 3
-          // ),
         })
       : null,
     validateOnBlur: timerActive,
@@ -173,82 +163,26 @@ const InterviewSimulator = () => {
   const feedbacks = useSelector((state) => state.interview.feedbacks);
 
   // Calcular la calificación general
-  // const totalFeedbackScore = useMemo(() => {
-  //   if (!feedbacks || !feedbacks.feedback) return 0;
-
-  //   let totalScore = 0;
-  //   feedbacks.feedback.forEach((fb) => {
-  //     totalScore +=
-  //       (fb.claridad || 0) + (fb.formalidad || 0) + (fb.relevancia || 0);
-  //   });
-
-  //   // Total máximo sería 300 (3 parámetros x 10 preguntas x 10 puntos máximo)
-  //   const maxScore = feedbacks.feedback.length * 30; // 30 es 3 parámetros x 10 puntos máx
-  //   return (totalScore / maxScore) * 5; // Escalar a 5 estrellas
-  // }, [feedbacks]);
-
-  // const renderStars = (score) => {
-  //   // Asegurar que el score esté entre 0 y 5
-  //   const validScore = Math.max(Math.min(score, 5), 0);
-
-  //   // Redondeamos el score a medias estrellas
-  //   const totalStars = Math.round(validScore * 2) / 2;
-
-  //   const fullStars = Math.floor(totalStars); // Estrellas llenas
-  //   const halfStar = totalStars % 1 !== 0 ? 1 : 0; // Si hay media estrella
-  //   const emptyStars = 5 - fullStars - halfStar; // Estrellas vacías
-
-  //   // Asegurarse de que todas las longitudes de los arrays sean válidas (>= 0)
-  //   return (
-  //     <div className="flex">
-  //       {/* Estrellas llenas */}
-  //       {Array.from({ length: fullStars }, (_, index) => (
-  //         <FaStar key={`full-${index}`} className="text-yellow-500" />
-  //       ))}
-
-  //       {/* Media estrella */}
-  //       {halfStar === 1 && <FaStarHalfAlt className="text-yellow-500" />}
-
-  //       {/* Estrellas vacías */}
-  //       {Array.from({ length: emptyStars }, (_, index) => (
-  //         <FaRegStar key={`empty-${index}`} className="text-yellow-500" />
-  //       ))}
-  //     </div>
-  //   );
-  // };
-
-  // Calcular la calificación general
   const totalFeedbackScore = useMemo(() => {
     if (!feedbacks || !feedbacks.feedback || feedbacks.feedback.length === 0) {
-      return null; // Devuelve null mientras se cargan los datos
+      return null;
     }
-  
+
     let totalQuestionScore = 0;
-  
+
     feedbacks.feedback.forEach((fb, index) => {
       const claridad = parseFloat(fb.claridad) || 0;
       const formalidad = parseFloat(fb.formalidad) || 0;
       const relevancia = parseFloat(fb.relevancia) || 0;
-  
-      // Mostrar puntajes individuales de cada parámetro
-      console.log(
-        `Pregunta ${index + 1} - Claridad: ${claridad}, Formalidad: ${formalidad}, Relevancia: ${relevancia}`
-      );
-  
+
       const totalScoreForQuestion = claridad + formalidad + relevancia;
-  
-      // Mostrar el puntaje total de cada pregunta
-      console.log(`Pregunta ${index + 1}: Puntaje total = ${totalScoreForQuestion}/30`);
-  
+
       totalQuestionScore += totalScoreForQuestion;
     });
-  
+
     const averageTotalScore = totalQuestionScore / feedbacks.feedback.length;
-  
-    // Mostrar el puntaje general (promedio)
-    console.log(`Puntaje general (promedio): ${averageTotalScore}`);
-  
-    return (averageTotalScore / 30) * 5; // Convertimos de una escala de 30 a una de 5
+
+    return (averageTotalScore / 30) * 5;
   }, [feedbacks]);
 
   // Nuevo estado para controlar si está calculando
@@ -257,16 +191,14 @@ const InterviewSimulator = () => {
   // Actualizamos el estado después de calcular el totalFeedbackScore
   useEffect(() => {
     if (totalFeedbackScore !== null) {
-      // Aumentamos el tiempo de espera para que sea más notorio
       const timeout = setTimeout(() => setIsCalculating(false), 1500);
-      return () => clearTimeout(timeout); // Limpiamos el timeout para evitar efectos secundarios
+      return () => clearTimeout(timeout);
     }
   }, [totalFeedbackScore]);
 
   // Función para redondear el puntaje y convertirlo en estrellas
   const calculateStarsFromScore = (score) => {
     const stars = Math.round(score);
-    // Validar que la cantidad de estrellas esté entre 1 y 5
     return Math.max(1, Math.min(stars, 5));
   };
 
@@ -274,7 +206,6 @@ const InterviewSimulator = () => {
   const LoadingSpinner = () => {
     return (
       <div className="flex justify-center items-center">
-        {/* Puedes usar una animación CSS con Tailwind */}
         <div className="animate-spin rounded-full h-8 w-8 border-t-4 border-b-4 border-blue-500"></div>
       </div>
     );
@@ -283,7 +214,6 @@ const InterviewSimulator = () => {
   // Renderizar estrellas
   const renderStars = (score) => {
     if (isCalculating || score === null) {
-      // Si aún está calculando, mostrar el spinner de carga
       return <LoadingSpinner />;
     }
 
@@ -306,10 +236,6 @@ const InterviewSimulator = () => {
       </div>
     );
   };
-
-
-
-  
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-purple-100 p-4">
@@ -428,14 +354,7 @@ const InterviewSimulator = () => {
             />
             <div className="text-center mb-4">
               <p className="text-xl font-semibold">Calificación</p>
-              {/* <div className="flex justify-center">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} className="text-yellow-400 text-2xl">
-                    ★
-                  </span>
-                ))}
-              </div> */}
-              {/* Mostrar la calificación general */}
+
               <section className="flex justify-center mb-10">
                 <h2 className="text-2xl flex items-center">
                   {renderStars(totalFeedbackScore)}{" "}
