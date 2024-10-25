@@ -54,12 +54,11 @@ const WelcomeSimulator = () => {
             autoplay
             loop
             src="https://lottie.host/54565224-78c2-42d4-ac25-3fe430533c8b/skPUqaudBr.json"
-            style={{ width: "300px", height: "300px" }}
+            style={{ width: "260px", height: "260px" }}
             className="mb-4 mt-4"
           />
           <p className="mb-8 font-dosis font-medium text-lg">
-            Evaluaremos tus habilidades interpersonales y tu adaptación a
-            diversas situaciones.
+          Evaluaremos tus habilidades interpersonales en diversas situaciones.
           </p>
           <h3 className="text-xl font-semibold font-montserrat mb-8">
             Aspectos a evaluar:
@@ -122,7 +121,7 @@ const WelcomeSimulator = () => {
             autoplay
             loop
             src="https://lottie.host/bfc3a375-4c09-4aab-a205-75cbdcde9880/yVuIPqlojq.json"
-            style={{ width: "300px", height: "300px" }}
+            style={{ width: "260px", height: "260px" }}
             className="mb-4 mt-4"
           />
           <p className="mb-8 font-dosis font-medium text-lg">
@@ -166,10 +165,9 @@ const WelcomeSimulator = () => {
               />
               <div>
                 <span className="block text-base md:text-lg font-montserrat font-medium">
-                  Aplicación de conocimientos:
+                Aplicar conocimientos:
                 </span>
-                Queremos conocer cómo aplicarías tus conocimientos en
-                situaciones reales.
+                Queremos saber cómo aplicarías tus conocimientos al mundo real.
               </div>
             </li>
           </ul>
@@ -181,7 +179,8 @@ const WelcomeSimulator = () => {
             Comenzar entrevista
           </Link>
         </div>
-        <div className="bg-white shadow-lg rounded-lg p-6 text-center">
+        <div
+    className="bg-white shadow-lg rounded-lg p-6 text-center sm:col-span-2 lg:col-span-1">
           <div className="flex items-center justify-center mb-4">
             <img src={laboral} alt="Experiencia Laboral" className="h-8 mr-2" />
             <h3 className="text-xl font-semibold font-montserrat">
@@ -192,7 +191,7 @@ const WelcomeSimulator = () => {
             autoplay
             loop
             src="https://lottie.host/e946e0ee-ff39-44b3-a6f2-1674e270e550/h5lZJmoJqc.json"
-            style={{ width: "300px", height: "300px" }}
+            style={{ width: "260px", height: "260px" }}
             className="mb-4 mt-4"
           />
           <p className="mb-8 font-dosis font-medium text-lg">

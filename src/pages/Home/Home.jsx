@@ -200,17 +200,19 @@ const Home = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {beneficios.map((beneficio, index) => (
             <div
-              key={index}
-              className="card bg-white from-[#DED7EC] via-[#f1ecfa] to-[#EAE4F2] p-6 border border-gray-200 rounded-lg cursor-pointer transform hover:scale-105 hover:rotate-1 hover:shadow-2xl shadow-md shadow-gray-200 hover:shadow-purple-400/50 transition-all duration-500 flex flex-col items-start justify-between h-full"
-              onClick={() => {
-                if (index === 0) {
-                  navigate("/practica");
-                } else if (index === 1) {
-                  navigate("/tips");
-                } else if (index === 2) {
-                  navigate("/plantillas");
-                }
-              }}
+            key={index}
+            className={`card bg-white from-[#DED7EC] via-[#f1ecfa] to-[#EAE4F2] p-6 border border-gray-200 rounded-lg cursor-pointer transform hover:scale-105 hover:rotate-1 hover:shadow-2xl shadow-md shadow-gray-200 hover:shadow-purple-400/50 transition-all duration-500 flex flex-col items-start justify-between h-full ${
+              index === 2 ? "sm:col-span-2 md:col-span-2 lg:col-span-1 tablet:p-4 tablet:py-5 tablet:text-sm" : ""
+            }`}
+            onClick={() => {
+              if (index === 0) {
+                navigate("/practica");
+              } else if (index === 1) {
+                navigate("/tips");
+              } else if (index === 2) {
+                navigate("/plantillas");
+              }
+            }}
             >
               <img
                 src={beneficio.URL}
