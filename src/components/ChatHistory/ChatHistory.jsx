@@ -53,17 +53,13 @@ const ChatHistory = ({ chatHistory, hasStarted, startInterview, isTyping }) => {
           </div>
         ))
       )}
-      {/* Mostrar el indicador de "escribiendo..." como si fuera parte del chat */}
       {isTyping && hasStarted && (
-        <div className="flex justify-start animate__animated animate__fadeInUp mt-2">
-          <div className="relative p-2 rounded-lg max-w-xs shadow-md bg-purple-300 text-black">
-            <span>Escribiendo</span>
-            <span className="dot-1">.</span>
-            <span className="dot-2">.</span>
-            <span className="dot-3">.</span>
-          </div>
-        </div>
-      )}
+  <div className="flex justify-start mt-2 space-x-2">
+    <span className="w-3 h-3 bg-purple-500 rounded-full animate-[fadeInOut_1.5s_ease-in-out_infinite]"></span>
+    <span className="w-3 h-3 bg-purple-500 rounded-full animate-[fadeInOut_1.5s_ease-in-out_infinite] delay-150"></span>
+    <span className="w-3 h-3 bg-purple-500 rounded-full animate-[fadeInOut_1.5s_ease-in-out_infinite] delay-300"></span>
+  </div>
+)}
     </div>
   );
 };

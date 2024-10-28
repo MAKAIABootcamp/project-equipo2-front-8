@@ -44,7 +44,7 @@ const Tips = () => {
   const categories = [
     "Crecimiento personal",
     "Crecimiento profesional",
-    "Redes y comunicación",
+    "Networking",
     "Habilidades técnicas",
   ];
 

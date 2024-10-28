@@ -11,12 +11,17 @@ const AboutUs = () => {
   const swiperRef = useRef(null); // Crea una referencia al Swiper
 
   const handleMouseEnter = () => {
-    swiperRef.current.autoplay.stop(); // Detiene el autoplay al pasar el mouse
+    if (swiperRef.current && swiperRef.current.autoplay) {
+      swiperRef.current.autoplay.stop(); // Detiene el autoplay al pasar el mouse
+    }
   };
-
+  
   const handleMouseLeave = () => {
-    swiperRef.current.autoplay.start(); // Reinicia el autoplay al quitar el mouse
+    if (swiperRef.current && swiperRef.current.autoplay) {
+      swiperRef.current.autoplay.start(); // Reinicia el autoplay al quitar el mouse
+    }
   };
+  
 
   const developers = [
     {
