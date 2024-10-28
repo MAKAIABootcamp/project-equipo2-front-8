@@ -5,15 +5,17 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import tecnica from "../../assets/tecnica.jpg";
 import { fetchFeedback, fetchChat } from "../../redux/InterviewSimulator/InterviewSimulatorSlice";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import imagen from "../../assets/retroa-3.png";
+import { SlArrowLeft } from "react-icons/sl";
 
 const Retroalimentacion = () => {
     const { intentoId } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const feedbacks = useSelector((state) => state.interview.feedbacks);
     const chatHistory = useSelector(
@@ -80,6 +82,9 @@ const Retroalimentacion = () => {
     return (
         <div className="relative mb-10">
             <section className="flex md:flex-row flex-col items-center justify-evenly">
+                <SlArrowLeft
+                    onClick={() => navigate("/practica")}
+                    className="h-8 text-color-1 md:ml-3 md:mt-4 mt-3 ml-2 cursor-pointer md:text-5xl text-2xl mb-0"/>
                 <img className="md:w-1/6 w-1/3" src={imagen} alt="" />
                 <h1 className="font-montserrat font-bold text-center md:text-4xl text-2xl py-10 w-4/5">
                     Evaluamos la claridad, relevancia y formalidad de tus preguntas
@@ -114,26 +119,26 @@ const Retroalimentacion = () => {
                 >
                     {chatHistory?.map((chat, index) => (
                         <SwiperSlide key={index}>
-                            <div className="flex flex-col justify-center items-center h-full text-white bg-gray-900 bg-opacity-75 font-dosis">
-                                <div className="p-4 bg-color-2 bg-opacity-35 rounded-lg mb-6">
-                                    <h2 className="text-3xl text-center font-bold ">{chat.question}</h2>
+                            <div className="flex flex-col justify-center items-center h-full text-white bg-gray-900 bg-opacity-75 font-dosis py-6">
+                                <div className="md:p-4 p-2 bg-color-2 bg-opacity-35 rounded-lg mb-6 ">
+                                    <h2 className="md:text-3xl text-xl text-center md:font-bold font-medium ">{chat.question}</h2>
                                 </div>
 
                                 {feedbacks?.feedback?.[index] && (
                                     <>
-                                        <div className="item flex md:flex-row flex-col justify-center space-x-8">
+                                        <div className="item flex md:flex-row flex-col justify-center md:gap-6 gap-3">
                                             {["claridad", "formalidad", "relevancia"].map(
                                                 (param, idx) => (
                                                     <div
                                                         key={param}
-                                                        className={`relative p-4 bg-color-2 bg-opacity-35 rounded-lg text-center transition-all duration-500 transform ${showCards[idx]
+                                                        className={`relative md:p-4 p-2 bg-color-2 bg-opacity-35 rounded-lg text-center transition-all duration-500 transform ${showCards[idx]
                                                             ? "translate-x-0 opacity-100"
                                                             : "translate-x-10 opacity-0"
                                                             }`}
                                                         onMouseEnter={() => setHoveredParam(param)}
                                                         onMouseLeave={() => setHoveredParam(null)}
                                                     >
-                                                        <h3 className="font-semibold text-lg capitalize">
+                                                        <h3 className="md:font-semibold font-normal md:text-lg capitalize">
                                                             {param}
                                                         </h3>
                                                         <div className="flex justify-center">
@@ -141,7 +146,7 @@ const Retroalimentacion = () => {
                                                         </div>
 
                                                         {hoveredParam === param && (
-                                                            <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 p-2 text-sm text-white bg-gray-700 rounded opacity-90 transition-opacity duration-300">
+                                                            <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 p-2 text-sm text-white bg-gray-800 rounded opacity-90 transition-opacity duration-300">
                                                                 {paramDescription[param]}
                                                             </div>
                                                         )}
@@ -149,8 +154,8 @@ const Retroalimentacion = () => {
                                                 )
                                             )}
                                         </div>
-                                        <div className="mt-6">
-                                            <p className="text-center max-w-3xl p-4 bg-color-2 bg-opacity-35 rounded-lg ">
+                                        <div className="md:mt-8 mt-5 transition-transform duration-300 hover:scale-105">
+                                            <p className="text-center max-w-3xl md:p-4 p-2 bg-color-2 bg-opacity-35 rounded-lg ">
                                                 {showFullText[index]
                                                     ? feedbacks.feedback[index].sugerencias
                                                     : `${feedbacks.feedback[index].sugerencias.slice(0, 100)}...`}
