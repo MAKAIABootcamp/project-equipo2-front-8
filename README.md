@@ -36,3 +36,18 @@ Proporcionar una plataforma accesible y práctica que permita a los usuarios en 
 - **Redux**: Biblioteca de gestión de estado para una administración eficiente de datos.
 - **Vite**: Herramienta de desarrollo ultrarrápida para construir la aplicación.
 - **SweetAlert 2**: Biblioteca para crear alertas personalizadas y atractivas.
+
+## Instalación 📥
+
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/MAKAIABootcamp/project-equipo2-front-8
+2. Navega al proyecto:
+   ```bash
+   cd project-equipo2-front-8
+3. Instala las dependencias:
+   ```bash
+   npm install
+4. Inicia el servidor de desarrollo:
+   ```bash
+   npm run dev
