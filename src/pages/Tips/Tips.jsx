@@ -12,11 +12,10 @@ const Tips = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Función que filtra por términos de búsqueda
   const filterBySearch = (tip) => {
-    if (!searchQuery) return true; // Si no hay búsqueda, no aplicamos ningún filtro
+    if (!searchQuery) return true; 
 
-    const searchTerms = searchQuery.toLowerCase().split(" ").filter(Boolean); // Divide los términos
+    const searchTerms = searchQuery.toLowerCase().split(" ").filter(Boolean);
     return searchTerms.every(
       (term) =>
         tip.titulo.toLowerCase().includes(term) ||
@@ -25,18 +24,16 @@ const Tips = () => {
     );
   };
 
-  // Función que filtra por categoría
+
   const filterByCategory = (tip) => {
-    if (!activeCategory) return true; // Si no hay categoría activa, no aplicamos filtro
+    if (!activeCategory) return true; 
     return tip.categoria === activeCategory;
   };
 
-  // Filtrado de tips
   const filteredTips = tips
-    .filter(filterBySearch) // Primero filtra por búsqueda
-    .filter(filterByCategory); // Luego filtra por categoría
+    .filter(filterBySearch) 
+    .filter(filterByCategory); 
 
-  // Determina qué tips mostrar
   const tipsToDisplay = activeCategory
     ? filteredTips
     : filteredTips.slice(0, 6);
@@ -94,10 +91,10 @@ const Tips = () => {
             placeholder="Comunicación en equipo ..."
             className="border border-color-1 rounded-lg p-2 w-full sm:w-96 mb-4 font-montserrat"
             value={searchTerm}
-            onChange={handleSearchChange} // Actualiza el estado del término de búsqueda
+            onChange={handleSearchChange}
           />
           <button
-            onClick={handleSearchClick} // Ejecuta la búsqueda al hacer clic
+            onClick={handleSearchClick} 
             className="border border-color-1 text-color-3 px-6 py-2 rounded-lg hover:bg-[#EBE2FF] hover:text-color-3 font-montserrat"
           >
             Buscar

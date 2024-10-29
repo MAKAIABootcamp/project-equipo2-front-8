@@ -29,7 +29,7 @@ const validationSchema = Yup.object().shape({
     .required("Debe confirmar la contraseña"),
   photo: Yup.mixed()
     .test("fileSize", "El archivo no debe exceder los 2MB", (value) => {
-      if (!value) return true; // Permitir que no se seleccione ningún archivo
+      if (!value) return true; 
       return value && value.size <= 2 * 1024 * 1024;
     })
     .required("Debes seleccionar una foto de perfil"),

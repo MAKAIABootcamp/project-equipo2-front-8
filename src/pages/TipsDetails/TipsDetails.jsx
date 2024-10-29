@@ -7,7 +7,7 @@ import { fetchTips } from "../../redux/tips/tipsSlice";
 
 const TipsDetails = () => {
   const navigate = useNavigate();
-  const { id } = useParams(); // Obtener el id desde la URL
+  const { id } = useParams();
   const dispatch = useDispatch();
   const { tips, status, error } = useSelector((state) => state.tips);
 
@@ -19,7 +19,7 @@ const TipsDetails = () => {
     }
   }, [status, dispatch]);
 
-  // Encontrar el tip correspondiente por id
+
   const tip = tips.find((tip) => tip.id === id);
 
   if (status === "loading") {
@@ -34,13 +34,13 @@ const TipsDetails = () => {
     return <div>No se encontró el tip.</div>;
   }
 
-  // Funciones para manejar el modal
+
   const handleOpenModal = (subtitulo) => {
-    setOpenModal(subtitulo); // Abrir el modal del subtítulo correspondiente
+    setOpenModal(subtitulo);
   };
 
   const handleCloseModal = () => {
-    setOpenModal(null); // Cerrar el modal
+    setOpenModal(null);
   };
 
   return (
@@ -61,7 +61,6 @@ const TipsDetails = () => {
 
       <section className="bg-gradient-to-r from-color-2 to-[#B699FF]">
         <div className="md:p-20 p-10">
-          {/* Ajuste para pantallas medianas con flex-col en tablets y flex-row en pantallas grandes */}
           <section className="bg-white flex flex-col md:flex-col lg:flex-row rounded-t-2xl items-center justify-center lg:justify-around lg:items-center">
             <div className="md:py-10 py-5 md:px-0 px-6 text-center lg:text-left lg:basis-1/3 text-color-3">
               <h2 className="font-montserrat font-bold md:text-3xl text-2xl pb-6">
@@ -72,7 +71,6 @@ const TipsDetails = () => {
               </p>
             </div>
             <div className="flex justify-center items-center md:mt-6 lg:mt-0">
-              {/* La imagen se ajusta para que no sea demasiado grande y mantenga sus proporciones */}
               <img
                 className="p-4 max-w-xs md:max-w-md lg:max-w-lg h-auto object-contain"
                 src={tip.img}
@@ -101,7 +99,6 @@ const TipsDetails = () => {
                     onClick={() => handleOpenModal(subtip.subtitulo)}
                   />
 
-                  {/* Modal solo visible si el modal abierto corresponde al subtitulo */}
                   {openModal === subtip.subtitulo && (
                     <div className="modal fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
                       <div className="bg-[#E0D9EC] p-8 rounded-lg max-w-lg relative">

@@ -191,12 +191,10 @@ const InterviewSimulator = () => {
   // Nuevo estado para controlar si está calculando
   const [isCalculating, setIsCalculating] = useState(true);
   
-  // Actualizamos el estado después de calcular el totalFeedbackScore
   useEffect(() => {
     if (totalFeedbackScore !== null) {
-      // Aumentamos el tiempo de espera para que sea más notorio
       const timeout = setTimeout(() => setIsCalculating(false), 1500); 
-      return () => clearTimeout(timeout); // Limpiamos el timeout para evitar efectos secundarios
+      return () => clearTimeout(timeout); 
     }
   }, [totalFeedbackScore]);
   
@@ -206,7 +204,7 @@ const InterviewSimulator = () => {
     return Math.max(1, Math.min(stars, 5));
   };
   
-  // Animación de carga
+
   const LoadingSpinner = () => {
     return (
       <div className="flex justify-center items-center">
@@ -216,7 +214,6 @@ const InterviewSimulator = () => {
     );
   };
   
-  // Renderizar estrellas
   const renderStars = (score) => {
     if (isCalculating || score === null) {
       return <LoadingSpinner />;
@@ -256,7 +253,7 @@ const InterviewSimulator = () => {
         {/* H1 dentro del contenedor */}
         {selectedCategory && (
           <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-12">
-            Entrevista {selectedCategory}
+            {selectedCategory}
           </h1>
         )}
 
