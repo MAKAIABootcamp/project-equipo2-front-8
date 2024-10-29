@@ -50,6 +50,7 @@ Proporcionar una plataforma accesible y práctica que permita a los usuarios en 
    npm install
 4. Inicia el servidor de desarrollo:
    ```bash
+
    npm run dev
 
 Desarrolladores del proyecto 👩‍💻👩‍💻👩‍💻👩‍💻

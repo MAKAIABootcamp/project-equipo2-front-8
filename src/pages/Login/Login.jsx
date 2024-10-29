@@ -51,7 +51,7 @@ const Login = () => {
     <main className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-50">
       <div className="max-w-4xl w-full bg-white shadow-md rounded-lg p-8 md:flex md:space-x-12">
         <div className="w-full md:w-1/2">
-          <h1 className="text-3xl font-bold mb-4 text-center md:text-left text-color-1">Iniciar Sesión</h1>
+          <h1 className="text-3xl font-bold mb-4 text-center md:text-left text-color-1 font-montserrat">Iniciar Sesión</h1>
           <Formik
             initialValues={{
               email: "",
@@ -68,7 +68,7 @@ const Login = () => {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-color-3 font-semibold"
+                    className="block text-color-3 font-montserrat"
                   >
                     Correo electrónico:
                   </label>
@@ -77,7 +77,7 @@ const Login = () => {
                     name="email"
                     id="email"
                     placeholder="ejemplo@email.com"
-                    className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                    className="w-full mt-1 p-2 border border-gray-300 rounded-md font-dosis"
                   />
                   <ErrorMessage
                     name="email"
@@ -89,7 +89,7 @@ const Login = () => {
                 <div>
                   <label
                     htmlFor="password"
-                    className="block text-color-3 font-semibold"
+                    className="block text-color-3 font-montserrat"
                   >
                     Contraseña:
                   </label>
@@ -98,7 +98,7 @@ const Login = () => {
                     name="password"
                     id="password"
                     placeholder="Ingrese su contraseña"
-                    className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                    className="w-full mt-1 p-2 border border-gray-300 rounded-md font-dosis"
                   />
                   <ErrorMessage
                     name="password"
@@ -110,7 +110,7 @@ const Login = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-color-1 text-white py-2 rounded-md mt-4"
+                  className="w-full bg-color-1 text-white py-2 rounded-md mt-4 font-montserrat"
                 >
                   Iniciar sesión
                 </button>
@@ -118,15 +118,16 @@ const Login = () => {
             )}
           </Formik>
 
-          <p className="mt-4 text-gray-500 flex justify-center">
-            Si aún no tiene una cuenta, por favor dar click{" "}
-            <Link to="/register" className="text-color-1 font-bold">
-              aquí!
+          <p className="mt-4 text-gray-500 flex justify-center font-dosis">
+            ¿No tienes cuenta?  
+
+            <Link to="/register" className="text-color-1 font-bold ml-2 font-dosis">
+                Registrate!
             </Link>
           </p>
 
           <section className="mt-6 text-center">
-            <span className="text-gray-500 flex justify-center">
+            <span className="text-gray-500 flex justify-center font-dosis">
               o, también puedes iniciar sesión con:
             </span>
             <div className="mt-7 flex justify-center space-x-5">

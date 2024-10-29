@@ -12,6 +12,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { restoreSession } from "../redux/auth/authSlice";
 import PrivateRoutes from "./PrivateRoutes";
 import PublicRoutes from "./PublicRoutes";
+import Tips from "../pages/Tips/Tips";
+import TipsDetails from "../pages/TipsDetails/TipsDetails";
+import TemplatesCV from "../pages/TemplatesCV/TemplatesCV";
+import InterviewSimulator from "../pages/InterviewSimulator/InterviewSimulator";
+import WelcomeSimulator from "../pages/WelcomeSimulator/WelcomeSimulator";
+import AboutUs  from "../pages/AboutUs/AboutUs";
+import Retroalimentacion from "../pages/Retroalimentacion/Retroalimentacion";
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -43,6 +50,13 @@ const AppRouter = () => {
         <Route path="/" element={<Layout />}>
           <Route element={<PrivateRoutes isAuthenticated={isAuthenticated} />} >
             <Route index element={<Home />} />
+            <Route path="tips" element={<Tips />} />
+            <Route path="practica" element={<WelcomeSimulator />} />
+            <Route path="interview" element={<InterviewSimulator />} />
+            <Route path="tipsDetails/:id" element={<TipsDetails />} />
+            <Route path="plantillas" element={<TemplatesCV />} />
+            <Route path="about" element={<AboutUs />} />
+            <Route path="retroalimentacion/:intentoId" element={<Retroalimentacion />} />
           </Route>
           <Route element={<PublicRoutes isAuthenticated={isAuthenticated} />} >
             <Route path="register" element={<Register />} />
@@ -54,6 +68,7 @@ const AppRouter = () => {
         </Route>
       </Routes>
     </BrowserRouter>
+
   )
 }
 
