@@ -50,4 +50,12 @@ Proporcionar una plataforma accesible y práctica que permita a los usuarios en 
    npm install
 4. Inicia el servidor de desarrollo:
    ```bash
+
    npm run dev
+
+Desarrolladores del proyecto 👩‍💻👩‍💻👩‍💻👩‍💻
+
+- [Sara Jaramillo](https://github.com/SaraJaramillo12)
+- [Daniela Araque Sánchez](https://github.com/daniarsa)
+- [Tatiana García](https://github.com/TianaG06)
+- [Angie Alarcon](https://github.com/AngieLi98)
