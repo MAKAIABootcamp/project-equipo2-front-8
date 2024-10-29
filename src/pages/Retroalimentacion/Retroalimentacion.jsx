@@ -165,7 +165,7 @@ const Retroalimentacion = () => {
                             </div>
 
                             {hoveredParam === param && (
-                              <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-36 md:w-48 p-2 text-xs md:text-sm text-white bg-gray-800 rounded opacity-90 transition-opacity duration-300">
+                              <div className="absolute left-1/2 border bg-slate-900 transform -translate-x-1/2 mt-2 w-36 md:w-48 p-2 text-xs md:text-sm text-white rounded opacity-90 transition-opacity duration-300">
                                 {paramDescription[param]}
                               </div>
                             )}
@@ -173,7 +173,7 @@ const Retroalimentacion = () => {
                         )
                       )}
                     </div>
-                    <div className="mt-4 md:mt-5 transition-transform duration-300 hover:scale-105 max-w-xs md:max-w-3xl">
+                    <div className="mt-4 md:mt-5 mb-8 transition-transform duration-300 hover:scale-105 max-w-xs md:max-w-3xl">
                       <p className="text-center p-2 md:p-4 bg-slate-600 bg-opacity-25 rounded-lg border overflow-y-auto max-h-40 md:max-h-full">
                         {showFullText[index]
                           ? feedbacks.feedback[index].sugerencias
