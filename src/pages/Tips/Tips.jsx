@@ -13,7 +13,7 @@ const Tips = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filterBySearch = (tip) => {
-    if (!searchQuery) return true; 
+    if (!searchQuery) return true;
 
     const searchTerms = searchQuery.toLowerCase().split(" ").filter(Boolean);
     return searchTerms.every(
@@ -24,15 +24,12 @@ const Tips = () => {
     );
   };
 
-
   const filterByCategory = (tip) => {
-    if (!activeCategory) return true; 
+    if (!activeCategory) return true;
     return tip.categoria === activeCategory;
   };
 
-  const filteredTips = tips
-    .filter(filterBySearch) 
-    .filter(filterByCategory); 
+  const filteredTips = tips.filter(filterBySearch).filter(filterByCategory);
 
   const tipsToDisplay = activeCategory
     ? filteredTips
@@ -94,7 +91,7 @@ const Tips = () => {
             onChange={handleSearchChange}
           />
           <button
-            onClick={handleSearchClick} 
+            onClick={handleSearchClick}
             className="border border-color-1 text-color-3 px-6 py-2 rounded-lg hover:bg-[#EBE2FF] hover:text-color-3 font-montserrat"
           >
             Buscar
@@ -137,7 +134,6 @@ const Tips = () => {
           <h2 id="tips-heading" className="sr-only font-montserrat">
             Tips de entrevistas
           </h2>
-
           {tipsToDisplay.length === 0 ? (
             <div className="text-center text-color-3 font-montserrat">
               <p>No se ha encontrado un tip referente a tu búsqueda.</p>
@@ -152,12 +148,12 @@ const Tips = () => {
                 <div
                   key={index}
                   onClick={() => handleTipClick(tip.id)}
-                  className="cursor-pointer bg-[#E0D9EC] shadow-lg rounded-lg p-6 text-left flex"
+                  className="bg-white from-[#DED7EC] via-[#f1ecfa] to-[#EAE4F2] p-6 border border-gray-200 rounded-lg cursor-pointer transform hover:scale-105 hover:rotate-1 hover:shadow-2xl shadow-md shadow-gray-200 hover:shadow-purple-400/50 transition-all duration-500 flex items-center space-x-4 h-full"
                 >
                   <img
                     src={tip.img || "https://via.placeholder.com/50"}
                     alt={`Tip ${index + 1}`}
-                    className="w-16 h-16 mr-4"
+                    className="w-16 h-16 mr-4 mb-40"
                   />
                   <div>
                     <h3 className="text-xl font-semibold text-color-3 mb-2 font-montserrat">
@@ -169,6 +165,38 @@ const Tips = () => {
               ))}
             </div>
           )}
+          {/* {tipsToDisplay.length === 0 ? (
+  <div className="text-center text-color-3 font-montserrat">
+    <p>No se ha encontrado un tip referente a tu búsqueda.</p>
+    <p>
+      Asegúrate de que tu búsqueda coincida con una categoría o intenta con otra palabra clave.
+    </p>
+  </div>
+) : (
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {tipsToDisplay.map((tip, index) => (
+      <div
+        key={index}
+        onClick={() => handleTipClick(tip.id)}
+        className="bg-white from-[#DED7EC] via-[#f1ecfa] to-[#EAE4F2] p-6 border border-gray-200 rounded-lg cursor-pointer transform hover:scale-105 hover:rotate-1 hover:shadow-2xl shadow-md shadow-gray-200 hover:shadow-purple-400/50 transition-all duration-500 flex items-center space-x-4 h-full"
+      >
+        <img
+          src={tip.img || "https://via.placeholder.com/50"}
+          alt={`Tip ${index + 1}`}
+          className="w-16 h-16 "
+        />
+        <div>
+          <h3 className="text-xl font-semibold text-color-3 mb-2 font-montserrat">
+            {tip.titulo}
+          </h3>
+          <p className="text-color-3 font-dosis">{tip.descripcion}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+)} */}
+
+
         </section>
 
         <section
