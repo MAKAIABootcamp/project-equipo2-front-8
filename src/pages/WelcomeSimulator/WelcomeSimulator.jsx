@@ -25,13 +25,13 @@ const WelcomeSimulator = () => {
           backgroundBlendMode: "overlay",
         }}
       >
-        <div className="p-4 bg-white/20 backdrop-blur-md rounded-lg text-center sm:text-left sm:ml-6 md:ml-12 lg:ml-16 xl:ml-20 mt-8 sm:mt-32 md:mt-32 max-w-[90%] sm:max-w-md md:max-w-lg lg:max-w-full">
+        <div className="p-4 bg-white/15 bg-opacity-75 rounded-lg text-center sm:text-left sm:ml-6 md:ml-12 lg:ml-16 xl:ml-20 mt-8 sm:mt-32 md:mt-32 max-w-[90%] sm:max-w-md md:max-w-lg lg:max-w-full">
           <h1 className="text-white text-xl sm:text-2xl md:text-4xl font-bold font-montserrat">
             ¡Bienvenido al simulador de entrevistas!
           </h1>
         </div>
 
-        <div className="mt-4 sm:mt-6 md:mt-8 max-w-xs sm:max-w-md md:max-w-lg text-center sm:text-left sm:ml-6 md:ml-12 lg:ml-16 xl:ml-20">
+        <div className="mt-4 bg-white/15 bg-opacity-75 rounded-lg p-2 sm:mt-6 md:mt-8 max-w-xs sm:max-w-md md:max-w-lg text-center sm:text-left sm:ml-6 md:ml-12 lg:ml-16 xl:ml-20">
           <p className="text-white text-base sm:text-lg md:text-2xl font-dosis">
             Nuestro objetivo es ofrecerte una experiencia interactiva que te
             permita practicar respuestas y mejorar tus habilidades de

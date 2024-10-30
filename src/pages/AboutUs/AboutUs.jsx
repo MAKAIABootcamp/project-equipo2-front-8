@@ -4,7 +4,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import avatarABout from "../../assets/mujer-joven.png";
+import ImgAngie from "../../assets/Angie.jpeg";
+import ImgDaniela from "../../assets/Daniela.jpg";
+import ImgSara from "../../assets/Sara.jpeg";
+import ImgTatiana from "../../assets/Tatiana.jpeg";
 
 const AboutUs = () => {
 
@@ -25,24 +28,24 @@ const AboutUs = () => {
 
   const developers = [
     {
-      name: "Nombre 1",
+      name: "Angie Alarcon",
       description: "Desarrolladora Frontend con experiencia en React.",
-      image: avatarABout,
+      image: ImgAngie,
     },
     {
-      name: "Nombre 2",
+      name: "Daniela Araque",
       description: "Especialista en CSS y diseño responsive.",
-      image: avatarABout,
+      image: ImgDaniela,
     },
     {
-      name: "Nombre 3",
+      name: "Sara Jaramillo",
       description: "Apasionada por la accesibilidad web.",
-      image: avatarABout,
+      image: ImgSara,
     },
     {
-      name: "Nombre 4",
+      name: "Tatiana Gracía",
       description: "Enfocada en mejorar la productividad del equipo.",
-      image: avatarABout,
+      image: ImgTatiana,
     },
   ];
 
@@ -60,7 +63,7 @@ const AboutUs = () => {
       <main>
         {/* Proyecto */}
         <article className="max-w-4xl mx-auto p-6 my-6 bg-white rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-color-5 font-montserrat">Nuestro Proyecto</h2>
+          <h2 className="text-2xl font-bold text-color-3 font-montserrat">Nuestro Proyecto</h2>
           <p className="text-color-3 mt-4 font-dosis">
             SkillMate ayuda a jóvenes y adultos en Colombia a mejorar sus
             habilidades laborales y prepararse para entrevistas.
@@ -69,7 +72,7 @@ const AboutUs = () => {
 
         {/* Equipo */}
         <section className="max-w-4xl mx-auto p-6 my-6 bg-white rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-color-5 text-center font-montserrat">
+          <h2 className="text-2xl font-bold text-color-3 text-center font-montserrat">
             Nuestro equipo
           </h2>
           <p className="text-color-3 mt-4 text-center font-dosis">
@@ -100,14 +103,14 @@ const AboutUs = () => {
                 className="flex justify-center items-center"
               >
                 <div
-                  className="bg-white shadow-lg rounded-lg p-4 w-60 h-60 flex flex-col items-center transition-transform duration-300 hover:scale-105"
+                  className="bg-white hover:shadow-purple-600/90 shadow-lg rounded-lg p-4 w-60 h-60 flex flex-col items-center transition-transform duration-300 hover:scale-105"
                   onMouseEnter={handleMouseEnter} // Detiene el autoplay al pasar el mouse
                   onMouseLeave={handleMouseLeave} // Reinicia el autoplay al quitar el mouse
                 >
                   <img
                     src={developer.image}
                     alt={`Desarrolladora ${index + 1}`}
-                    className="w-20 h-20 mb-4 rounded-full"
+                    className="w-20 h-20 mb-4 rounded-full object-cover"
                   />
                   <h3 className="text-lg font-semibold text-color-5">
                     {developer.name}
@@ -125,7 +128,7 @@ const AboutUs = () => {
 
         {/* Valores */}
         <article className="max-w-4xl mx-auto p-6 mt-6 bg-white rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-color-5 font-montserrat">Nuestros valores</h2>
+          <h2 className="text-2xl font-bold text-color-3 font-montserrat">Nuestros valores</h2>
           <p className="text-color-3 mt-4 font-dosis">
             Nos guiamos por la colaboración, la creatividad y la inclusión.
           </p>

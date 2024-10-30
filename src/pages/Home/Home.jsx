@@ -116,7 +116,7 @@ const Home = () => {
 
   return (
     <div>
-      <section className="carrusel my-0 sm:my-0 relative">
+      <section className="carrusel my-0 sm:my-0 relative z-0">
 
         <div className="absolute top-24 sm:top-28 md:top-40 lg:top-48 xl:top-52 w-full flex justify-center items-center z-10 px-2 sm:px-4">
           <h1 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold bg-white/15 bg-opacity-75 py-1 sm:py-2 md:py-3 lg:py-4 px-3 sm:px-4 md:px-6 rounded-md text-center">

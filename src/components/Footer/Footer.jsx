@@ -1,7 +1,7 @@
 import React from 'react';
 import logoCorreo from '../../assets/3d mail.svg'; 
 import logoImage from '../../assets/SKILLMATE-21.png';
-import logoFacebook from '../../assets/Facebook.svg';
+import logoFacebook from '../../assets/facebook-app-symbol (2).png';
 import logoInstagram from '../../assets/Instagram.svg';
 import logoWhatsapp from '../../assets/Whatsapp.svg';
 import { Link } from 'react-router-dom';
