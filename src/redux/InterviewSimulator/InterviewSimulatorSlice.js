@@ -25,7 +25,7 @@ export const fetchQuestions = createAsyncThunk(
     const shuffledQuestions = filteredQuestions.sort(() => 0.5 - Math.random());
 
     // Seleccionar las primeras 10 preguntas de la lista mezclada
-    const selectedQuestions = shuffledQuestions.slice(0, 3);
+    const selectedQuestions = shuffledQuestions.slice(0, 2);
 
     return selectedQuestions;
   }
